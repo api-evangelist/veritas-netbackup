@@ -1,0 +1,96 @@
+name: Veritas NetBackup API
+description: Enterprise-grade data protection and backup solution with comprehensive REST APIs for backup, recovery, and data management operations
+image: https://www.veritas.com/content/dam/veritas/images/logos/veritas-logo.svg
+url: https://www.veritas.com/products/backup-and-recovery/netbackup
+created: '2024'
+modified: '2024'
+specificationVersion: '0.18'
+tags:
+- backup
+- recovery
+- data protection
+- enterprise
+- storage
+- disaster recovery
+apis:
+- name: Veritas NetBackup REST API
+  description: Primary REST API for NetBackup operations including backup policies, jobs, catalogs, and asset management
+  image: https://www.veritas.com/content/dam/veritas/images/logos/veritas-logo.svg
+  humanURL: https://www.veritas.com/support/en_US/article.100040135
+  baseURL: https://netbackup-primary-server:1556/netbackup
+  tags:
+  - backup
+  - restore
+  - policies
+  - jobs
+  - catalog
+  properties:
+  - type: X-documentation
+    url: https://sort.veritas.com/documents/netbackup/10.1/productguides
+  - type: X-openapi
+    url: https://sort.veritas.com/public/documents/nbu/10.1/windowsandunix/productguides/html/api/nbu_10.1_webapi.html
+  - type: X-api-console
+    url: https://netbackup-primary-server:1556/api-docs
+- name: NetBackup Asset Management API
+  description: API for managing NetBackup assets including servers, clients, and storage devices
+  humanURL: https://www.veritas.com/support/en_US/doc/nbu_assets
+  baseURL: https://netbackup-primary-server:1556/netbackup/assets
+  tags:
+  - assets
+  - inventory
+  - servers
+  - clients
+  properties:
+  - type: X-documentation
+    url: https://sort.veritas.com/documents
+- name: NetBackup Security API
+  description: API endpoints for managing authentication, authorization, and security configurations
+  humanURL: https://www.veritas.com/support/en_US/article.100040135
+  baseURL: https://netbackup-primary-server:1556/netbackup/security
+  tags:
+  - security
+  - authentication
+  - authorization
+  - certificates
+  properties:
+  - type: X-documentation
+    url: https://sort.veritas.com/documents
+- name: NetBackup Image Management API
+  description: API for managing backup images, catalogs, and media retention
+  humanURL: https://www.veritas.com/support/en_US/article.100040135
+  baseURL: https://netbackup-primary-server:1556/netbackup/catalog
+  tags:
+  - images
+  - catalog
+  - retention
+  - media
+  properties:
+  - type: X-documentation
+    url: https://sort.veritas.com/documents
+common:
+- type: X-portal
+  url: https://www.veritas.com/support
+- type: X-pricing
+  url: https://www.veritas.com/products/backup-and-recovery/netbackup/pricing
+- type: X-support
+  url: https://www.veritas.com/support/en_US/netbackup
+- type: X-knowledge-base
+  url: https://www.veritas.com/support/en_US/netbackup.PRODUCT_HOME
+- type: X-downloads
+  url: https://www.veritas.com/support/en_US/netbackup.download
+- type: X-forum
+  url: https://www.veritas.com/community/forums/netbackup
+- type: X-authentication
+  url: https://sort.veritas.com/public/documents/nbu/10.1/windowsandunix/productguides/html/api/auth
+- type: X-rate-limits
+  url: https://sort.veritas.com/documents/netbackup/10.1/productguides
+- type: X-blog
+  url: https://www.veritas.com/blogs
+- type: X-twitter
+  url: https://twitter.com/veritastechllc
+- type: X-linkedin
+  url: https://www.linkedin.com/company/veritas-technologies-llc
+maintainers:
+- FN: Veritas Technologies
+  email: support@veritas.com
+  url: https://www.veritas.com
