@@ -1,0 +1,233 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sort.veritas.com/schemas/netbackup/job.json",
+  "title": "Veritas NetBackup Job",
+  "description": "Schema for a Veritas NetBackup backup, restore, or administrative job resource. Defines the structure of job metadata returned by the NetBackup REST API including job identification, state, policy and client associations, timing, and data transfer metrics.",
+  "type": "object",
+  "required": ["data"],
+  "properties": {
+    "data": {
+      "type": "object",
+      "required": ["type", "id", "attributes"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "job",
+          "description": "Resource type identifier, always 'job' for job resources"
+        },
+        "id": {
+          "type": "string",
+          "description": "The unique job identifier assigned by NetBackup"
+        },
+        "attributes": {
+          "$ref": "#/$defs/JobAttributes"
+        },
+        "links": {
+          "$ref": "#/$defs/ResourceLinks"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "JobAttributes": {
+      "type": "object",
+      "required": ["jobId", "jobType", "state"],
+      "description": "Core attributes describing a NetBackup job",
+      "properties": {
+        "jobId": {
+          "type": "integer",
+          "description": "Unique numeric identifier for the job assigned by the NetBackup primary server",
+          "minimum": 1
+        },
+        "parentJobId": {
+          "type": "integer",
+          "description": "Identifier of the parent job if this is a child job spawned by a parent operation. Null or absent for top-level jobs.",
+          "minimum": 1
+        },
+        "jobType": {
+          "type": "string",
+          "description": "The category of operation this job performs",
+          "enum": [
+            "BACKUP",
+            "RESTORE",
+            "DUPLICATE",
+            "IMPORT",
+            "VAULT",
+            "DBBACKUP",
+            "LABEL",
+            "ERASE",
+            "VERIFY",
+            "INVENTORY"
+          ]
+        },
+        "jobSubType": {
+          "type": "string",
+          "description": "A more specific classification within the job type, such as the schedule type for backup jobs",
+          "enum": [
+            "IMMEDIATE",
+            "SCHEDULED",
+            "USER_INITIATED"
+          ]
+        },
+        "state": {
+          "type": "string",
+          "description": "Current execution state of the job in its lifecycle",
+          "enum": [
+            "QUEUED",
+            "ACTIVE",
+            "RE_QUEUED",
+            "DONE",
+            "SUSPENDED",
+            "INCOMPLETE",
+            "WAITING_FOR_RETRY"
+          ]
+        },
+        "status": {
+          "type": "integer",
+          "description": "Exit status code of the job. A value of 0 indicates success. Non-zero values correspond to NetBackup status codes documented in the troubleshooting guide."
+        },
+        "policyName": {
+          "type": "string",
+          "description": "Name of the backup policy associated with this job"
+        },
+        "policyType": {
+          "type": "string",
+          "description": "Type of the backup policy (e.g., Standard, VMware, Oracle, MS-SQL-Server)"
+        },
+        "scheduleName": {
+          "type": "string",
+          "description": "Name of the schedule within the policy that triggered or governs this job"
+        },
+        "scheduleType": {
+          "type": "string",
+          "description": "The backup type defined by the schedule",
+          "enum": [
+            "FULL",
+            "INCR",
+            "DIFF_INCR",
+            "CINC",
+            "USER_BACKUP",
+            "USER_ARCHIVE"
+          ]
+        },
+        "clientName": {
+          "type": "string",
+          "description": "Fully qualified hostname of the NetBackup client being backed up or restored"
+        },
+        "mediaServer": {
+          "type": "string",
+          "description": "Hostname of the media server processing data for this job"
+        },
+        "storageUnit": {
+          "type": "string",
+          "description": "Name of the storage unit used by this job for reading or writing backup data"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when the job began execution"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when the job completed, failed, or was last updated"
+        },
+        "elapsedTime": {
+          "type": "integer",
+          "description": "Total elapsed wall-clock time in seconds from job start to current state or completion",
+          "minimum": 0
+        },
+        "kilobytesTransferred": {
+          "type": "integer",
+          "description": "Total volume of data transferred by the job in kilobytes",
+          "minimum": 0
+        },
+        "filesTransferred": {
+          "type": "integer",
+          "description": "Total number of files processed (backed up, restored, or otherwise handled) by the job",
+          "minimum": 0
+        },
+        "percentComplete": {
+          "type": "integer",
+          "description": "Estimated completion percentage of the job",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "currentOperation": {
+          "type": "string",
+          "description": "Human-readable description of the operation currently being performed by the job"
+        },
+        "attempt": {
+          "type": "integer",
+          "description": "Current retry attempt number for the job",
+          "minimum": 1
+        },
+        "restartable": {
+          "type": "boolean",
+          "description": "Indicates whether the job can be restarted from its current state"
+        },
+        "suspendable": {
+          "type": "boolean",
+          "description": "Indicates whether the job can be suspended (paused)"
+        },
+        "resumable": {
+          "type": "boolean",
+          "description": "Indicates whether the job can be resumed after being suspended"
+        },
+        "cancellable": {
+          "type": "boolean",
+          "description": "Indicates whether the job can be cancelled"
+        },
+        "activeTryStatusCode": {
+          "type": "integer",
+          "description": "Status code of the currently active try for this job"
+        },
+        "numberOfTries": {
+          "type": "integer",
+          "description": "Total number of attempts that have been made for this job",
+          "minimum": 0
+        },
+        "backupId": {
+          "type": "string",
+          "description": "Unique backup image identifier generated upon successful backup completion"
+        }
+      }
+    },
+    "ResourceLinks": {
+      "type": "object",
+      "description": "HATEOAS links for navigating to related resources",
+      "properties": {
+        "self": {
+          "type": "object",
+          "properties": {
+            "href": {
+              "type": "string",
+              "format": "uri",
+              "description": "URI to this job resource"
+            }
+          }
+        },
+        "fileLists": {
+          "type": "object",
+          "properties": {
+            "href": {
+              "type": "string",
+              "format": "uri",
+              "description": "URI to the file list for this job"
+            }
+          }
+        },
+        "tryLogs": {
+          "type": "object",
+          "properties": {
+            "href": {
+              "type": "string",
+              "format": "uri",
+              "description": "URI to the try logs for this job"
+            }
+          }
+        }
+      }
+    }
+  }
+}
