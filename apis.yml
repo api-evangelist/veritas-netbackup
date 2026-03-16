@@ -1,4 +1,4 @@
-name: Veritas NetBackup API
+name: Veritas NetBackup
 description: Enterprise-grade data protection and backup solution with comprehensive REST APIs for backup, recovery, and data management operations
 image: https://www.veritas.com/content/dam/veritas/images/logos/veritas-logo.svg
 url: https://www.veritas.com/products/backup-and-recovery/netbackup
