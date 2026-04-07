@@ -57,7 +57,7 @@ paths:
   /login:
     post:
       operationId: login
-      summary: Authenticate and obtain a JWT
+      summary: Veritas NetBackup Authenticate and obtain a JWT
       description: >-
         Authenticates a user against the NetBackup primary server and returns a
         JSON Web Token (JWT) used to authorize subsequent API calls. The token
@@ -94,7 +94,7 @@ paths:
   /admin/jobs:
     get:
       operationId: listJobs
-      summary: List backup jobs
+      summary: Veritas NetBackup List backup jobs
       description: >-
         Returns a list of NetBackup jobs matching the specified filter criteria.
         Jobs represent backup, restore, duplication, and other administrative
@@ -156,7 +156,7 @@ paths:
   /admin/jobs/{jobId}:
     get:
       operationId: getJob
-      summary: Get job details
+      summary: Veritas NetBackup Get job details
       description: >-
         Retrieves detailed information about a specific NetBackup job
         identified by its job ID. Returns job metadata including type, state,
@@ -192,7 +192,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
       operationId: deleteJob
-      summary: Delete a job
+      summary: Veritas NetBackup Delete a job
       description: >-
         Deletes a completed or failed job from the NetBackup activity monitor.
         Only jobs that are in a terminal state (DONE or STOPPED) can be deleted.
@@ -229,7 +229,7 @@ paths:
   /admin/jobs/{jobId}/cancel:
     post:
       operationId: cancelJob
-      summary: Cancel a running job
+      summary: Veritas NetBackup Cancel a running job
       description: >-
         Cancels a currently active job. The job must be in a QUEUED or ACTIVE
         state. Once cancelled, the job state changes to STOPPED.
@@ -266,7 +266,7 @@ paths:
   /admin/jobs/{jobId}/suspend:
     post:
       operationId: suspendJob
-      summary: Suspend a running job
+      summary: Veritas NetBackup Suspend a running job
       description: >-
         Suspends an active job, pausing its execution. The job can later be
         resumed using the resume endpoint.
@@ -303,7 +303,7 @@ paths:
   /admin/jobs/{jobId}/resume:
     post:
       operationId: resumeJob
-      summary: Resume a suspended job
+      summary: Veritas NetBackup Resume a suspended job
       description: >-
         Resumes a previously suspended job, allowing it to continue execution
         from where it was paused.
@@ -340,7 +340,7 @@ paths:
   /admin/jobs/{jobId}/restart:
     post:
       operationId: restartJob
-      summary: Restart a failed job
+      summary: Veritas NetBackup Restart a failed job
       description: >-
         Restarts a job that has completed with a failed or partially successful
         status. A new job is created to retry the operation.
@@ -375,7 +375,7 @@ paths:
   /admin/jobs/{jobId}/file-lists:
     get:
       operationId: getJobFileList
-      summary: Get the file list for a job
+      summary: Veritas NetBackup Get the file list for a job
       description: >-
         Returns the list of files that were processed by a specific backup or
         restore job. This is useful for verifying which files were included in
@@ -426,7 +426,7 @@ paths:
   /admin/jobs/{jobId}/try-logs:
     get:
       operationId: getJobTryLogs
-      summary: Get try logs for a job
+      summary: Veritas NetBackup Get try logs for a job
       description: >-
         Returns the try log entries for a specific job, providing detailed
         information about each attempt to execute the job including status
@@ -462,7 +462,7 @@ paths:
   /config/policies:
     get:
       operationId: listPolicies
-      summary: List backup policies
+      summary: Veritas NetBackup List backup policies
       description: >-
         Returns a list of NetBackup backup policies. Policies define which
         clients, schedules, and backup selections are used to perform backups.
@@ -507,7 +507,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
       operationId: createPolicy
-      summary: Create a backup policy
+      summary: Veritas NetBackup Create a backup policy
       description: >-
         Creates a new NetBackup backup policy with the specified configuration
         including policy type, attributes, clients, schedules, and backup
@@ -548,7 +548,7 @@ paths:
   /config/policies/{policyName}:
     get:
       operationId: getPolicy
-      summary: Get a backup policy
+      summary: Veritas NetBackup Get a backup policy
       description: >-
         Retrieves the complete configuration of a specific backup policy
         including its attributes, client list, schedules, and backup selections.
@@ -582,7 +582,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     put:
       operationId: updatePolicy
-      summary: Update a backup policy
+      summary: Veritas NetBackup Update a backup policy
       description: >-
         Updates the configuration of an existing backup policy. The entire
         policy configuration must be provided in the request body. Use this
@@ -638,7 +638,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
       operationId: deletePolicy
-      summary: Delete a backup policy
+      summary: Veritas NetBackup Delete a backup policy
       description: >-
         Deletes an existing backup policy from the NetBackup configuration.
         Any scheduled backups associated with this policy will no longer run.
@@ -670,7 +670,7 @@ paths:
   /config/policies/{policyName}/clients:
     get:
       operationId: listPolicyClients
-      summary: List clients in a policy
+      summary: Veritas NetBackup List clients in a policy
       description: >-
         Returns the list of clients associated with a specific backup policy.
         Clients are the machines whose data is backed up according to the
@@ -705,7 +705,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     put:
       operationId: updatePolicyClients
-      summary: Update clients in a policy
+      summary: Veritas NetBackup Update clients in a policy
       description: >-
         Replaces the client list for a specific backup policy with the
         provided set of clients.
@@ -748,7 +748,7 @@ paths:
   /config/policies/{policyName}/schedules:
     get:
       operationId: listPolicySchedules
-      summary: List schedules in a policy
+      summary: Veritas NetBackup List schedules in a policy
       description: >-
         Returns all schedules configured for a specific backup policy. Schedules
         define when and how frequently backups are performed.
@@ -783,7 +783,7 @@ paths:
   /config/policies/{policyName}/schedules/{scheduleName}:
     get:
       operationId: getPolicySchedule
-      summary: Get a specific policy schedule
+      summary: Veritas NetBackup Get a specific policy schedule
       description: >-
         Retrieves the configuration of a specific schedule within a backup
         policy including its type, frequency, retention level, and storage
@@ -824,7 +824,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     put:
       operationId: updatePolicySchedule
-      summary: Create or update a policy schedule
+      summary: Veritas NetBackup Create or update a policy schedule
       description: >-
         Creates or updates a schedule within a backup policy. If the schedule
         already exists it is replaced with the provided configuration.
@@ -872,7 +872,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
       operationId: deletePolicySchedule
-      summary: Delete a policy schedule
+      summary: Veritas NetBackup Delete a policy schedule
       description: >-
         Removes a schedule from a backup policy. Existing backups created
         by this schedule are not affected.
@@ -909,7 +909,7 @@ paths:
   /config/hosts:
     get:
       operationId: listClients
-      summary: List NetBackup clients
+      summary: Veritas NetBackup List NetBackup clients
       description: >-
         Returns a list of hosts registered with the NetBackup primary server,
         including backup clients, media servers, and other host types.
@@ -955,7 +955,7 @@ paths:
   /config/hosts/{hostId}:
     get:
       operationId: getClient
-      summary: Get client details
+      summary: Veritas NetBackup Get client details
       description: >-
         Retrieves detailed configuration and status information for a specific
         NetBackup host including operating system details, hardware platform,
@@ -991,7 +991,7 @@ paths:
   /catalog/images:
     get:
       operationId: listImages
-      summary: List backup images
+      summary: Veritas NetBackup List backup images
       description: >-
         Returns a list of backup images in the NetBackup catalog. Images
         represent completed backup operations and contain metadata about
@@ -1047,7 +1047,7 @@ paths:
   /catalog/images/{backupId}:
     get:
       operationId: getImage
-      summary: Get backup image details
+      summary: Veritas NetBackup Get backup image details
       description: >-
         Retrieves detailed metadata for a specific backup image including the
         backup ID, policy and client that created it, schedule used, backup and
@@ -1083,7 +1083,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
       operationId: expireImage
-      summary: Expire a backup image
+      summary: Veritas NetBackup Expire a backup image
       description: >-
         Expires a backup image by setting its expiration date to the current
         time. The image will be removed from the catalog and its associated
@@ -1116,7 +1116,7 @@ paths:
   /catalog/images/{backupId}/contents:
     get:
       operationId: getImageContents
-      summary: Get backup image file contents
+      summary: Veritas NetBackup Get backup image file contents
       description: >-
         Returns the file and directory listing contained within a specific
         backup image. Useful for browsing what data was captured in a backup
