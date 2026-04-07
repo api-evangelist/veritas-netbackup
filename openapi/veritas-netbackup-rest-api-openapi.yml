@@ -27,16 +27,6 @@ servers:
         description: Hostname or IP address of the NetBackup primary server
         default: netbackup-primary-server
 tags:
-  - name: Jobs
-    description: >-
-      Manage and monitor backup, restore, and administrative jobs. Retrieve job
-      details, list jobs by filter criteria, cancel, restart, suspend, and
-      resume jobs, and access job file lists and try logs.
-  - name: Policies
-    description: >-
-      Create, retrieve, update, and delete backup policies. Manage policy
-      schedules, client lists, and backup selections that define what data gets
-      backed up, when, and how.
   - name: Clients
     description: >-
       Manage NetBackup clients including listing registered clients, retrieving
@@ -47,10 +37,20 @@ tags:
       Query the NetBackup image catalog to retrieve backup image metadata,
       search for images by policy or client, and manage image lifecycle
       operations such as expiration and duplication.
+  - name: Jobs
+    description: >-
+      Manage and monitor backup, restore, and administrative jobs. Retrieve job
+      details, list jobs by filter criteria, cancel, restart, suspend, and
+      resume jobs, and access job file lists and try logs.
   - name: Login
     description: >-
       Authenticate to the NetBackup REST API and obtain a JSON Web Token for
       subsequent API requests.
+  - name: Policies
+    description: >-
+      Create, retrieve, update, and delete backup policies. Manage policy
+      schedules, client lists, and backup selections that define what data gets
+      backed up, when, and how.
 security:
   - jwtAuth: []
 paths:
