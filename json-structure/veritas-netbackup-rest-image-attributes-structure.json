@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ImageAttributes",
+  "type": "object",
+  "properties": {
+    "backupId": {
+      "type": "string"
+    },
+    "policyName": {
+      "type": "string"
+    },
+    "policyType": {
+      "type": "string"
+    },
+    "clientName": {
+      "type": "string"
+    },
+    "scheduleName": {
+      "type": "string"
+    },
+    "scheduleType": {
+      "type": "string"
+    },
+    "backupTime": {
+      "type": "string"
+    },
+    "expirationTime": {
+      "type": "string"
+    },
+    "kilobytes": {
+      "type": "integer"
+    },
+    "numberOfFiles": {
+      "type": "integer"
+    },
+    "primaryCopy": {
+      "type": "integer"
+    },
+    "copyCount": {
+      "type": "integer"
+    },
+    "mediaServer": {
+      "type": "string"
+    },
+    "storageUnit": {
+      "type": "string"
+    },
+    "mediaId": {
+      "type": "string"
+    },
+    "compressed": {
+      "type": "boolean"
+    },
+    "encrypted": {
+      "type": "boolean"
+    },
+    "multiplexed": {
+      "type": "boolean"
+    },
+    "retentionLevel": {
+      "type": "integer"
+    }
+  }
+}

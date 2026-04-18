@@ -1,0 +1,12 @@
+name: veritas-netbackup API Vocabulary
+provider: veritas-netbackup
+created: '2026-04-18'
+modified: '2026-04-18'
+operations: 27
+schemas: 27
+tags:
+- Clients
+- Images
+- Jobs
+- Login
+- Policies

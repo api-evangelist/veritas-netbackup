@@ -5,7 +5,7 @@ description: >-
 image: https://www.veritas.com/content/dam/veritas/images/logos/veritas-logo.svg
 url: https://www.veritas.com/products/backup-and-recovery/netbackup
 created: '2024'
-modified: '2026-03-03'
+modified: '2026-04-18'
 specificationVersion: '0.18'
 tags:
   - Backup
@@ -29,23 +29,23 @@ apis:
       - Policies
       - Restore
     properties:
-      - type: X-documentation
+      - type: Documentation
         url: https://sort.veritas.com/documents/netbackup/10.1/productguides
-      - type: X-openapi
+      - type: APIReference
         url: https://sort.veritas.com/public/documents/nbu/10.1/windowsandunix/productguides/html/api/nbu_10.1_webapi.html
-      - type: X-api-console
+      - type: Console
         url: https://netbackup-primary-server:1556/api-docs
-      - type: X-getting-started
+      - type: GettingStarted
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
-      - type: X-authentication
+      - type: Authentication
         url: https://sort.veritas.com/public/documents/nbu/10.0/windowsandunix/productguides/html/getting-started/
-      - type: X-sdk
+      - type: SDK
         url: https://github.com/VeritasOS/netbackup-api-code-samples
-      - type: X-change-log
+      - type: ChangeLog
         url: https://www.veritas.com/protection/netbackup/whats-new
-      - type: X-release-notes
+      - type: ReleaseNotes
         url: https://www.veritas.com/support/en_US/doc/103228346-168289021-0/v168307940-168289021
-      - type: X-support-statement
+      - type: Documentation
         url: https://www.veritas.com/support/en_US/article.100043102
       - type: OpenAPI
         url: openapi/veritas-netbackup-rest-api-openapi.yml
@@ -66,9 +66,9 @@ apis:
       - Management
       - Monitoring
     properties:
-      - type: X-documentation
+      - type: Documentation
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
-      - type: X-getting-started
+      - type: GettingStarted
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
   - name: NetBackup Asset Management API
     description: >-
@@ -81,9 +81,9 @@ apis:
       - Inventory
       - Servers
     properties:
-      - type: X-documentation
+      - type: Documentation
         url: https://sort.veritas.com/documents
-      - type: X-getting-started
+      - type: GettingStarted
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
   - name: NetBackup Security API
     description: >-
@@ -99,9 +99,9 @@ apis:
       - Credentials
       - Security
     properties:
-      - type: X-documentation
+      - type: Documentation
         url: https://sort.veritas.com/documents
-      - type: X-getting-started
+      - type: GettingStarted
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
   - name: NetBackup Image Management API
     description: >-
@@ -114,9 +114,9 @@ apis:
       - Media
       - Retention
     properties:
-      - type: X-documentation
+      - type: Documentation
         url: https://sort.veritas.com/documents
-      - type: X-getting-started
+      - type: GettingStarted
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
   - name: NetBackup Configuration API
     description: >-
@@ -131,9 +131,9 @@ apis:
       - Servers
       - Storage
     properties:
-      - type: X-documentation
+      - type: Documentation
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
-      - type: X-getting-started
+      - type: GettingStarted
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
   - name: NetBackup Storage API
     description: >-
@@ -147,9 +147,9 @@ apis:
       - Reporting
       - Storage
     properties:
-      - type: X-documentation
+      - type: Documentation
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
-      - type: X-getting-started
+      - type: GettingStarted
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
   - name: NetBackup Recovery API
     description: >-
@@ -164,9 +164,9 @@ apis:
       - Restore
       - Vmware
     properties:
-      - type: X-documentation
+      - type: Documentation
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
-      - type: X-getting-started
+      - type: GettingStarted
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
   - name: NetBackup RBAC Administration API
     description: >-
@@ -180,9 +180,9 @@ apis:
       - Rbac
       - Roles
     properties:
-      - type: X-documentation
+      - type: Documentation
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
-      - type: X-getting-started
+      - type: GettingStarted
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
   - name: NetBackup Licensing API
     description: >-
@@ -195,9 +195,9 @@ apis:
       - Entitlements
       - Licensing
     properties:
-      - type: X-documentation
+      - type: Documentation
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
-      - type: X-getting-started
+      - type: GettingStarted
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
   - name: NetBackup Service Catalog API
     description: >-
@@ -211,9 +211,9 @@ apis:
       - Slo
       - Subscriptions
     properties:
-      - type: X-documentation
+      - type: Documentation
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
-      - type: X-getting-started
+      - type: GettingStarted
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
   - name: NetBackup Manage API
     description: >-
@@ -225,9 +225,9 @@ apis:
       - Management
       - Notifications
     properties:
-      - type: X-documentation
+      - type: Documentation
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
-      - type: X-getting-started
+      - type: GettingStarted
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
   - name: NetBackup Troubleshooting API
     description: >-
@@ -241,9 +241,9 @@ apis:
       - Status-Codes
       - Troubleshooting
     properties:
-      - type: X-documentation
+      - type: Documentation
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
-      - type: X-getting-started
+      - type: GettingStarted
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
   - name: NetBackup IT Analytics REST API
     description: >-
@@ -257,11 +257,11 @@ apis:
       - Monitoring
       - Reporting
     properties:
-      - type: X-documentation
+      - type: Documentation
         url: https://www.veritas.com/support/en_US/doc/140670999-168357535-0/v149890439-168357535
-      - type: X-authentication
+      - type: Authentication
         url: https://www.veritas.com/support/en_US/doc/140670999-149890373-0/v149894265-149890373
-      - type: X-getting-started
+      - type: GettingStarted
         url: https://www.veritas.com/support/en_US/doc/140670999-166019911-0/v140669480-166019911
   - name: NetBackup Self Service REST API
     description: >-
@@ -276,9 +276,9 @@ apis:
       - Tenants
       - Utilization
     properties:
-      - type: X-documentation
+      - type: Documentation
         url: https://www.veritas.com/support/en_US/doc/109536476-156847273-0/v119207347-156847273
-      - type: X-configuration-guide
+      - type: Documentation
         url: https://www.veritas.com/support/en_US/doc/109536476-167202398-1
   - name: NetBackup Flex Scale REST API
     description: >-
@@ -294,71 +294,109 @@ apis:
       - Infrastructure
       - Node-Management
     properties:
-      - type: X-documentation
+      - type: Documentation
         url: https://www.veritas.com/support/en_US/doc/139332629-144656221-0/v143532640-144656221
-      - type: X-sdk
+      - type: SDK
         url: https://github.com/VeritasOS/NetBackup-Flex-Scale-REST-API-nuggets
-      - type: X-getting-started
+      - type: GettingStarted
         url: https://www.veritas.com/support/en_US/doc/139332629-144656221-0/v143532640-144656221
 common:
-  - type: X-portal
+  - type: Support
     url: https://www.veritas.com/support
-  - type: X-website
-    url: https://www.veritas.com
-  - type: X-product-page
-    url: https://www.veritas.com/products/backup-and-recovery/netbackup
-  - type: X-documentation
+  - type: Documentation
     url: https://www.veritas.com/support/en_US/article.100040135
-  - type: X-api-documentation
+  - type: APIReference
     url: https://www.veritas.com/support/en_US/doc/139300789-139300792-0/index
-  - type: X-getting-started
+  - type: GettingStarted
     url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
-  - type: X-pricing
+  - type: Pricing
     url: https://www.veritas.com/products/backup-and-recovery/netbackup/pricing
-  - type: X-support
+  - type: Support
     url: https://www.veritas.com/support/en_US/netbackup
-  - type: X-contact
+  - type: Contact
     url: https://www.veritas.com/company/contact
-  - type: X-knowledge-base
+  - type: KnowledgeCenter
     url: https://www.veritas.com/support/en_US/netbackup.PRODUCT_HOME
-  - type: X-downloads
+  - type: Documentation
     url: https://www.veritas.com/support/en_US/netbackup.download
-  - type: X-forum
+  - type: Documentation
     url: https://vox.veritas.com/category/cohesity-discussions/discussions/netbackup
-  - type: X-authentication
+  - type: Authentication
     url: https://sort.veritas.com/public/documents/nbu/10.0/windowsandunix/productguides/html/getting-started/
-  - type: X-rate-limits
+  - type: RateLimits
     url: https://sort.veritas.com/documents/netbackup/10.1/productguides
-  - type: X-blog
+  - type: Blog
     url: https://www.veritas.com/blogs
-  - type: X-github
+  - type: GitHubOrganization
     url: https://github.com/VeritasOS
-  - type: X-sdk
+  - type: SDK
     url: https://github.com/VeritasOS/netbackup-api-code-samples
-  - type: X-code-samples
+  - type: CodeExamples
     url: https://veritasos.github.io/netbackup-api-code-samples/
-  - type: X-change-log
+  - type: ChangeLog
     url: https://www.veritas.com/protection/netbackup/whats-new
-  - type: X-release-notes
+  - type: ReleaseNotes
     url: https://www.veritas.com/support/en_US/doc/103228346-168289021-0/v168307842-168289021
-  - type: X-upgrade-portal
+  - type: Documentation
     url: https://www.veritas.com/support/en_US/article.100032801
-  - type: X-twitter
+  - type: X
     url: https://twitter.com/veritastechllc
-  - type: X-linkedin
+  - type: LinkedIn
     url: https://www.linkedin.com/company/veritas-technologies-llc
-  - type: X-terms-of-service
+  - type: TermsOfService
     url: https://www.veritas.com/company/legal/legal-terms-of-use
-  - type: X-privacy-policy
+  - type: PrivacyPolicy
     url: https://www.veritas.com/company/privacy
-  - type: X-about
+  - type: Documentation
     url: https://www.veritas.com/company
-  - type: X-self-service
+  - type: Documentation
     url: https://www.veritas.com/protection/netbackup/self-service
-  - type: X-support-statement
+  - type: Documentation
     url: https://www.veritas.com/support/en_US/article.100043102
-  - type: X-patches
+  - type: Documentation
     url: https://www.veritas.com/support/en_US/article.100052421
+  - type: Features
+    data:
+      - name: Enterprise Backup and Recovery
+        description: Comprehensive backup and recovery for physical, virtual, and cloud workloads across heterogeneous environments.
+      - name: Policy-Based Protection
+        description: Create and manage backup policies with configurable schedules, retention rules, and client selections.
+      - name: Job Management
+        description: Monitor, control, and troubleshoot backup and restore jobs with full lifecycle management via REST API.
+      - name: Catalog Management
+        description: Query and manage backup image catalogs for tracking, searching, and lifecycle management of backup data.
+      - name: Role-Based Access Control
+        description: Fine-grained RBAC for managing user permissions across NetBackup operations and resources.
+      - name: Self-Service Portal
+        description: Enable tenant-level self-service backup and restore operations through the Self Service portal API.
+      - name: IT Analytics and Reporting
+        description: Access and export analytics reports and dashboards for backup environment monitoring and capacity planning.
+      - name: Flex Scale Infrastructure
+        description: Manage NetBackup Flex Scale appliance infrastructure including nodes, storage, users, and patch upgrades.
+  - type: UseCases
+    data:
+      - name: Automated Backup Operations
+        description: Automate backup policy creation, job scheduling, and monitoring through REST API integration with CI/CD pipelines.
+      - name: Disaster Recovery Orchestration
+        description: Programmatically manage recovery operations for VMware and cloud workloads with instant access capabilities.
+      - name: Compliance and Audit
+        description: Track and report on backup coverage, retention compliance, and security audit events across the enterprise.
+      - name: Multi-Tenant Backup Management
+        description: Provide self-service backup and restore capabilities to multiple tenants through the Self Service portal API.
+      - name: Capacity Planning
+        description: Use IT Analytics APIs to export reports on storage consumption, backup trends, and capacity forecasting.
+  - type: Integrations
+    data:
+      - name: VMware vSphere
+        description: Native integration for backup and instant recovery of VMware virtual machines and vSphere environments.
+      - name: Cloud Platforms
+        description: Support for backup and recovery of workloads running on AWS, Azure, and Google Cloud Platform.
+      - name: Kubernetes
+        description: Container workload protection with backup and recovery support for Kubernetes clusters.
+      - name: Oracle and SQL Server
+        description: Application-consistent backup and granular recovery for Oracle and Microsoft SQL Server databases.
+      - name: RESTful API Ecosystem
+        description: Comprehensive REST API coverage for programmatic integration with ITSM, orchestration, and monitoring tools.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

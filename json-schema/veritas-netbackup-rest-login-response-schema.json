@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LoginResponse",
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "string",
+      "description": "JSON Web Token for authenticating subsequent API requests"
+    },
+    "tokenType": {
+      "type": "string",
+      "description": "The token type"
+    },
+    "validity": {
+      "type": "integer",
+      "description": "Token validity period in seconds"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "hostName": "example_value",
+  "hostType": "example_value",
+  "os": "example_value",
+  "platform": "example_value",
+  "version": "example_value",
+  "fingerprintSha256": "example_value",
+  "trustLevel": "example_value",
+  "communicationStatus": "example_value",
+  "lastConnectedTime": "example_value"
+}

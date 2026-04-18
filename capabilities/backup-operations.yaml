@@ -1,0 +1,290 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Veritas NetBackup Backup Operations"
+  description: "Backup operations workflow for backup administrators to manage jobs, policies, clients, and catalog images across NetBackup environments."
+  tags:
+    - Veritas
+    - Backup
+    - Data Protection
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      NETBACKUP_HOST: NETBACKUP_HOST
+      NETBACKUP_USERNAME: NETBACKUP_USERNAME
+      NETBACKUP_PASSWORD: NETBACKUP_PASSWORD
+
+capability:
+  consumes:
+    - import: netbackup
+      location: ./shared/netbackup.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: backup-operations-api
+      description: "Unified REST API for NetBackup backup operations."
+      resources:
+        - path: /v1/jobs
+          name: jobs
+          description: "Backup job management."
+          operations:
+            - method: GET
+              name: list-jobs
+              description: "List all backup jobs."
+              call: "netbackup.list-jobs"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/jobs/{jobId}
+          name: job
+          description: "Individual job operations."
+          operations:
+            - method: GET
+              name: get-job
+              description: "Get job details."
+              call: "netbackup.get-job"
+              with:
+                jobId: "rest.jobId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/policies
+          name: policies
+          description: "Backup policy management."
+          operations:
+            - method: GET
+              name: list-policies
+              description: "List all backup policies."
+              call: "netbackup.list-policies"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-policy
+              description: "Create a new backup policy."
+              call: "netbackup.create-policy"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/clients
+          name: clients
+          description: "NetBackup client management."
+          operations:
+            - method: GET
+              name: list-clients
+              description: "List all clients."
+              call: "netbackup.list-clients"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/images
+          name: images
+          description: "Backup image catalog."
+          operations:
+            - method: GET
+              name: list-images
+              description: "List backup images."
+              call: "netbackup.list-images"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: backup-operations-mcp
+      transport: http
+      description: "MCP server for AI-assisted NetBackup backup operations."
+      tools:
+        - name: login
+          description: "Authenticate to NetBackup and obtain a JWT token."
+          hints:
+            readOnly: false
+          call: "netbackup.login"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-jobs
+          description: "List all backup jobs with optional filters."
+          hints:
+            readOnly: true
+          call: "netbackup.list-jobs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-job
+          description: "Get details for a specific backup job."
+          hints:
+            readOnly: true
+          call: "netbackup.get-job"
+          with:
+            jobId: "tools.jobId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: cancel-job
+          description: "Cancel a running backup job."
+          hints:
+            destructive: true
+          call: "netbackup.cancel-job"
+          with:
+            jobId: "tools.jobId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: suspend-job
+          description: "Suspend a running backup job."
+          hints:
+            readOnly: false
+          call: "netbackup.suspend-job"
+          with:
+            jobId: "tools.jobId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: resume-job
+          description: "Resume a suspended backup job."
+          hints:
+            readOnly: false
+          call: "netbackup.resume-job"
+          with:
+            jobId: "tools.jobId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: restart-job
+          description: "Restart a failed backup job."
+          hints:
+            readOnly: false
+          call: "netbackup.restart-job"
+          with:
+            jobId: "tools.jobId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-job-file-list
+          description: "Get file list for a backup job."
+          hints:
+            readOnly: true
+          call: "netbackup.get-job-file-list"
+          with:
+            jobId: "tools.jobId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-job-try-logs
+          description: "Get try logs for a backup job."
+          hints:
+            readOnly: true
+          call: "netbackup.get-job-try-logs"
+          with:
+            jobId: "tools.jobId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-policies
+          description: "List all backup policies."
+          hints:
+            readOnly: true
+          call: "netbackup.list-policies"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-policy
+          description: "Get a specific backup policy."
+          hints:
+            readOnly: true
+          call: "netbackup.get-policy"
+          with:
+            policyName: "tools.policyName"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-policy
+          description: "Create a new backup policy."
+          hints:
+            readOnly: false
+          call: "netbackup.create-policy"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-policy
+          description: "Update a backup policy."
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "netbackup.update-policy"
+          with:
+            policyName: "tools.policyName"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: delete-policy
+          description: "Delete a backup policy."
+          hints:
+            destructive: true
+          call: "netbackup.delete-policy"
+          with:
+            policyName: "tools.policyName"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-clients
+          description: "List all NetBackup clients."
+          hints:
+            readOnly: true
+          call: "netbackup.list-clients"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-client
+          description: "Get details for a specific client."
+          hints:
+            readOnly: true
+          call: "netbackup.get-client"
+          with:
+            hostId: "tools.hostId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-images
+          description: "List backup images in the catalog."
+          hints:
+            readOnly: true
+          call: "netbackup.list-images"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-image
+          description: "Get details for a specific backup image."
+          hints:
+            readOnly: true
+          call: "netbackup.get-image"
+          with:
+            backupId: "tools.backupId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: expire-image
+          description: "Expire a backup image."
+          hints:
+            destructive: true
+          call: "netbackup.expire-image"
+          with:
+            backupId: "tools.backupId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-image-contents
+          description: "Get file contents of a backup image."
+          hints:
+            readOnly: true
+          call: "netbackup.get-image-contents"
+          with:
+            backupId: "tools.backupId"
+          outputParameters:
+            - type: object
+              mapping: "$."

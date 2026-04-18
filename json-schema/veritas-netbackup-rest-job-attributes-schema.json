@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "JobAttributes",
+  "type": "object",
+  "description": "Attributes of a NetBackup job",
+  "properties": {
+    "jobId": {
+      "type": "integer",
+      "description": "Unique identifier for the job"
+    },
+    "parentJobId": {
+      "type": "integer",
+      "description": "Identifier of the parent job, if this is a child job"
+    },
+    "jobType": {
+      "type": "string",
+      "description": "The type of job"
+    },
+    "state": {
+      "type": "string",
+      "description": "Current state of the job"
+    },
+    "status": {
+      "type": "integer",
+      "description": "Exit status code of the job. A value of 0 indicates success."
+    },
+    "policyName": {
+      "type": "string",
+      "description": "Name of the policy associated with the job"
+    },
+    "policyType": {
+      "type": "string",
+      "description": "Type of the policy (e.g., Standard, VMware, Oracle)"
+    },
+    "scheduleName": {
+      "type": "string",
+      "description": "Name of the schedule that triggered the job"
+    },
+    "scheduleType": {
+      "type": "string",
+      "description": "Type of the schedule"
+    },
+    "clientName": {
+      "type": "string",
+      "description": "Hostname of the client being backed up or restored"
+    },
+    "mediaServer": {
+      "type": "string",
+      "description": "Hostname of the media server processing the job"
+    },
+    "storageUnit": {
+      "type": "string",
+      "description": "Name of the storage unit used by the job"
+    },
+    "startTime": {
+      "type": "string",
+      "description": "Timestamp when the job started"
+    },
+    "endTime": {
+      "type": "string",
+      "description": "Timestamp when the job completed or was last updated"
+    },
+    "elapsedTime": {
+      "type": "integer",
+      "description": "Total elapsed time in seconds"
+    },
+    "kilobytesTransferred": {
+      "type": "integer",
+      "description": "Total kilobytes of data transferred"
+    },
+    "filesTransferred": {
+      "type": "integer",
+      "description": "Total number of files processed"
+    },
+    "percentComplete": {
+      "type": "integer",
+      "description": "Completion percentage (0-100)"
+    },
+    "currentOperation": {
+      "type": "string",
+      "description": "Description of the operation currently being performed"
+    },
+    "attempt": {
+      "type": "integer",
+      "description": "Current attempt number for the job"
+    },
+    "restartable": {
+      "type": "boolean",
+      "description": "Whether the job can be restarted"
+    },
+    "suspendable": {
+      "type": "boolean",
+      "description": "Whether the job can be suspended"
+    },
+    "resumable": {
+      "type": "boolean",
+      "description": "Whether the job can be resumed"
+    },
+    "cancellable": {
+      "type": "boolean",
+      "description": "Whether the job can be cancelled"
+    }
+  }
+}

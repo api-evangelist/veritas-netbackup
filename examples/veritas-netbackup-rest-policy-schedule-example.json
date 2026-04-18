@@ -1,0 +1,10 @@
+{
+  "scheduleName": "example_value",
+  "scheduleType": "example_value",
+  "frequency": 10,
+  "retentionPeriod": "example_value",
+  "storageUnit": "example_value",
+  "backupWindow": "example_value",
+  "mediaMultiplexing": 10,
+  "syntheticBackup": true
+}

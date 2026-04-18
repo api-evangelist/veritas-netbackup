@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ClientAttributes",
+  "type": "object",
+  "description": "Attributes of a NetBackup client host",
+  "properties": {
+    "hostName": {
+      "type": "string",
+      "description": "Fully qualified hostname of the client"
+    },
+    "hostType": {
+      "type": "string",
+      "description": "Type of host in the NetBackup environment"
+    },
+    "os": {
+      "type": "string",
+      "description": "Operating system of the client"
+    },
+    "platform": {
+      "type": "string",
+      "description": "Hardware platform of the client"
+    },
+    "version": {
+      "type": "string",
+      "description": "NetBackup client software version"
+    },
+    "fingerprintSha256": {
+      "type": "string",
+      "description": "SHA-256 fingerprint of the client certificate"
+    },
+    "trustLevel": {
+      "type": "string",
+      "description": "Trust level established with the primary server"
+    },
+    "communicationStatus": {
+      "type": "string",
+      "description": "Current communication status"
+    },
+    "lastConnectedTime": {
+      "type": "string",
+      "description": "Timestamp of the last successful communication"
+    }
+  }
+}

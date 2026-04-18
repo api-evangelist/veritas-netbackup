@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LoginRequest",
+  "type": "object",
+  "properties": {
+    "domainName": {
+      "type": "string",
+      "description": "The authentication domain name (e.g., the NetBackup primary server hostname)"
+    },
+    "domainType": {
+      "type": "string",
+      "description": "The type of authentication domain"
+    },
+    "userName": {
+      "type": "string",
+      "description": "The user account name"
+    },
+    "password": {
+      "type": "string",
+      "description": "The user account password"
+    }
+  }
+}

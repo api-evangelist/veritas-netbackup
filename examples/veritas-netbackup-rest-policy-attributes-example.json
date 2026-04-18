@@ -1,0 +1,11 @@
+{
+  "policyName": "example_value",
+  "policyType": "example_value",
+  "active": true,
+  "effectiveDate": "example_value",
+  "snapshotMethodArgs": "example_value",
+  "backupCopies": "example_value",
+  "priority": 10,
+  "keyword": "example_value",
+  "dataClassification": "example_value"
+}

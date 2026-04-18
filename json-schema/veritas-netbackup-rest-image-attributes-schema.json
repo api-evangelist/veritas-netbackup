@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ImageAttributes",
+  "type": "object",
+  "description": "Attributes of a NetBackup backup image",
+  "properties": {
+    "backupId": {
+      "type": "string",
+      "description": "Unique identifier for the backup image"
+    },
+    "policyName": {
+      "type": "string",
+      "description": "Name of the policy that created this image"
+    },
+    "policyType": {
+      "type": "string",
+      "description": "Type of the policy"
+    },
+    "clientName": {
+      "type": "string",
+      "description": "Client hostname that was backed up"
+    },
+    "scheduleName": {
+      "type": "string",
+      "description": "Schedule name that triggered the backup"
+    },
+    "scheduleType": {
+      "type": "string",
+      "description": "Type of the schedule"
+    },
+    "backupTime": {
+      "type": "string",
+      "description": "Timestamp when the backup was performed"
+    },
+    "expirationTime": {
+      "type": "string",
+      "description": "Timestamp when the image will expire"
+    },
+    "kilobytes": {
+      "type": "integer",
+      "description": "Total size of the backup image in kilobytes"
+    },
+    "numberOfFiles": {
+      "type": "integer",
+      "description": "Total number of files in the backup image"
+    },
+    "primaryCopy": {
+      "type": "integer",
+      "description": "Primary copy number for the image"
+    },
+    "copyCount": {
+      "type": "integer",
+      "description": "Total number of copies of this image"
+    },
+    "mediaServer": {
+      "type": "string",
+      "description": "Media server that performed the backup"
+    },
+    "storageUnit": {
+      "type": "string",
+      "description": "Storage unit where the image is stored"
+    },
+    "mediaId": {
+      "type": "string",
+      "description": "Media ID where the image resides"
+    },
+    "compressed": {
+      "type": "boolean",
+      "description": "Whether the image data is compressed"
+    },
+    "encrypted": {
+      "type": "boolean",
+      "description": "Whether the image data is encrypted"
+    },
+    "multiplexed": {
+      "type": "boolean",
+      "description": "Whether the image is multiplexed"
+    },
+    "retentionLevel": {
+      "type": "integer",
+      "description": "Retention level assigned to the image"
+    }
+  }
+}

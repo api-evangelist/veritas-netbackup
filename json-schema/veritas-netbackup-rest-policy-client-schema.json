@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PolicyClient",
+  "type": "object",
+  "properties": {
+    "clientName": {
+      "type": "string",
+      "description": "Hostname of the client"
+    },
+    "hardware": {
+      "type": "string",
+      "description": "Hardware type of the client"
+    },
+    "operatingSystem": {
+      "type": "string",
+      "description": "Operating system of the client"
+    },
+    "priority": {
+      "type": "integer",
+      "description": "Client priority within the policy"
+    }
+  }
+}

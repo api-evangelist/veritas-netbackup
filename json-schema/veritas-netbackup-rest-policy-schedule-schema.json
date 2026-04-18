@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PolicySchedule",
+  "type": "object",
+  "properties": {
+    "scheduleName": {
+      "type": "string",
+      "description": "Name of the schedule"
+    },
+    "scheduleType": {
+      "type": "string",
+      "description": "Type of backup for this schedule"
+    },
+    "frequency": {
+      "type": "integer",
+      "description": "Frequency in seconds between backup runs"
+    },
+    "retentionPeriod": {
+      "type": "object"
+    },
+    "storageUnit": {
+      "type": "string",
+      "description": "Name of the storage unit for this schedule"
+    },
+    "backupWindow": {
+      "type": "object"
+    },
+    "mediaMultiplexing": {
+      "type": "integer",
+      "description": "Maximum number of concurrent backup streams to a single device"
+    },
+    "syntheticBackup": {
+      "type": "boolean",
+      "description": "Whether this schedule creates synthetic backups"
+    }
+  }
+}

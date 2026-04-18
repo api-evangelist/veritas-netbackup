@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "JobAttributes",
+  "type": "object",
+  "properties": {
+    "jobId": {
+      "type": "integer"
+    },
+    "parentJobId": {
+      "type": "integer"
+    },
+    "jobType": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "status": {
+      "type": "integer"
+    },
+    "policyName": {
+      "type": "string"
+    },
+    "policyType": {
+      "type": "string"
+    },
+    "scheduleName": {
+      "type": "string"
+    },
+    "scheduleType": {
+      "type": "string"
+    },
+    "clientName": {
+      "type": "string"
+    },
+    "mediaServer": {
+      "type": "string"
+    },
+    "storageUnit": {
+      "type": "string"
+    },
+    "startTime": {
+      "type": "string"
+    },
+    "endTime": {
+      "type": "string"
+    },
+    "elapsedTime": {
+      "type": "integer"
+    },
+    "kilobytesTransferred": {
+      "type": "integer"
+    },
+    "filesTransferred": {
+      "type": "integer"
+    },
+    "percentComplete": {
+      "type": "integer"
+    },
+    "currentOperation": {
+      "type": "string"
+    },
+    "attempt": {
+      "type": "integer"
+    },
+    "restartable": {
+      "type": "boolean"
+    },
+    "suspendable": {
+      "type": "boolean"
+    },
+    "resumable": {
+      "type": "boolean"
+    },
+    "cancellable": {
+      "type": "boolean"
+    }
+  }
+}

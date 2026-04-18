@@ -1,0 +1,21 @@
+{
+  "backupId": "500123",
+  "policyName": "example_value",
+  "policyType": "example_value",
+  "clientName": "example_value",
+  "scheduleName": "example_value",
+  "scheduleType": "example_value",
+  "backupTime": "example_value",
+  "expirationTime": "example_value",
+  "kilobytes": 10,
+  "numberOfFiles": 10,
+  "primaryCopy": 10,
+  "copyCount": 10,
+  "mediaServer": "example_value",
+  "storageUnit": "example_value",
+  "mediaId": "500123",
+  "compressed": true,
+  "encrypted": true,
+  "multiplexed": true,
+  "retentionLevel": 10
+}
