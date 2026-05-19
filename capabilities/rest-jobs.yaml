@@ -1,0 +1,439 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Veritas NetBackup REST API — Jobs
+  description: 'Veritas NetBackup REST API — Jobs. 9 operations. Lead operation: Veritas Netbackup List Backup Jobs. Self-contained
+    Naftiko capability covering one Veritas Netbackup business surface.'
+  tags:
+  - Veritas Netbackup
+  - Jobs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    VERITAS_NETBACKUP_API_KEY: VERITAS_NETBACKUP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-jobs
+    baseUri: https://{primaryServer}:1556/netbackup
+    description: Veritas NetBackup REST API — Jobs business capability. Self-contained, no shared references.
+    resources:
+    - name: admin-jobs
+      path: /admin/jobs
+      operations:
+      - name: listjobs
+        method: GET
+        description: Veritas Netbackup List Backup Jobs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page[limit]
+          in: query
+          type: integer
+          description: Maximum number of jobs to return per page
+        - name: page[offset]
+          in: query
+          type: integer
+          description: Number of jobs to skip for pagination
+        - name: filter
+          in: query
+          type: string
+          description: 'OData-style filter expression to narrow results. Supported fields include jobType, state, policyName,
+            clientName, status, and startTime. Example: jobType eq ''BA'
+        - name: sort
+          in: query
+          type: string
+          description: 'Comma-separated list of fields to sort by. Prefix with a hyphen for descending order. Example: -startTime,jobId'
+    - name: admin-jobs-jobId
+      path: /admin/jobs/{jobId}
+      operations:
+      - name: getjob
+        method: GET
+        description: Veritas Netbackup Get Job Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: jobId
+          in: path
+          type: string
+          description: The unique identifier of the job
+          required: true
+      - name: deletejob
+        method: DELETE
+        description: Veritas Netbackup Delete a Job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: jobId
+          in: path
+          type: string
+          description: The unique identifier of the job to delete
+          required: true
+    - name: admin-jobs-jobId-cancel
+      path: /admin/jobs/{jobId}/cancel
+      operations:
+      - name: canceljob
+        method: POST
+        description: Veritas Netbackup Cancel a Running Job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: jobId
+          in: path
+          type: string
+          description: The unique identifier of the job to cancel
+          required: true
+    - name: admin-jobs-jobId-file-lists
+      path: /admin/jobs/{jobId}/file-lists
+      operations:
+      - name: getjobfilelist
+        method: GET
+        description: Veritas Netbackup Get the File List for a Job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: jobId
+          in: path
+          type: string
+          description: The unique identifier of the job
+          required: true
+        - name: page[limit]
+          in: query
+          type: integer
+          description: Maximum number of file entries to return
+        - name: page[offset]
+          in: query
+          type: integer
+          description: Number of entries to skip for pagination
+    - name: admin-jobs-jobId-restart
+      path: /admin/jobs/{jobId}/restart
+      operations:
+      - name: restartjob
+        method: POST
+        description: Veritas Netbackup Restart a Failed Job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: jobId
+          in: path
+          type: string
+          description: The unique identifier of the job to restart
+          required: true
+    - name: admin-jobs-jobId-resume
+      path: /admin/jobs/{jobId}/resume
+      operations:
+      - name: resumejob
+        method: POST
+        description: Veritas Netbackup Resume a Suspended Job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: jobId
+          in: path
+          type: string
+          description: The unique identifier of the job to resume
+          required: true
+    - name: admin-jobs-jobId-suspend
+      path: /admin/jobs/{jobId}/suspend
+      operations:
+      - name: suspendjob
+        method: POST
+        description: Veritas Netbackup Suspend a Running Job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: jobId
+          in: path
+          type: string
+          description: The unique identifier of the job to suspend
+          required: true
+    - name: admin-jobs-jobId-try-logs
+      path: /admin/jobs/{jobId}/try-logs
+      operations:
+      - name: getjobtrylogs
+        method: GET
+        description: Veritas Netbackup Get Try Logs for a Job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: jobId
+          in: path
+          type: string
+          description: The unique identifier of the job
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.VERITAS_NETBACKUP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-jobs-rest
+    port: 8080
+    description: REST adapter for Veritas NetBackup REST API — Jobs. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/admin/jobs
+      name: admin-jobs
+      description: REST surface for admin-jobs.
+      operations:
+      - method: GET
+        name: listjobs
+        description: Veritas Netbackup List Backup Jobs
+        call: rest-jobs.listjobs
+        with:
+          page[limit]: rest.page[limit]
+          page[offset]: rest.page[offset]
+          filter: rest.filter
+          sort: rest.sort
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/jobs/{jobid}
+      name: admin-jobs-jobid
+      description: REST surface for admin-jobs-jobId.
+      operations:
+      - method: GET
+        name: getjob
+        description: Veritas Netbackup Get Job Details
+        call: rest-jobs.getjob
+        with:
+          jobId: rest.jobId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletejob
+        description: Veritas Netbackup Delete a Job
+        call: rest-jobs.deletejob
+        with:
+          jobId: rest.jobId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/jobs/{jobid}/cancel
+      name: admin-jobs-jobid-cancel
+      description: REST surface for admin-jobs-jobId-cancel.
+      operations:
+      - method: POST
+        name: canceljob
+        description: Veritas Netbackup Cancel a Running Job
+        call: rest-jobs.canceljob
+        with:
+          jobId: rest.jobId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/jobs/{jobid}/file-lists
+      name: admin-jobs-jobid-file-lists
+      description: REST surface for admin-jobs-jobId-file-lists.
+      operations:
+      - method: GET
+        name: getjobfilelist
+        description: Veritas Netbackup Get the File List for a Job
+        call: rest-jobs.getjobfilelist
+        with:
+          jobId: rest.jobId
+          page[limit]: rest.page[limit]
+          page[offset]: rest.page[offset]
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/jobs/{jobid}/restart
+      name: admin-jobs-jobid-restart
+      description: REST surface for admin-jobs-jobId-restart.
+      operations:
+      - method: POST
+        name: restartjob
+        description: Veritas Netbackup Restart a Failed Job
+        call: rest-jobs.restartjob
+        with:
+          jobId: rest.jobId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/jobs/{jobid}/resume
+      name: admin-jobs-jobid-resume
+      description: REST surface for admin-jobs-jobId-resume.
+      operations:
+      - method: POST
+        name: resumejob
+        description: Veritas Netbackup Resume a Suspended Job
+        call: rest-jobs.resumejob
+        with:
+          jobId: rest.jobId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/jobs/{jobid}/suspend
+      name: admin-jobs-jobid-suspend
+      description: REST surface for admin-jobs-jobId-suspend.
+      operations:
+      - method: POST
+        name: suspendjob
+        description: Veritas Netbackup Suspend a Running Job
+        call: rest-jobs.suspendjob
+        with:
+          jobId: rest.jobId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/jobs/{jobid}/try-logs
+      name: admin-jobs-jobid-try-logs
+      description: REST surface for admin-jobs-jobId-try-logs.
+      operations:
+      - method: GET
+        name: getjobtrylogs
+        description: Veritas Netbackup Get Try Logs for a Job
+        call: rest-jobs.getjobtrylogs
+        with:
+          jobId: rest.jobId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-jobs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Veritas NetBackup REST API — Jobs. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: veritas-netbackup-list-backup-jobs
+      description: Veritas Netbackup List Backup Jobs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-jobs.listjobs
+      with:
+        page[limit]: tools.page[limit]
+        page[offset]: tools.page[offset]
+        filter: tools.filter
+        sort: tools.sort
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: veritas-netbackup-get-job-details
+      description: Veritas Netbackup Get Job Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-jobs.getjob
+      with:
+        jobId: tools.jobId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: veritas-netbackup-delete-job
+      description: Veritas Netbackup Delete a Job
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-jobs.deletejob
+      with:
+        jobId: tools.jobId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: veritas-netbackup-cancel-running-job
+      description: Veritas Netbackup Cancel a Running Job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-jobs.canceljob
+      with:
+        jobId: tools.jobId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: veritas-netbackup-get-file-list
+      description: Veritas Netbackup Get the File List for a Job
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-jobs.getjobfilelist
+      with:
+        jobId: tools.jobId
+        page[limit]: tools.page[limit]
+        page[offset]: tools.page[offset]
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: veritas-netbackup-restart-failed-job
+      description: Veritas Netbackup Restart a Failed Job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-jobs.restartjob
+      with:
+        jobId: tools.jobId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: veritas-netbackup-resume-suspended-job
+      description: Veritas Netbackup Resume a Suspended Job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-jobs.resumejob
+      with:
+        jobId: tools.jobId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: veritas-netbackup-suspend-running-job
+      description: Veritas Netbackup Suspend a Running Job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-jobs.suspendjob
+      with:
+        jobId: tools.jobId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: veritas-netbackup-get-try-logs
+      description: Veritas Netbackup Get Try Logs for a Job
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-jobs.getjobtrylogs
+      with:
+        jobId: tools.jobId
+      outputParameters:
+      - type: object
+        mapping: $.
