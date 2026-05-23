@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ImageResource",
+  "title": "ImageResource",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "backupImage"
+        },
+        "id": {
+          "type": "string",
+          "description": "The backup ID"
+        },
+        "attributes": {
+          "$ref": "#/components/schemas/ImageAttributes"
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "self": {
+              "type": "object",
+              "properties": {
+                "href": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          }
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

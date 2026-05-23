@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ImageContentsResponse",
+  "title": "ImageContentsResponse",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "imageContent"
+          },
+          "id": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "description": "Full path of the file or directory"
+              },
+              "fileType": {
+                "type": "string",
+                "description": "Type of the entry",
+                "enum": [
+                  "FILE",
+                  "DIRECTORY",
+                  "SYMLINK"
+                ]
+              },
+              "size": {
+                "type": "integer",
+                "description": "Size of the file in bytes"
+              },
+              "lastModified": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Last modification time of the file"
+              },
+              "permissions": {
+                "type": "string",
+                "description": "File permissions in octal notation"
+              },
+              "owner": {
+                "type": "string",
+                "description": "File owner"
+              },
+              "group": {
+                "type": "string",
+                "description": "File group"
+              }
+            }
+          }
+        }
+      },
+      "example": []
+    },
+    "meta": {
+      "$ref": "#/components/schemas/PaginationMeta"
+    }
+  }
+}

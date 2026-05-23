@@ -1,0 +1,66 @@
+{
+  "operationId": "getClient",
+  "method": "GET",
+  "path": "/config/hosts/{hostId}",
+  "summary": "Veritas Netbackup Get Client Details",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Getclient200Example",
+      "example": {
+        "data": {
+          "type": "example_value",
+          "id": "abc123",
+          "attributes": {
+            "hostName": "example_value",
+            "hostType": "CLIENT",
+            "os": "example_value",
+            "platform": "example_value",
+            "version": "example_value",
+            "fingerprintSha256": "example_value",
+            "trustLevel": "UNKNOWN",
+            "communicationStatus": "ONLINE",
+            "lastConnectedTime": "2026-01-15T10:30:00Z"
+          },
+          "links": {
+            "self": {
+              "href": "https://www.example.com"
+            }
+          }
+        }
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Getclient401Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    },
+    {
+      "status": "404",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Getclient404Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

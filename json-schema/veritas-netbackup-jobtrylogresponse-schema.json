@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/JobTryLogResponse",
+  "title": "JobTryLogResponse",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "jobTryLogEntry"
+          },
+          "id": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "tryNumber": {
+                "type": "integer",
+                "description": "Attempt number"
+              },
+              "pid": {
+                "type": "integer",
+                "description": "Process ID"
+              },
+              "statusCode": {
+                "type": "integer",
+                "description": "Status code for this attempt"
+              },
+              "statusMessage": {
+                "type": "string",
+                "description": "Human-readable status message"
+              },
+              "startTime": {
+                "type": "string",
+                "format": "date-time",
+                "description": "When this attempt started"
+              },
+              "endTime": {
+                "type": "string",
+                "format": "date-time",
+                "description": "When this attempt ended"
+              },
+              "mediaServer": {
+                "type": "string",
+                "description": "Media server used for this attempt"
+              },
+              "storageUnit": {
+                "type": "string",
+                "description": "Storage unit used for this attempt"
+              },
+              "kilobytesTransferred": {
+                "type": "integer",
+                "description": "Data transferred in this attempt"
+              },
+              "filesTransferred": {
+                "type": "integer",
+                "description": "Files processed in this attempt"
+              }
+            }
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

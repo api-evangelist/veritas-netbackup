@@ -1,0 +1,64 @@
+{
+  "operationId": "getJobTryLogs",
+  "method": "GET",
+  "path": "/admin/jobs/{jobId}/try-logs",
+  "summary": "Veritas Netbackup Get Try Logs for a Job",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Getjobtrylogs200Example",
+      "example": {
+        "data": [
+          {
+            "type": "example_value",
+            "id": "abc123",
+            "attributes": {
+              "tryNumber": 10,
+              "pid": "500123",
+              "statusCode": 10,
+              "statusMessage": "example_value",
+              "startTime": "2026-01-15T10:30:00Z",
+              "endTime": "2026-01-15T10:30:00Z",
+              "mediaServer": "example_value",
+              "storageUnit": "example_value",
+              "kilobytesTransferred": 10,
+              "filesTransferred": 10
+            }
+          }
+        ]
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Getjobtrylogs401Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    },
+    {
+      "status": "404",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Getjobtrylogs404Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

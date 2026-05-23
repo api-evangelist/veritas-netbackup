@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LoginRequest",
+  "title": "LoginRequest",
+  "type": "object",
+  "required": [
+    "domainName",
+    "domainType",
+    "userName",
+    "password"
+  ],
+  "properties": {
+    "domainName": {
+      "type": "string",
+      "description": "The authentication domain name (e.g., the NetBackup primary server hostname)",
+      "example": "example_value"
+    },
+    "domainType": {
+      "type": "string",
+      "description": "The type of authentication domain",
+      "enum": [
+        "unixpwd",
+        "nt",
+        "ldap",
+        "vx"
+      ],
+      "example": "unixpwd"
+    },
+    "userName": {
+      "type": "string",
+      "description": "The user account name",
+      "example": "example_value"
+    },
+    "password": {
+      "type": "string",
+      "description": "The user account password",
+      "format": "password",
+      "example": "example_value"
+    }
+  }
+}

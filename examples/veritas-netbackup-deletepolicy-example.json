@@ -1,0 +1,39 @@
+{
+  "operationId": "deletePolicy",
+  "method": "DELETE",
+  "path": "/config/policies/{policyName}",
+  "summary": "Veritas Netbackup Delete a Backup Policy",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "401",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Deletepolicy401Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    },
+    {
+      "status": "404",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Deletepolicy404Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

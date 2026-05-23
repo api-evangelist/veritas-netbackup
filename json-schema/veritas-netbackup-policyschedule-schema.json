@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PolicySchedule",
+  "title": "PolicySchedule",
+  "type": "object",
+  "properties": {
+    "scheduleName": {
+      "type": "string",
+      "description": "Name of the schedule",
+      "example": "example_value"
+    },
+    "scheduleType": {
+      "type": "string",
+      "description": "Type of backup for this schedule",
+      "enum": [
+        "FULL",
+        "INCR",
+        "DIFF_INCR",
+        "CINC",
+        "USER_BACKUP",
+        "USER_ARCHIVE"
+      ],
+      "example": "FULL"
+    },
+    "frequency": {
+      "type": "integer",
+      "description": "Frequency in seconds between backup runs",
+      "example": 10
+    },
+    "retentionPeriod": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "integer",
+          "description": "Retention period value"
+        },
+        "unit": {
+          "type": "string",
+          "description": "Time unit for retention",
+          "enum": [
+            "DAYS",
+            "WEEKS",
+            "MONTHS",
+            "YEARS",
+            "INFINITE"
+          ]
+        }
+      },
+      "example": "example_value"
+    },
+    "storageUnit": {
+      "type": "string",
+      "description": "Name of the storage unit for this schedule",
+      "example": "example_value"
+    },
+    "backupWindow": {
+      "type": "object",
+      "properties": {
+        "startSeconds": {
+          "type": "integer",
+          "description": "Start of the backup window in seconds from midnight"
+        },
+        "durationSeconds": {
+          "type": "integer",
+          "description": "Duration of the backup window in seconds"
+        },
+        "dayOfWeek": {
+          "type": "integer",
+          "description": "Day of the week (0=Sunday through 6=Saturday)"
+        }
+      },
+      "example": "example_value"
+    },
+    "mediaMultiplexing": {
+      "type": "integer",
+      "description": "Maximum number of concurrent backup streams to a single device",
+      "example": 10
+    },
+    "syntheticBackup": {
+      "type": "boolean",
+      "description": "Whether this schedule creates synthetic backups",
+      "example": true
+    }
+  }
+}

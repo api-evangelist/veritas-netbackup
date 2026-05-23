@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PolicyCreateRequest",
+  "title": "PolicyCreateRequest",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "object",
+      "required": [
+        "type",
+        "id",
+        "attributes"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "policy"
+        },
+        "id": {
+          "type": "string",
+          "description": "Policy name (must be unique)"
+        },
+        "attributes": {
+          "type": "object",
+          "required": [
+            "policy"
+          ],
+          "properties": {
+            "policy": {
+              "type": "object",
+              "required": [
+                "policyName",
+                "policyType"
+              ],
+              "properties": {
+                "policyName": {
+                  "type": "string",
+                  "description": "Unique policy name"
+                },
+                "policyType": {
+                  "type": "string",
+                  "description": "Type of the policy"
+                },
+                "policyAttributes": {
+                  "$ref": "#/components/schemas/PolicyAttributes"
+                },
+                "clients": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PolicyClient"
+                  }
+                },
+                "schedules": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PolicySchedule"
+                  }
+                },
+                "backupSelections": {
+                  "type": "object",
+                  "properties": {
+                    "selections": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "File paths or directives to back up"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

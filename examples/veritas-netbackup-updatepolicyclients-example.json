@@ -1,0 +1,69 @@
+{
+  "operationId": "updatePolicyClients",
+  "method": "PUT",
+  "path": "/config/policies/{policyName}/clients",
+  "summary": "Veritas Netbackup Update Clients in a Policy",
+  "requestExamples": [
+    {
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "UpdatepolicyclientsRequestExample",
+      "example": {
+        "data": {
+          "type": "example_value",
+          "attributes": {
+            "clients": [
+              {}
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "400",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Updatepolicyclients400Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Updatepolicyclients401Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    },
+    {
+      "status": "404",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Updatepolicyclients404Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "operationId": "listClients",
+  "method": "GET",
+  "path": "/config/hosts",
+  "summary": "Veritas Netbackup List Netbackup Clients",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Listclients200Example",
+      "example": {
+        "data": [
+          {
+            "type": "example_value",
+            "id": "abc123",
+            "links": {
+              "self": {}
+            }
+          }
+        ],
+        "meta": {
+          "pagination": {
+            "page[limit]": 10,
+            "page[offset]": 10,
+            "count": 10,
+            "last": 10
+          }
+        }
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Listclients401Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

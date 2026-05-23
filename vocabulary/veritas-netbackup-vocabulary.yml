@@ -1,0 +1,19 @@
+name: Veritas NetBackup Domain Vocabulary
+provider: Veritas NetBackup
+providerId: veritas-netbackup
+description: Tag-derived vocabulary for the Veritas NetBackup API surface; sourced from openapi/ tags.
+terms:
+- term: Clients
+  description: Manage NetBackup clients including listing registered clients, retrieving client configuration details, and
+    managing client-server trust relationships.
+- term: Images
+  description: Query the NetBackup image catalog to retrieve backup image metadata, search for images by policy or client,
+    and manage image lifecycle operations such as expiration and duplication.
+- term: Jobs
+  description: Manage and monitor backup, restore, and administrative jobs. Retrieve job details, list jobs by filter criteria,
+    cancel, restart, suspend, and resume jobs, and access job file lists and try logs.
+- term: Login
+  description: Authenticate to the NetBackup REST API and obtain a JSON Web Token for subsequent API requests.
+- term: Policies
+  description: Create, retrieve, update, and delete backup policies. Manage policy schedules, client lists, and backup selections
+    that define what data gets backed up, when, and how.

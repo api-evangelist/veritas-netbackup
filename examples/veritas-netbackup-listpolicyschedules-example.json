@@ -1,0 +1,52 @@
+{
+  "operationId": "listPolicySchedules",
+  "method": "GET",
+  "path": "/config/policies/{policyName}/schedules",
+  "summary": "Veritas Netbackup List Schedules in a Policy",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Listpolicyschedules200Example",
+      "example": {
+        "data": [
+          {
+            "type": "example_value",
+            "id": "abc123"
+          }
+        ]
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Listpolicyschedules401Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    },
+    {
+      "status": "404",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Listpolicyschedules404Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

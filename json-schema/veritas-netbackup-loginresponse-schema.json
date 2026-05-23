@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LoginResponse",
+  "title": "LoginResponse",
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "string",
+      "description": "JSON Web Token for authenticating subsequent API requests",
+      "example": "example_value"
+    },
+    "tokenType": {
+      "type": "string",
+      "description": "The token type",
+      "enum": [
+        "BEARER"
+      ],
+      "example": "BEARER"
+    },
+    "validity": {
+      "type": "integer",
+      "description": "Token validity period in seconds",
+      "example": 10
+    }
+  }
+}

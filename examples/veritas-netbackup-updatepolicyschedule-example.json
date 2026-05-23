@@ -1,0 +1,81 @@
+{
+  "operationId": "updatePolicySchedule",
+  "method": "PUT",
+  "path": "/config/policies/{policyName}/schedules/{scheduleName}",
+  "summary": "Veritas Netbackup Create or Update a Policy Schedule",
+  "requestExamples": [
+    {
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "UpdatepolicyscheduleRequestExample",
+      "example": {
+        "data": {
+          "type": "example_value",
+          "id": "abc123",
+          "attributes": {
+            "scheduleName": "example_value",
+            "scheduleType": "FULL",
+            "frequency": 10,
+            "retentionPeriod": {},
+            "storageUnit": "example_value",
+            "backupWindow": {},
+            "mediaMultiplexing": 10,
+            "syntheticBackup": true
+          }
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Updatepolicyschedule201Example",
+      "example": {
+        "data": {
+          "type": "example_value",
+          "id": "abc123",
+          "attributes": {
+            "scheduleName": "example_value",
+            "scheduleType": "FULL",
+            "frequency": 10,
+            "retentionPeriod": {},
+            "storageUnit": "example_value",
+            "backupWindow": {},
+            "mediaMultiplexing": 10,
+            "syntheticBackup": true
+          }
+        }
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Updatepolicyschedule401Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    },
+    {
+      "status": "404",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Updatepolicyschedule404Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/JobResource",
+  "title": "JobResource",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "job"
+        },
+        "id": {
+          "type": "string",
+          "description": "The job ID"
+        },
+        "attributes": {
+          "$ref": "#/components/schemas/JobAttributes"
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "self": {
+              "type": "object",
+              "properties": {
+                "href": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Link to this job resource"
+                }
+              }
+            }
+          }
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

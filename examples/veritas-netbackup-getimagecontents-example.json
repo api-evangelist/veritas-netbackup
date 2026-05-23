@@ -1,0 +1,69 @@
+{
+  "operationId": "getImageContents",
+  "method": "GET",
+  "path": "/catalog/images/{backupId}/contents",
+  "summary": "Veritas Netbackup Get Backup Image File Contents",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Getimagecontents200Example",
+      "example": {
+        "data": [
+          {
+            "type": "example_value",
+            "id": "abc123",
+            "attributes": {
+              "path": "example_value",
+              "fileType": "FILE",
+              "size": 10,
+              "lastModified": "2026-01-15T10:30:00Z",
+              "permissions": "example_value",
+              "owner": "example_value",
+              "group": "example_value"
+            }
+          }
+        ],
+        "meta": {
+          "pagination": {
+            "page[limit]": 10,
+            "page[offset]": 10,
+            "count": 10,
+            "last": 10
+          }
+        }
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Getimagecontents401Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    },
+    {
+      "status": "404",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Getimagecontents404Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

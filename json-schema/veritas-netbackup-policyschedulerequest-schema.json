@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PolicyScheduleRequest",
+  "title": "PolicyScheduleRequest",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "object",
+      "required": [
+        "type",
+        "id",
+        "attributes"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "policySchedule"
+        },
+        "id": {
+          "type": "string",
+          "description": "Schedule name"
+        },
+        "attributes": {
+          "$ref": "#/components/schemas/PolicySchedule"
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

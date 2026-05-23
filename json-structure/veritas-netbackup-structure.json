@@ -1,0 +1,428 @@
+{
+  "provider": "Veritas NetBackup",
+  "providerId": "veritas-netbackup",
+  "kind": "json-structure",
+  "description": "Structural overview of the Veritas NetBackup API surface; extracted from openapi/.",
+  "schemaCount": 27,
+  "operationCount": 27,
+  "schemas": [
+    {
+      "name": "LoginRequest",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "domainName",
+        "domainType",
+        "userName",
+        "password"
+      ]
+    },
+    {
+      "name": "LoginResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ErrorResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "PaginationMeta",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "JobAttributes",
+      "type": "object",
+      "propertyCount": 24,
+      "required": []
+    },
+    {
+      "name": "JobResource",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "JobListResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "JobFileListResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "JobTryLogResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "PolicyAttributes",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "PolicyCreateRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "data"
+      ]
+    },
+    {
+      "name": "PolicyResource",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "PolicyListResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "PolicyClient",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "PolicyClientListResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "PolicyClientListRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "data"
+      ]
+    },
+    {
+      "name": "PolicySchedule",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "PolicyScheduleResource",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "PolicyScheduleListResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "PolicyScheduleRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "data"
+      ]
+    },
+    {
+      "name": "ClientAttributes",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "ClientResource",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ClientListResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "ImageAttributes",
+      "type": "object",
+      "propertyCount": 19,
+      "required": []
+    },
+    {
+      "name": "ImageResource",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ImageListResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "ImageContentsResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "POST",
+      "path": "/login",
+      "operationId": "login",
+      "summary": "Veritas Netbackup Authenticate and Obtain a Jwt",
+      "tags": [
+        "Login"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/admin/jobs",
+      "operationId": "listJobs",
+      "summary": "Veritas Netbackup List Backup Jobs",
+      "tags": [
+        "Jobs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/admin/jobs/{jobId}",
+      "operationId": "getJob",
+      "summary": "Veritas Netbackup Get Job Details",
+      "tags": [
+        "Jobs"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/jobs/{jobId}",
+      "operationId": "deleteJob",
+      "summary": "Veritas Netbackup Delete a Job",
+      "tags": [
+        "Jobs"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/admin/jobs/{jobId}/cancel",
+      "operationId": "cancelJob",
+      "summary": "Veritas Netbackup Cancel a Running Job",
+      "tags": [
+        "Jobs"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/admin/jobs/{jobId}/suspend",
+      "operationId": "suspendJob",
+      "summary": "Veritas Netbackup Suspend a Running Job",
+      "tags": [
+        "Jobs"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/admin/jobs/{jobId}/resume",
+      "operationId": "resumeJob",
+      "summary": "Veritas Netbackup Resume a Suspended Job",
+      "tags": [
+        "Jobs"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/admin/jobs/{jobId}/restart",
+      "operationId": "restartJob",
+      "summary": "Veritas Netbackup Restart a Failed Job",
+      "tags": [
+        "Jobs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/admin/jobs/{jobId}/file-lists",
+      "operationId": "getJobFileList",
+      "summary": "Veritas Netbackup Get the File List for a Job",
+      "tags": [
+        "Jobs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/admin/jobs/{jobId}/try-logs",
+      "operationId": "getJobTryLogs",
+      "summary": "Veritas Netbackup Get Try Logs for a Job",
+      "tags": [
+        "Jobs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/config/policies",
+      "operationId": "listPolicies",
+      "summary": "Veritas Netbackup List Backup Policies",
+      "tags": [
+        "Policies"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/config/policies",
+      "operationId": "createPolicy",
+      "summary": "Veritas Netbackup Create a Backup Policy",
+      "tags": [
+        "Policies"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/config/policies/{policyName}",
+      "operationId": "getPolicy",
+      "summary": "Veritas Netbackup Get a Backup Policy",
+      "tags": [
+        "Policies"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/config/policies/{policyName}",
+      "operationId": "updatePolicy",
+      "summary": "Veritas Netbackup Update a Backup Policy",
+      "tags": [
+        "Policies"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/config/policies/{policyName}",
+      "operationId": "deletePolicy",
+      "summary": "Veritas Netbackup Delete a Backup Policy",
+      "tags": [
+        "Policies"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/config/policies/{policyName}/clients",
+      "operationId": "listPolicyClients",
+      "summary": "Veritas Netbackup List Clients in a Policy",
+      "tags": [
+        "Policies"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/config/policies/{policyName}/clients",
+      "operationId": "updatePolicyClients",
+      "summary": "Veritas Netbackup Update Clients in a Policy",
+      "tags": [
+        "Policies"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/config/policies/{policyName}/schedules",
+      "operationId": "listPolicySchedules",
+      "summary": "Veritas Netbackup List Schedules in a Policy",
+      "tags": [
+        "Policies"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/config/policies/{policyName}/schedules/{scheduleName}",
+      "operationId": "getPolicySchedule",
+      "summary": "Veritas Netbackup Get a Specific Policy Schedule",
+      "tags": [
+        "Policies"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/config/policies/{policyName}/schedules/{scheduleName}",
+      "operationId": "updatePolicySchedule",
+      "summary": "Veritas Netbackup Create or Update a Policy Schedule",
+      "tags": [
+        "Policies"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/config/policies/{policyName}/schedules/{scheduleName}",
+      "operationId": "deletePolicySchedule",
+      "summary": "Veritas Netbackup Delete a Policy Schedule",
+      "tags": [
+        "Policies"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/config/hosts",
+      "operationId": "listClients",
+      "summary": "Veritas Netbackup List Netbackup Clients",
+      "tags": [
+        "Clients"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/config/hosts/{hostId}",
+      "operationId": "getClient",
+      "summary": "Veritas Netbackup Get Client Details",
+      "tags": [
+        "Clients"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/catalog/images",
+      "operationId": "listImages",
+      "summary": "Veritas Netbackup List Backup Images",
+      "tags": [
+        "Images"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/catalog/images/{backupId}",
+      "operationId": "getImage",
+      "summary": "Veritas Netbackup Get Backup Image Details",
+      "tags": [
+        "Images"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/catalog/images/{backupId}",
+      "operationId": "expireImage",
+      "summary": "Veritas Netbackup Expire a Backup Image",
+      "tags": [
+        "Images"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/catalog/images/{backupId}/contents",
+      "operationId": "getImageContents",
+      "summary": "Veritas Netbackup Get Backup Image File Contents",
+      "tags": [
+        "Images"
+      ]
+    }
+  ]
+}

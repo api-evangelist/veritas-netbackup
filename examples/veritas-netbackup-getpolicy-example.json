@@ -1,0 +1,64 @@
+{
+  "operationId": "getPolicy",
+  "method": "GET",
+  "path": "/config/policies/{policyName}",
+  "summary": "Veritas Netbackup Get a Backup Policy",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Getpolicy200Example",
+      "example": {
+        "data": {
+          "type": "example_value",
+          "id": "abc123",
+          "attributes": {
+            "policy": {
+              "policyName": "example_value",
+              "policyType": "example_value",
+              "clients": {},
+              "schedules": {},
+              "backupSelections": {}
+            }
+          },
+          "links": {
+            "self": {
+              "href": "https://www.example.com"
+            }
+          }
+        }
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Getpolicy401Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    },
+    {
+      "status": "404",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Getpolicy404Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ErrorResponse",
+  "title": "ErrorResponse",
+  "type": "object",
+  "properties": {
+    "errorCode": {
+      "type": "integer",
+      "description": "Numeric error code",
+      "example": 10
+    },
+    "errorMessage": {
+      "type": "string",
+      "description": "Human-readable error description",
+      "example": "example_value"
+    },
+    "details": {
+      "type": "array",
+      "description": "Additional error details",
+      "items": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "integer",
+            "description": "Detailed error code"
+          },
+          "errorMessage": {
+            "type": "string",
+            "description": "Detailed error message"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ImageAttributes",
+  "title": "ImageAttributes",
+  "type": "object",
+  "description": "Attributes of a NetBackup backup image",
+  "properties": {
+    "backupId": {
+      "type": "string",
+      "description": "Unique identifier for the backup image",
+      "example": "500123"
+    },
+    "policyName": {
+      "type": "string",
+      "description": "Name of the policy that created this image",
+      "example": "example_value"
+    },
+    "policyType": {
+      "type": "string",
+      "description": "Type of the policy",
+      "example": "example_value"
+    },
+    "clientName": {
+      "type": "string",
+      "description": "Client hostname that was backed up",
+      "example": "example_value"
+    },
+    "scheduleName": {
+      "type": "string",
+      "description": "Schedule name that triggered the backup",
+      "example": "example_value"
+    },
+    "scheduleType": {
+      "type": "string",
+      "description": "Type of the schedule",
+      "enum": [
+        "FULL",
+        "INCR",
+        "DIFF_INCR",
+        "CINC",
+        "USER_BACKUP",
+        "USER_ARCHIVE"
+      ],
+      "example": "FULL"
+    },
+    "backupTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the backup was performed",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "expirationTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the image will expire",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "kilobytes": {
+      "type": "integer",
+      "description": "Total size of the backup image in kilobytes",
+      "example": 10
+    },
+    "numberOfFiles": {
+      "type": "integer",
+      "description": "Total number of files in the backup image",
+      "example": 10
+    },
+    "primaryCopy": {
+      "type": "integer",
+      "description": "Primary copy number for the image",
+      "example": 10
+    },
+    "copyCount": {
+      "type": "integer",
+      "description": "Total number of copies of this image",
+      "example": 10
+    },
+    "mediaServer": {
+      "type": "string",
+      "description": "Media server that performed the backup",
+      "example": "example_value"
+    },
+    "storageUnit": {
+      "type": "string",
+      "description": "Storage unit where the image is stored",
+      "example": "example_value"
+    },
+    "mediaId": {
+      "type": "string",
+      "description": "Media ID where the image resides",
+      "example": "500123"
+    },
+    "compressed": {
+      "type": "boolean",
+      "description": "Whether the image data is compressed",
+      "example": true
+    },
+    "encrypted": {
+      "type": "boolean",
+      "description": "Whether the image data is encrypted",
+      "example": true
+    },
+    "multiplexed": {
+      "type": "boolean",
+      "description": "Whether the image is multiplexed",
+      "example": true
+    },
+    "retentionLevel": {
+      "type": "integer",
+      "description": "Retention level assigned to the image",
+      "minimum": 0,
+      "maximum": 24,
+      "example": 10
+    }
+  }
+}

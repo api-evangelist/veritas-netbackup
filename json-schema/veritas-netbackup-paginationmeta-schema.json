@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PaginationMeta",
+  "title": "PaginationMeta",
+  "type": "object",
+  "properties": {
+    "pagination": {
+      "type": "object",
+      "properties": {
+        "page[limit]": {
+          "type": "integer",
+          "description": "The maximum number of items per page"
+        },
+        "page[offset]": {
+          "type": "integer",
+          "description": "The current offset"
+        },
+        "count": {
+          "type": "integer",
+          "description": "Total number of items matching the query"
+        },
+        "last": {
+          "type": "integer",
+          "description": "Offset of the last page"
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

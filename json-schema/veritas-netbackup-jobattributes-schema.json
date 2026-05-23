@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/JobAttributes",
+  "title": "JobAttributes",
+  "type": "object",
+  "description": "Attributes of a NetBackup job",
+  "properties": {
+    "jobId": {
+      "type": "integer",
+      "description": "Unique identifier for the job",
+      "example": "500123"
+    },
+    "parentJobId": {
+      "type": "integer",
+      "description": "Identifier of the parent job, if this is a child job",
+      "example": "500123"
+    },
+    "jobType": {
+      "type": "string",
+      "description": "The type of job",
+      "enum": [
+        "BACKUP",
+        "RESTORE",
+        "DUPLICATE",
+        "IMPORT",
+        "VAULT",
+        "DBBACKUP",
+        "LABEL",
+        "ERASE",
+        "VERIFY",
+        "INVENTORY"
+      ],
+      "example": "BACKUP"
+    },
+    "state": {
+      "type": "string",
+      "description": "Current state of the job",
+      "enum": [
+        "QUEUED",
+        "ACTIVE",
+        "RE_QUEUED",
+        "DONE",
+        "SUSPENDED",
+        "INCOMPLETE",
+        "WAITING_FOR_RETRY"
+      ],
+      "example": "QUEUED"
+    },
+    "status": {
+      "type": "integer",
+      "description": "Exit status code of the job. A value of 0 indicates success.",
+      "example": 10
+    },
+    "policyName": {
+      "type": "string",
+      "description": "Name of the policy associated with the job",
+      "example": "example_value"
+    },
+    "policyType": {
+      "type": "string",
+      "description": "Type of the policy (e.g., Standard, VMware, Oracle)",
+      "example": "example_value"
+    },
+    "scheduleName": {
+      "type": "string",
+      "description": "Name of the schedule that triggered the job",
+      "example": "example_value"
+    },
+    "scheduleType": {
+      "type": "string",
+      "description": "Type of the schedule",
+      "enum": [
+        "FULL",
+        "INCR",
+        "DIFF_INCR",
+        "CINC",
+        "USER_BACKUP",
+        "USER_ARCHIVE"
+      ],
+      "example": "FULL"
+    },
+    "clientName": {
+      "type": "string",
+      "description": "Hostname of the client being backed up or restored",
+      "example": "example_value"
+    },
+    "mediaServer": {
+      "type": "string",
+      "description": "Hostname of the media server processing the job",
+      "example": "example_value"
+    },
+    "storageUnit": {
+      "type": "string",
+      "description": "Name of the storage unit used by the job",
+      "example": "example_value"
+    },
+    "startTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the job started",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "endTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the job completed or was last updated",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "elapsedTime": {
+      "type": "integer",
+      "description": "Total elapsed time in seconds",
+      "example": 10
+    },
+    "kilobytesTransferred": {
+      "type": "integer",
+      "description": "Total kilobytes of data transferred",
+      "example": 10
+    },
+    "filesTransferred": {
+      "type": "integer",
+      "description": "Total number of files processed",
+      "example": 10
+    },
+    "percentComplete": {
+      "type": "integer",
+      "description": "Completion percentage (0-100)",
+      "minimum": 0,
+      "maximum": 100,
+      "example": 10
+    },
+    "currentOperation": {
+      "type": "string",
+      "description": "Description of the operation currently being performed",
+      "example": "example_value"
+    },
+    "attempt": {
+      "type": "integer",
+      "description": "Current attempt number for the job",
+      "example": 10
+    },
+    "restartable": {
+      "type": "boolean",
+      "description": "Whether the job can be restarted",
+      "example": true
+    },
+    "suspendable": {
+      "type": "boolean",
+      "description": "Whether the job can be suspended",
+      "example": true
+    },
+    "resumable": {
+      "type": "boolean",
+      "description": "Whether the job can be resumed",
+      "example": true
+    },
+    "cancellable": {
+      "type": "boolean",
+      "description": "Whether the job can be cancelled",
+      "example": true
+    }
+  }
+}

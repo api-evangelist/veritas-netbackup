@@ -1,0 +1,99 @@
+{
+  "operationId": "createPolicy",
+  "method": "POST",
+  "path": "/config/policies",
+  "summary": "Veritas Netbackup Create a Backup Policy",
+  "requestExamples": [
+    {
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "CreatepolicyRequestExample",
+      "example": {
+        "data": {
+          "type": "example_value",
+          "id": "abc123",
+          "attributes": {
+            "policy": {
+              "policyName": "example_value",
+              "policyType": "example_value",
+              "clients": {},
+              "schedules": {},
+              "backupSelections": {}
+            }
+          }
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Createpolicy201Example",
+      "example": {
+        "data": {
+          "type": "example_value",
+          "id": "abc123",
+          "attributes": {
+            "policy": {
+              "policyName": "example_value",
+              "policyType": "example_value",
+              "clients": {},
+              "schedules": {},
+              "backupSelections": {}
+            }
+          },
+          "links": {
+            "self": {
+              "href": "https://www.example.com"
+            }
+          }
+        }
+      }
+    },
+    {
+      "status": "400",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Createpolicy400Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Createpolicy401Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    },
+    {
+      "status": "409",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Createpolicy409Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

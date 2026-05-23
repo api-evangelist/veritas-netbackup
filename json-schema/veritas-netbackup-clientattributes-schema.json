@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ClientAttributes",
+  "title": "ClientAttributes",
+  "type": "object",
+  "description": "Attributes of a NetBackup client host",
+  "properties": {
+    "hostName": {
+      "type": "string",
+      "description": "Fully qualified hostname of the client",
+      "example": "example_value"
+    },
+    "hostType": {
+      "type": "string",
+      "description": "Type of host in the NetBackup environment",
+      "enum": [
+        "CLIENT",
+        "MASTER",
+        "MEDIA"
+      ],
+      "example": "CLIENT"
+    },
+    "os": {
+      "type": "string",
+      "description": "Operating system of the client",
+      "example": "example_value"
+    },
+    "platform": {
+      "type": "string",
+      "description": "Hardware platform of the client",
+      "example": "example_value"
+    },
+    "version": {
+      "type": "string",
+      "description": "NetBackup client software version",
+      "example": "example_value"
+    },
+    "fingerprintSha256": {
+      "type": "string",
+      "description": "SHA-256 fingerprint of the client certificate",
+      "example": "example_value"
+    },
+    "trustLevel": {
+      "type": "string",
+      "description": "Trust level established with the primary server",
+      "enum": [
+        "UNKNOWN",
+        "AUTHENTICATED",
+        "TRUSTED"
+      ],
+      "example": "UNKNOWN"
+    },
+    "communicationStatus": {
+      "type": "string",
+      "description": "Current communication status",
+      "enum": [
+        "ONLINE",
+        "OFFLINE",
+        "UNREACHABLE"
+      ],
+      "example": "ONLINE"
+    },
+    "lastConnectedTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the last successful communication",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

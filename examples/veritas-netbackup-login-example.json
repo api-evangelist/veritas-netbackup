@@ -1,0 +1,60 @@
+{
+  "operationId": "login",
+  "method": "POST",
+  "path": "/login",
+  "summary": "Veritas Netbackup Authenticate and Obtain a Jwt",
+  "requestExamples": [
+    {
+      "contentType": "application/vnd.netbackup+json;version=1.0",
+      "name": "LoginRequestExample",
+      "example": {
+        "domainName": "example_value",
+        "domainType": "unixpwd",
+        "userName": "example_value",
+        "password": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/vnd.netbackup+json;version=1.0",
+      "name": "Login201Example",
+      "example": {
+        "token": "example_value",
+        "tokenType": "BEARER",
+        "validity": 10
+      }
+    },
+    {
+      "status": "400",
+      "contentType": "application/vnd.netbackup+json;version=1.0",
+      "name": "Login400Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/vnd.netbackup+json;version=1.0",
+      "name": "Login401Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

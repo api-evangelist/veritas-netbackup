@@ -1,0 +1,63 @@
+{
+  "operationId": "listJobs",
+  "method": "GET",
+  "path": "/admin/jobs",
+  "summary": "Veritas Netbackup List Backup Jobs",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Listjobs200Example",
+      "example": {
+        "data": [
+          {
+            "type": "example_value",
+            "id": "abc123",
+            "links": {
+              "self": {}
+            }
+          }
+        ],
+        "meta": {
+          "pagination": {
+            "page[limit]": 10,
+            "page[offset]": 10,
+            "count": 10,
+            "last": 10
+          }
+        }
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Listjobs401Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    },
+    {
+      "status": "403",
+      "contentType": "application/vnd.netbackup+json;version=4.0",
+      "name": "Listjobs403Example",
+      "example": {
+        "errorCode": 10,
+        "errorMessage": "example_value",
+        "details": [
+          {
+            "errorCode": 10,
+            "errorMessage": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}
