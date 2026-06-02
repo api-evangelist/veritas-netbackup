@@ -2,13 +2,10 @@
   "repo": "veritas-netbackup",
   "feeds": [
     {
-      "source": "https://www.veritas.com/blogs",
-      "feed_url": "",
-      "title": "",
-      "saved": 0,
-      "error": "no_feed"
+      "source": "https://sort.veritas.com/documents/netbackup/10.1/productguides",
+      "error": "HTTPError"
     }
   ],
-  "fetched": "2026-05-17T20:48:52Z",
+  "fetched": "2026-06-01T23:35:02Z",
   "post_count": 0
 }
