@@ -1,0 +1,687 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Veritas NetBackup REST API",
+    "version": "10.3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Login",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Veritas Netbackup Authenticate and Obtain a Jwt",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{primaryServer}:1556/netbackup/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticates a user against the NetBackup primary server and returns a JSON Web Token (JWT) used to authorize subsequent API calls. The token must be included in the Authorization header as a Bearer token for all other API requests."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Veritas Netbackup List Backup Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/admin/jobs",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of jobs to return per page"
+              },
+              {
+                "name": "page[offset]",
+                "value": "10",
+                "type": "query",
+                "description": "Number of jobs to skip for pagination"
+              },
+              {
+                "name": "filter",
+                "value": "example_value",
+                "type": "query",
+                "description": "OData-style filter expression to narrow results. Supported fields include jobType, state, policyName, clientName, status, and startTime. Example: jobType eq 'BACKUP' and state eq 'DONE'"
+              },
+              {
+                "name": "sort",
+                "value": "example_value",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with a hyphen for descending order. Example: -startTime,jobId"
+              }
+            ]
+          },
+          "docs": "Returns a list of NetBackup jobs matching the specified filter criteria. Jobs represent backup, restore, duplication, and other administrative operations. Results can be filtered by job type, state, policy name, client name, and time range. Supports pagination via page[limit] and page[offset] parameters."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Get Job Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/admin/jobs/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique identifier of the job"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific NetBackup job identified by its job ID. Returns job metadata including type, state, policy name, client name, schedule, start and end times, kilobytes transferred, and number of files."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Delete a Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{primaryServer}:1556/netbackup/admin/jobs/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique identifier of the job to delete"
+              }
+            ]
+          },
+          "docs": "Deletes a completed or failed job from the NetBackup activity monitor. Only jobs that are in a terminal state (DONE or STOPPED) can be deleted."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Cancel a Running Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{primaryServer}:1556/netbackup/admin/jobs/:jobId/cancel",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique identifier of the job to cancel"
+              }
+            ]
+          },
+          "docs": "Cancels a currently active job. The job must be in a QUEUED or ACTIVE state. Once cancelled, the job state changes to STOPPED."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Suspend a Running Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{primaryServer}:1556/netbackup/admin/jobs/:jobId/suspend",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique identifier of the job to suspend"
+              }
+            ]
+          },
+          "docs": "Suspends an active job, pausing its execution. The job can later be resumed using the resume endpoint."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Resume a Suspended Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{primaryServer}:1556/netbackup/admin/jobs/:jobId/resume",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique identifier of the job to resume"
+              }
+            ]
+          },
+          "docs": "Resumes a previously suspended job, allowing it to continue execution from where it was paused."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Restart a Failed Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{primaryServer}:1556/netbackup/admin/jobs/:jobId/restart",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique identifier of the job to restart"
+              }
+            ]
+          },
+          "docs": "Restarts a job that has completed with a failed or partially successful status. A new job is created to retry the operation."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Get the File List for a Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/admin/jobs/:jobId/file-lists",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique identifier of the job"
+              },
+              {
+                "name": "page[limit]",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of file entries to return"
+              },
+              {
+                "name": "page[offset]",
+                "value": "10",
+                "type": "query",
+                "description": "Number of entries to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Returns the list of files that were processed by a specific backup or restore job. This is useful for verifying which files were included in a backup operation."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Get Try Logs for a Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/admin/jobs/:jobId/try-logs",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique identifier of the job"
+              }
+            ]
+          },
+          "docs": "Returns the try log entries for a specific job, providing detailed information about each attempt to execute the job including status messages, error codes, and timing information."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Policies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Veritas Netbackup List Backup Policies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of policies to return"
+              },
+              {
+                "name": "page[offset]",
+                "value": "10",
+                "type": "query",
+                "description": "Number of policies to skip for pagination"
+              },
+              {
+                "name": "filter",
+                "value": "example_value",
+                "type": "query",
+                "description": "OData-style filter expression. Supported fields include policyName and policyType. Example: policyName eq 'my-policy'"
+              }
+            ]
+          },
+          "docs": "Returns a list of NetBackup backup policies. Policies define which clients, schedules, and backup selections are used to perform backups. Results can be filtered by policy name and type."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Create a Backup Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new NetBackup backup policy with the specified configuration including policy type, attributes, clients, schedules, and backup selections. The policy name must be unique within the NetBackup domain."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Get a Backup Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies/:policyName",
+            "params": [
+              {
+                "name": "policyName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the policy to retrieve"
+              }
+            ]
+          },
+          "docs": "Retrieves the complete configuration of a specific backup policy including its attributes, client list, schedules, and backup selections."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Update a Backup Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies/:policyName",
+            "headers": [
+              {
+                "name": "If-Match",
+                "value": "example_value"
+              }
+            ],
+            "params": [
+              {
+                "name": "policyName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the policy to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing backup policy. The entire policy configuration must be provided in the request body. Use this to modify policy attributes, schedules, clients, or backup selections."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Delete a Backup Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies/:policyName",
+            "params": [
+              {
+                "name": "policyName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the policy to delete"
+              }
+            ]
+          },
+          "docs": "Deletes an existing backup policy from the NetBackup configuration. Any scheduled backups associated with this policy will no longer run. Existing backup images created by this policy are not affected."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup List Clients in a Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies/:policyName/clients",
+            "params": [
+              {
+                "name": "policyName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the policy"
+              }
+            ]
+          },
+          "docs": "Returns the list of clients associated with a specific backup policy. Clients are the machines whose data is backed up according to the policy configuration."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Update Clients in a Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies/:policyName/clients",
+            "params": [
+              {
+                "name": "policyName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the policy"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the client list for a specific backup policy with the provided set of clients."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup List Schedules in a Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies/:policyName/schedules",
+            "params": [
+              {
+                "name": "policyName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the policy"
+              }
+            ]
+          },
+          "docs": "Returns all schedules configured for a specific backup policy. Schedules define when and how frequently backups are performed."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Get a Specific Policy Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies/:policyName/schedules/:scheduleName",
+            "params": [
+              {
+                "name": "policyName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the policy"
+              },
+              {
+                "name": "scheduleName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the schedule"
+              }
+            ]
+          },
+          "docs": "Retrieves the configuration of a specific schedule within a backup policy including its type, frequency, retention level, and storage unit settings."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Create or Update a Policy Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies/:policyName/schedules/:scheduleName",
+            "params": [
+              {
+                "name": "policyName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the policy"
+              },
+              {
+                "name": "scheduleName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the schedule to create or update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a schedule within a backup policy. If the schedule already exists it is replaced with the provided configuration."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Delete a Policy Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies/:policyName/schedules/:scheduleName",
+            "params": [
+              {
+                "name": "policyName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the policy"
+              },
+              {
+                "name": "scheduleName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the schedule to delete"
+              }
+            ]
+          },
+          "docs": "Removes a schedule from a backup policy. Existing backups created by this schedule are not affected."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Clients",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Veritas Netbackup List Netbackup Clients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/config/hosts",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of clients to return"
+              },
+              {
+                "name": "page[offset]",
+                "value": "10",
+                "type": "query",
+                "description": "Number of entries to skip for pagination"
+              },
+              {
+                "name": "filter",
+                "value": "example_value",
+                "type": "query",
+                "description": "OData-style filter expression. Supported fields include hostName and hostType. Example: hostType eq 'CLIENT'"
+              }
+            ]
+          },
+          "docs": "Returns a list of hosts registered with the NetBackup primary server, including backup clients, media servers, and other host types. Results can be filtered by host name and host type."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Get Client Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/config/hosts/:hostId",
+            "params": [
+              {
+                "name": "hostId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique identifier or hostname of the client"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed configuration and status information for a specific NetBackup host including operating system details, hardware platform, and connectivity status."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Veritas Netbackup List Backup Images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/catalog/images",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of images to return"
+              },
+              {
+                "name": "page[offset]",
+                "value": "10",
+                "type": "query",
+                "description": "Number of images to skip for pagination"
+              },
+              {
+                "name": "filter",
+                "value": "example_value",
+                "type": "query",
+                "description": "OData-style filter expression. Supported fields include policyName, clientName, scheduleName, backupId, and backupTime. Example: policyName eq 'daily-backup' and clientName eq 'server1'"
+              },
+              {
+                "name": "sort",
+                "value": "example_value",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with a hyphen for descending order. Example: -backupTime"
+              }
+            ]
+          },
+          "docs": "Returns a list of backup images in the NetBackup catalog. Images represent completed backup operations and contain metadata about the backup including policy, client, schedule, backup time, size, and expiration. Results can be filtered by policy name, client name, and backup time range."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Get Backup Image Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/catalog/images/:backupId",
+            "params": [
+              {
+                "name": "backupId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique backup ID of the image"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed metadata for a specific backup image including the backup ID, policy and client that created it, schedule used, backup and expiration times, kilobytes of data, number of files, and storage location."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Expire a Backup Image",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{primaryServer}:1556/netbackup/catalog/images/:backupId",
+            "params": [
+              {
+                "name": "backupId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique backup ID of the image to expire"
+              }
+            ]
+          },
+          "docs": "Expires a backup image by setting its expiration date to the current time. The image will be removed from the catalog and its associated media will become available for reuse during the next image cleanup cycle."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Get Backup Image File Contents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/catalog/images/:backupId/contents",
+            "params": [
+              {
+                "name": "backupId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique backup ID of the image"
+              },
+              {
+                "name": "page[limit]",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of content entries to return"
+              },
+              {
+                "name": "page[offset]",
+                "value": "10",
+                "type": "query",
+                "description": "Number of entries to skip for pagination"
+              },
+              {
+                "name": "path",
+                "value": "example_value",
+                "type": "query",
+                "description": "Directory path to list contents from within the backup image. Defaults to the root of the backup selection."
+              }
+            ]
+          },
+          "docs": "Returns the file and directory listing contained within a specific backup image. Useful for browsing what data was captured in a backup before initiating a restore."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
