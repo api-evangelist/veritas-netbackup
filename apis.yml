@@ -37,7 +37,7 @@ apis:
         url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
       - type: Authentication
         url: https://sort.veritas.com/public/documents/nbu/10.0/windowsandunix/productguides/html/getting-started/
-      - type: SDK
+      - type: SDKs
         url: https://github.com/VeritasOS/netbackup-api-code-samples
       - type: ChangeLog
         url: https://www.veritas.com/protection/netbackup/whats-new
@@ -276,7 +276,7 @@ apis:
     properties:
       - type: Documentation
         url: https://www.veritas.com/support/en_US/doc/139332629-144656221-0/v143532640-144656221
-      - type: SDK
+      - type: SDKs
         url: https://github.com/VeritasOS/NetBackup-Flex-Scale-REST-API-nuggets
       - type: GettingStarted
         url: https://www.veritas.com/support/en_US/doc/139332629-144656221-0/v143532640-144656221
@@ -309,7 +309,7 @@ common:
     url: https://www.veritas.com/blogs
   - type: GitHubOrganization
     url: https://github.com/VeritasOS
-  - type: SDK
+  - type: SDKs
     url: https://github.com/VeritasOS/netbackup-api-code-samples
   - type: CodeExamples
     url: https://veritasos.github.io/netbackup-api-code-samples/

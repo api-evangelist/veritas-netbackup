@@ -3,16 +3,10 @@
   "feeds": [
     {
       "source": "https://www.veritas.com/blogs",
-      "feed_url": "https://www.veritas.com/blogs",
-      "title": "",
       "saved": 0,
-      "method": "none"
-    },
-    {
-      "source": "https://sort.veritas.com/documents/netbackup/10.1/productguides",
-      "error": "HTTPError"
+      "error": "HTTP 403 Forbidden"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T13:20:15Z"
 }
