@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/veritas-netbackup-rest-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: jwtAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: 'JSON Web Token obtained from the /login endpoint. Include in the Authorization
+    header as: Bearer <token>'
+  sources:
+  - openapi/veritas-netbackup-rest-api-openapi.yml

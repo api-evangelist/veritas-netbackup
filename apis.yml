@@ -281,6 +281,12 @@ apis:
       - type: GettingStarted
         url: https://www.veritas.com/support/en_US/doc/139332629-144656221-0/v143532640-144656221
 common:
+  - type: VulnerabilityDisclosure
+    url: security/veritas-netbackup-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/veritas-netbackup-domain-security.yml
+  - type: Authentication
+    url: authentication/veritas-netbackup-authentication.yml
   - type: Support
     url: https://www.veritas.com/support
   - type: Documentation
