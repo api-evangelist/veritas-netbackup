@@ -1,0 +1,587 @@
+openapi: 3.1.0
+info:
+  title: Veritas NetBackup REST Clients Images API
+  description: The Veritas NetBackup REST API provides programmatic access to NetBackup operations including backup job management, policy configuration, client administration, and backup image catalog queries. The API uses JSON-based request and response payloads, JWT-based authentication, and follows RESTful conventions. All endpoints require authentication via a JSON Web Token obtained from the /login endpoint on the NetBackup primary server.
+  version: '10.3'
+  contact:
+    name: Veritas NetBackup Support
+    url: https://www.veritas.com/support/en_US/netbackup
+  termsOfService: https://www.veritas.com/company/legal/legal-terms-of-use
+  license:
+    name: Proprietary
+    url: https://www.veritas.com/company/legal/legal-terms-of-use
+servers:
+- url: https://{primaryServer}:1556/netbackup
+  description: NetBackup Primary Server REST API
+  variables:
+    primaryServer:
+      description: Hostname or IP address of the NetBackup primary server
+      default: netbackup-primary-server
+security:
+- jwtAuth: []
+tags:
+- name: Images
+  description: Query the NetBackup image catalog to retrieve backup image metadata, search for images by policy or client, and manage image lifecycle operations such as expiration and duplication.
+paths:
+  /catalog/images:
+    get:
+      operationId: listImages
+      summary: Veritas Netbackup List Backup Images
+      description: Returns a list of backup images in the NetBackup catalog. Images represent completed backup operations and contain metadata about the backup including policy, client, schedule, backup time, size, and expiration. Results can be filtered by policy name, client name, and backup time range.
+      tags:
+      - Images
+      parameters:
+      - name: page[limit]
+        in: query
+        description: Maximum number of images to return
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 1000
+        example: 10
+      - name: page[offset]
+        in: query
+        description: Number of images to skip for pagination
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+        example: 10
+      - name: filter
+        in: query
+        description: 'OData-style filter expression. Supported fields include policyName, clientName, scheduleName, backupId, and backupTime. Example: policyName eq ''daily-backup'' and clientName eq ''server1'''
+        schema:
+          type: string
+        example: example_value
+      - name: sort
+        in: query
+        description: 'Comma-separated list of fields to sort by. Prefix with a hyphen for descending order. Example: -backupTime'
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: List of images returned successfully
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ImageListResponse'
+              examples:
+                Listimages200Example:
+                  summary: Default listImages 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - type: example_value
+                      id: abc123
+                      links:
+                        self: {}
+                    meta:
+                      pagination:
+                        page[limit]: 10
+                        page[offset]: 10
+                        count: 10
+                        last: 10
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listimages401Example:
+                  summary: Default listImages 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /catalog/images/{backupId}:
+    get:
+      operationId: getImage
+      summary: Veritas Netbackup Get Backup Image Details
+      description: Retrieves detailed metadata for a specific backup image including the backup ID, policy and client that created it, schedule used, backup and expiration times, kilobytes of data, number of files, and storage location.
+      tags:
+      - Images
+      parameters:
+      - name: backupId
+        in: path
+        required: true
+        description: The unique backup ID of the image
+        schema:
+          type: string
+        example: '500123'
+      responses:
+        '200':
+          description: Image details returned successfully
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ImageResource'
+              examples:
+                Getimage200Example:
+                  summary: Default getImage 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      type: example_value
+                      id: abc123
+                      attributes:
+                        backupId: '500123'
+                        policyName: example_value
+                        policyType: example_value
+                        clientName: example_value
+                        scheduleName: example_value
+                        scheduleType: FULL
+                        backupTime: '2026-01-15T10:30:00Z'
+                        expirationTime: '2026-01-15T10:30:00Z'
+                        kilobytes: 10
+                        numberOfFiles: 10
+                        primaryCopy: 10
+                        copyCount: 10
+                        mediaServer: example_value
+                        storageUnit: example_value
+                        mediaId: '500123'
+                        compressed: true
+                        encrypted: true
+                        multiplexed: true
+                        retentionLevel: 10
+                      links:
+                        self:
+                          href: https://www.example.com
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getimage401Example:
+                  summary: Default getImage 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Image not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getimage404Example:
+                  summary: Default getImage 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: expireImage
+      summary: Veritas Netbackup Expire a Backup Image
+      description: Expires a backup image by setting its expiration date to the current time. The image will be removed from the catalog and its associated media will become available for reuse during the next image cleanup cycle.
+      tags:
+      - Images
+      parameters:
+      - name: backupId
+        in: path
+        required: true
+        description: The unique backup ID of the image to expire
+        schema:
+          type: string
+        example: '500123'
+      responses:
+        '204':
+          description: Image expired successfully
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Expireimage401Example:
+                  summary: Default expireImage 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Image not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Expireimage404Example:
+                  summary: Default expireImage 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /catalog/images/{backupId}/contents:
+    get:
+      operationId: getImageContents
+      summary: Veritas Netbackup Get Backup Image File Contents
+      description: Returns the file and directory listing contained within a specific backup image. Useful for browsing what data was captured in a backup before initiating a restore.
+      tags:
+      - Images
+      parameters:
+      - name: backupId
+        in: path
+        required: true
+        description: The unique backup ID of the image
+        schema:
+          type: string
+        example: '500123'
+      - name: page[limit]
+        in: query
+        description: Maximum number of content entries to return
+        schema:
+          type: integer
+          default: 100
+          minimum: 1
+          maximum: 10000
+        example: 10
+      - name: page[offset]
+        in: query
+        description: Number of entries to skip for pagination
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+        example: 10
+      - name: path
+        in: query
+        description: Directory path to list contents from within the backup image. Defaults to the root of the backup selection.
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Image contents returned successfully
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ImageContentsResponse'
+              examples:
+                Getimagecontents200Example:
+                  summary: Default getImageContents 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - type: example_value
+                      id: abc123
+                      attributes:
+                        path: example_value
+                        fileType: FILE
+                        size: 10
+                        lastModified: '2026-01-15T10:30:00Z'
+                        permissions: example_value
+                        owner: example_value
+                        group: example_value
+                    meta:
+                      pagination:
+                        page[limit]: 10
+                        page[offset]: 10
+                        count: 10
+                        last: 10
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getimagecontents401Example:
+                  summary: Default getImageContents 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Image not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getimagecontents404Example:
+                  summary: Default getImageContents 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ImageResource:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            type:
+              type: string
+              const: backupImage
+            id:
+              type: string
+              description: The backup ID
+            attributes:
+              $ref: '#/components/schemas/ImageAttributes'
+            links:
+              type: object
+              properties:
+                self:
+                  type: object
+                  properties:
+                    href:
+                      type: string
+                      format: uri
+          example: example_value
+    PaginationMeta:
+      type: object
+      properties:
+        pagination:
+          type: object
+          properties:
+            page[limit]:
+              type: integer
+              description: The maximum number of items per page
+            page[offset]:
+              type: integer
+              description: The current offset
+            count:
+              type: integer
+              description: Total number of items matching the query
+            last:
+              type: integer
+              description: Offset of the last page
+          example: example_value
+    ImageAttributes:
+      type: object
+      description: Attributes of a NetBackup backup image
+      properties:
+        backupId:
+          type: string
+          description: Unique identifier for the backup image
+          example: '500123'
+        policyName:
+          type: string
+          description: Name of the policy that created this image
+          example: example_value
+        policyType:
+          type: string
+          description: Type of the policy
+          example: example_value
+        clientName:
+          type: string
+          description: Client hostname that was backed up
+          example: example_value
+        scheduleName:
+          type: string
+          description: Schedule name that triggered the backup
+          example: example_value
+        scheduleType:
+          type: string
+          description: Type of the schedule
+          enum:
+          - FULL
+          - INCR
+          - DIFF_INCR
+          - CINC
+          - USER_BACKUP
+          - USER_ARCHIVE
+          example: FULL
+        backupTime:
+          type: string
+          format: date-time
+          description: Timestamp when the backup was performed
+          example: '2026-01-15T10:30:00Z'
+        expirationTime:
+          type: string
+          format: date-time
+          description: Timestamp when the image will expire
+          example: '2026-01-15T10:30:00Z'
+        kilobytes:
+          type: integer
+          description: Total size of the backup image in kilobytes
+          example: 10
+        numberOfFiles:
+          type: integer
+          description: Total number of files in the backup image
+          example: 10
+        primaryCopy:
+          type: integer
+          description: Primary copy number for the image
+          example: 10
+        copyCount:
+          type: integer
+          description: Total number of copies of this image
+          example: 10
+        mediaServer:
+          type: string
+          description: Media server that performed the backup
+          example: example_value
+        storageUnit:
+          type: string
+          description: Storage unit where the image is stored
+          example: example_value
+        mediaId:
+          type: string
+          description: Media ID where the image resides
+          example: '500123'
+        compressed:
+          type: boolean
+          description: Whether the image data is compressed
+          example: true
+        encrypted:
+          type: boolean
+          description: Whether the image data is encrypted
+          example: true
+        multiplexed:
+          type: boolean
+          description: Whether the image is multiplexed
+          example: true
+        retentionLevel:
+          type: integer
+          description: Retention level assigned to the image
+          minimum: 0
+          maximum: 24
+          example: 10
+    ErrorResponse:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Numeric error code
+          example: 10
+        errorMessage:
+          type: string
+          description: Human-readable error description
+          example: example_value
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              errorCode:
+                type: integer
+                description: Detailed error code
+              errorMessage:
+                type: string
+                description: Detailed error message
+          example: []
+    ImageListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                const: backupImage
+              id:
+                type: string
+              attributes:
+                $ref: '#/components/schemas/ImageAttributes'
+              links:
+                type: object
+                properties:
+                  self:
+                    type: object
+                    properties:
+                      href:
+                        type: string
+                        format: uri
+          example: []
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    ImageContentsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                const: imageContent
+              id:
+                type: string
+              attributes:
+                type: object
+                properties:
+                  path:
+                    type: string
+                    description: Full path of the file or directory
+                  fileType:
+                    type: string
+                    description: Type of the entry
+                    enum:
+                    - FILE
+                    - DIRECTORY
+                    - SYMLINK
+                  size:
+                    type: integer
+                    description: Size of the file in bytes
+                  lastModified:
+                    type: string
+                    format: date-time
+                    description: Last modification time of the file
+                  permissions:
+                    type: string
+                    description: File permissions in octal notation
+                  owner:
+                    type: string
+                    description: File owner
+                  group:
+                    type: string
+                    description: File group
+          example: []
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'JSON Web Token obtained from the /login endpoint. Include in the Authorization header as: Bearer <token>'
+externalDocs:
+  description: NetBackup REST API Getting Started Guide
+  url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/

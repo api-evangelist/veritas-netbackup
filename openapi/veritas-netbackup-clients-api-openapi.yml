@@ -1,0 +1,334 @@
+openapi: 3.1.0
+info:
+  title: Veritas NetBackup REST Clients API
+  description: The Veritas NetBackup REST API provides programmatic access to NetBackup operations including backup job management, policy configuration, client administration, and backup image catalog queries. The API uses JSON-based request and response payloads, JWT-based authentication, and follows RESTful conventions. All endpoints require authentication via a JSON Web Token obtained from the /login endpoint on the NetBackup primary server.
+  version: '10.3'
+  contact:
+    name: Veritas NetBackup Support
+    url: https://www.veritas.com/support/en_US/netbackup
+  termsOfService: https://www.veritas.com/company/legal/legal-terms-of-use
+  license:
+    name: Proprietary
+    url: https://www.veritas.com/company/legal/legal-terms-of-use
+servers:
+- url: https://{primaryServer}:1556/netbackup
+  description: NetBackup Primary Server REST API
+  variables:
+    primaryServer:
+      description: Hostname or IP address of the NetBackup primary server
+      default: netbackup-primary-server
+security:
+- jwtAuth: []
+tags:
+- name: Clients
+  description: Manage NetBackup clients including listing registered clients, retrieving client configuration details, and managing client-server trust relationships.
+paths:
+  /config/hosts:
+    get:
+      operationId: listClients
+      summary: Veritas Netbackup List Netbackup Clients
+      description: Returns a list of hosts registered with the NetBackup primary server, including backup clients, media servers, and other host types. Results can be filtered by host name and host type.
+      tags:
+      - Clients
+      parameters:
+      - name: page[limit]
+        in: query
+        description: Maximum number of clients to return
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 1000
+        example: 10
+      - name: page[offset]
+        in: query
+        description: Number of entries to skip for pagination
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+        example: 10
+      - name: filter
+        in: query
+        description: 'OData-style filter expression. Supported fields include hostName and hostType. Example: hostType eq ''CLIENT'''
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: List of clients returned successfully
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ClientListResponse'
+              examples:
+                Listclients200Example:
+                  summary: Default listClients 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - type: example_value
+                      id: abc123
+                      links:
+                        self: {}
+                    meta:
+                      pagination:
+                        page[limit]: 10
+                        page[offset]: 10
+                        count: 10
+                        last: 10
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listclients401Example:
+                  summary: Default listClients 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /config/hosts/{hostId}:
+    get:
+      operationId: getClient
+      summary: Veritas Netbackup Get Client Details
+      description: Retrieves detailed configuration and status information for a specific NetBackup host including operating system details, hardware platform, and connectivity status.
+      tags:
+      - Clients
+      parameters:
+      - name: hostId
+        in: path
+        required: true
+        description: The unique identifier or hostname of the client
+        schema:
+          type: string
+        example: '500123'
+      responses:
+        '200':
+          description: Client details returned successfully
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ClientResource'
+              examples:
+                Getclient200Example:
+                  summary: Default getClient 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      type: example_value
+                      id: abc123
+                      attributes:
+                        hostName: example_value
+                        hostType: CLIENT
+                        os: example_value
+                        platform: example_value
+                        version: example_value
+                        fingerprintSha256: example_value
+                        trustLevel: UNKNOWN
+                        communicationStatus: ONLINE
+                        lastConnectedTime: '2026-01-15T10:30:00Z'
+                      links:
+                        self:
+                          href: https://www.example.com
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getclient401Example:
+                  summary: Default getClient 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Client not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getclient404Example:
+                  summary: Default getClient 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ClientAttributes:
+      type: object
+      description: Attributes of a NetBackup client host
+      properties:
+        hostName:
+          type: string
+          description: Fully qualified hostname of the client
+          example: example_value
+        hostType:
+          type: string
+          description: Type of host in the NetBackup environment
+          enum:
+          - CLIENT
+          - MASTER
+          - MEDIA
+          example: CLIENT
+        os:
+          type: string
+          description: Operating system of the client
+          example: example_value
+        platform:
+          type: string
+          description: Hardware platform of the client
+          example: example_value
+        version:
+          type: string
+          description: NetBackup client software version
+          example: example_value
+        fingerprintSha256:
+          type: string
+          description: SHA-256 fingerprint of the client certificate
+          example: example_value
+        trustLevel:
+          type: string
+          description: Trust level established with the primary server
+          enum:
+          - UNKNOWN
+          - AUTHENTICATED
+          - TRUSTED
+          example: UNKNOWN
+        communicationStatus:
+          type: string
+          description: Current communication status
+          enum:
+          - ONLINE
+          - OFFLINE
+          - UNREACHABLE
+          example: ONLINE
+        lastConnectedTime:
+          type: string
+          format: date-time
+          description: Timestamp of the last successful communication
+          example: '2026-01-15T10:30:00Z'
+    ClientListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                const: host
+              id:
+                type: string
+              attributes:
+                $ref: '#/components/schemas/ClientAttributes'
+              links:
+                type: object
+                properties:
+                  self:
+                    type: object
+                    properties:
+                      href:
+                        type: string
+                        format: uri
+          example: []
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    PaginationMeta:
+      type: object
+      properties:
+        pagination:
+          type: object
+          properties:
+            page[limit]:
+              type: integer
+              description: The maximum number of items per page
+            page[offset]:
+              type: integer
+              description: The current offset
+            count:
+              type: integer
+              description: Total number of items matching the query
+            last:
+              type: integer
+              description: Offset of the last page
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Numeric error code
+          example: 10
+        errorMessage:
+          type: string
+          description: Human-readable error description
+          example: example_value
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              errorCode:
+                type: integer
+                description: Detailed error code
+              errorMessage:
+                type: string
+                description: Detailed error message
+          example: []
+    ClientResource:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            type:
+              type: string
+              const: host
+            id:
+              type: string
+              description: The host identifier
+            attributes:
+              $ref: '#/components/schemas/ClientAttributes'
+            links:
+              type: object
+              properties:
+                self:
+                  type: object
+                  properties:
+                    href:
+                      type: string
+                      format: uri
+          example: example_value
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'JSON Web Token obtained from the /login endpoint. Include in the Authorization header as: Bearer <token>'
+externalDocs:
+  description: NetBackup REST API Getting Started Guide
+  url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/

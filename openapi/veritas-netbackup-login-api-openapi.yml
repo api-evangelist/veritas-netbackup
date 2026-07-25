@@ -1,0 +1,180 @@
+openapi: 3.1.0
+info:
+  title: Veritas NetBackup REST Clients Login API
+  description: The Veritas NetBackup REST API provides programmatic access to NetBackup operations including backup job management, policy configuration, client administration, and backup image catalog queries. The API uses JSON-based request and response payloads, JWT-based authentication, and follows RESTful conventions. All endpoints require authentication via a JSON Web Token obtained from the /login endpoint on the NetBackup primary server.
+  version: '10.3'
+  contact:
+    name: Veritas NetBackup Support
+    url: https://www.veritas.com/support/en_US/netbackup
+  termsOfService: https://www.veritas.com/company/legal/legal-terms-of-use
+  license:
+    name: Proprietary
+    url: https://www.veritas.com/company/legal/legal-terms-of-use
+servers:
+- url: https://{primaryServer}:1556/netbackup
+  description: NetBackup Primary Server REST API
+  variables:
+    primaryServer:
+      description: Hostname or IP address of the NetBackup primary server
+      default: netbackup-primary-server
+security:
+- jwtAuth: []
+tags:
+- name: Login
+  description: Authenticate to the NetBackup REST API and obtain a JSON Web Token for subsequent API requests.
+paths:
+  /login:
+    post:
+      operationId: login
+      summary: Veritas Netbackup Authenticate and Obtain a Jwt
+      description: Authenticates a user against the NetBackup primary server and returns a JSON Web Token (JWT) used to authorize subsequent API calls. The token must be included in the Authorization header as a Bearer token for all other API requests.
+      tags:
+      - Login
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/vnd.netbackup+json;version=1.0:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            examples:
+              LoginRequestExample:
+                summary: Default login request
+                x-microcks-default: true
+                value:
+                  domainName: example_value
+                  domainType: unixpwd
+                  userName: example_value
+                  password: example_value
+      responses:
+        '201':
+          description: Authentication successful, JWT returned
+          content:
+            application/vnd.netbackup+json;version=1.0:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+              examples:
+                Login201Example:
+                  summary: Default login 201 response
+                  x-microcks-default: true
+                  value:
+                    token: example_value
+                    tokenType: BEARER
+                    validity: 10
+        '400':
+          description: Invalid request body
+          content:
+            application/vnd.netbackup+json;version=1.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Login400Example:
+                  summary: Default login 400 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '401':
+          description: Authentication failed - invalid credentials
+          content:
+            application/vnd.netbackup+json;version=1.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Login401Example:
+                  summary: Default login 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      required:
+      - domainName
+      - domainType
+      - userName
+      - password
+      properties:
+        domainName:
+          type: string
+          description: The authentication domain name (e.g., the NetBackup primary server hostname)
+          example: example_value
+        domainType:
+          type: string
+          description: The type of authentication domain
+          enum:
+          - unixpwd
+          - nt
+          - ldap
+          - vx
+          example: unixpwd
+        userName:
+          type: string
+          description: The user account name
+          example: example_value
+        password:
+          type: string
+          description: The user account password
+          format: password
+          example: example_value
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JSON Web Token for authenticating subsequent API requests
+          example: example_value
+        tokenType:
+          type: string
+          description: The token type
+          enum:
+          - BEARER
+          example: BEARER
+        validity:
+          type: integer
+          description: Token validity period in seconds
+          example: 10
+    ErrorResponse:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Numeric error code
+          example: 10
+        errorMessage:
+          type: string
+          description: Human-readable error description
+          example: example_value
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              errorCode:
+                type: integer
+                description: Detailed error code
+              errorMessage:
+                type: string
+                description: Detailed error message
+          example: []
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'JSON Web Token obtained from the /login endpoint. Include in the Authorization header as: Bearer <token>'
+externalDocs:
+  description: NetBackup REST API Getting Started Guide
+  url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
