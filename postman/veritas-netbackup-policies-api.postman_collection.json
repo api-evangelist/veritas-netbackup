@@ -1,0 +1,2715 @@
+{
+  "info": {
+    "_postman_id": "1515bc44-35fc-47c9-abcc-f7dc5d5e1bf2",
+    "name": "Veritas NetBackup REST Clients Policies API",
+    "description": "The Veritas NetBackup REST API provides programmatic access to NetBackup operations including backup job management, policy configuration, client administration, and backup image catalog queries. The API uses JSON-based request and response payloads, JWT-based authentication, and follows RESTful conventions. All endpoints require authentication via a JSON Web Token obtained from the /login endpoint on the NetBackup primary server.\n\nContact Support:\n Name: Veritas NetBackup Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:27:23.000Z",
+    "updatedAt": "2026-07-28T03:27:23.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1515bc44-35fc-47c9-abcc-f7dc5d5e1bf2"
+  },
+  "item": [
+    {
+      "name": "config",
+      "item": [
+        {
+          "name": "policies",
+          "item": [
+            {
+              "name": "{policyName}",
+              "item": [
+                {
+                  "name": "clients",
+                  "item": [
+                    {
+                      "name": "Veritas Netbackup List Clients in a Policy",
+                      "id": "30f159f0-4a98-4215-becb-4d9bb0b18b67",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/config/policies/:policyName/clients",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "config",
+                            "policies",
+                            ":policyName",
+                            "clients"
+                          ],
+                          "variable": [
+                            {
+                              "id": "d832eac4-802a-4fa0-bd61-208cc41c5a97",
+                              "key": "policyName",
+                              "value": "<string>",
+                              "description": "(Required) The name of the policy"
+                            }
+                          ]
+                        },
+                        "description": "Returns the list of clients associated with a specific backup policy. Clients are the machines whose data is backed up according to the policy configuration."
+                      },
+                      "response": [
+                        {
+                          "id": "bd56db86-3cdf-4417-b184-7932076b1ad0",
+                          "name": "Client list returned successfully",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/config/policies/:policyName/clients",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "config",
+                                "policies",
+                                ":policyName",
+                                "clients"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "policyName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"clientName\": \"<string>\",\n        \"hardware\": \"<string>\",\n        \"operatingSystem\": \"<string>\",\n        \"priority\": \"<integer>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"clientName\": \"<string>\",\n        \"hardware\": \"<string>\",\n        \"operatingSystem\": \"<string>\",\n        \"priority\": \"<integer>\"\n      }\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:23.000Z",
+                          "updatedAt": "2026-07-28T03:27:23.000Z",
+                          "uid": "35240-bd56db86-3cdf-4417-b184-7932076b1ad0"
+                        },
+                        {
+                          "id": "26f94061-1b07-49b7-a2aa-30391ce762ed",
+                          "name": "Unauthorized - missing or invalid JWT",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/config/policies/:policyName/clients",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "config",
+                                "policies",
+                                ":policyName",
+                                "clients"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "policyName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:23.000Z",
+                          "updatedAt": "2026-07-28T03:27:23.000Z",
+                          "uid": "35240-26f94061-1b07-49b7-a2aa-30391ce762ed"
+                        },
+                        {
+                          "id": "49582360-bc6c-49f9-bcb1-7d38eae0ebee",
+                          "name": "Policy not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/config/policies/:policyName/clients",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "config",
+                                "policies",
+                                ":policyName",
+                                "clients"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "policyName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:23.000Z",
+                          "updatedAt": "2026-07-28T03:27:23.000Z",
+                          "uid": "35240-49582360-bc6c-49f9-bcb1-7d38eae0ebee"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:27:23.000Z",
+                      "updatedAt": "2026-07-28T03:27:23.000Z",
+                      "uid": "35240-30f159f0-4a98-4215-becb-4d9bb0b18b67"
+                    },
+                    {
+                      "name": "Veritas Netbackup Update Clients in a Policy",
+                      "id": "59cfedac-f3ff-480a-a82b-34511b5dcd0e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"clients\": [\n        {\n          \"clientName\": \"<string>\",\n          \"hardware\": \"<string>\",\n          \"operatingSystem\": \"<string>\",\n          \"priority\": \"<integer>\"\n        },\n        {\n          \"clientName\": \"<string>\",\n          \"hardware\": \"<string>\",\n          \"operatingSystem\": \"<string>\",\n          \"priority\": \"<integer>\"\n        }\n      ]\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/config/policies/:policyName/clients",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "config",
+                            "policies",
+                            ":policyName",
+                            "clients"
+                          ],
+                          "variable": [
+                            {
+                              "id": "5794e74e-e8be-47a6-b6eb-f062f0f21c99",
+                              "key": "policyName",
+                              "value": "<string>",
+                              "description": "(Required) The name of the policy"
+                            }
+                          ]
+                        },
+                        "description": "Replaces the client list for a specific backup policy with the provided set of clients."
+                      },
+                      "response": [
+                        {
+                          "id": "7edc412c-2838-4dbc-bed3-2c7b6ca689d0",
+                          "name": "Policy clients updated successfully",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"clients\": [\n        {\n          \"clientName\": \"<string>\",\n          \"hardware\": \"<string>\",\n          \"operatingSystem\": \"<string>\",\n          \"priority\": \"<integer>\"\n        },\n        {\n          \"clientName\": \"<string>\",\n          \"hardware\": \"<string>\",\n          \"operatingSystem\": \"<string>\",\n          \"priority\": \"<integer>\"\n        }\n      ]\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/config/policies/:policyName/clients",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "config",
+                                "policies",
+                                ":policyName",
+                                "clients"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "policyName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:27:23.000Z",
+                          "updatedAt": "2026-07-28T03:27:23.000Z",
+                          "uid": "35240-7edc412c-2838-4dbc-bed3-2c7b6ca689d0"
+                        },
+                        {
+                          "id": "75432c82-6f06-4820-8405-0948cd39bf19",
+                          "name": "Invalid client configuration",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"clients\": [\n        {\n          \"clientName\": \"<string>\",\n          \"hardware\": \"<string>\",\n          \"operatingSystem\": \"<string>\",\n          \"priority\": \"<integer>\"\n        },\n        {\n          \"clientName\": \"<string>\",\n          \"hardware\": \"<string>\",\n          \"operatingSystem\": \"<string>\",\n          \"priority\": \"<integer>\"\n        }\n      ]\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/config/policies/:policyName/clients",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "config",
+                                "policies",
+                                ":policyName",
+                                "clients"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "policyName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:23.000Z",
+                          "updatedAt": "2026-07-28T03:27:23.000Z",
+                          "uid": "35240-75432c82-6f06-4820-8405-0948cd39bf19"
+                        },
+                        {
+                          "id": "dcc606be-aac1-48af-a504-287fe93f10fb",
+                          "name": "Unauthorized - missing or invalid JWT",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"clients\": [\n        {\n          \"clientName\": \"<string>\",\n          \"hardware\": \"<string>\",\n          \"operatingSystem\": \"<string>\",\n          \"priority\": \"<integer>\"\n        },\n        {\n          \"clientName\": \"<string>\",\n          \"hardware\": \"<string>\",\n          \"operatingSystem\": \"<string>\",\n          \"priority\": \"<integer>\"\n        }\n      ]\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/config/policies/:policyName/clients",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "config",
+                                "policies",
+                                ":policyName",
+                                "clients"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "policyName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:23.000Z",
+                          "updatedAt": "2026-07-28T03:27:23.000Z",
+                          "uid": "35240-dcc606be-aac1-48af-a504-287fe93f10fb"
+                        },
+                        {
+                          "id": "de1a665e-d50a-4d81-bfeb-7488e4731410",
+                          "name": "Policy not found",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"clients\": [\n        {\n          \"clientName\": \"<string>\",\n          \"hardware\": \"<string>\",\n          \"operatingSystem\": \"<string>\",\n          \"priority\": \"<integer>\"\n        },\n        {\n          \"clientName\": \"<string>\",\n          \"hardware\": \"<string>\",\n          \"operatingSystem\": \"<string>\",\n          \"priority\": \"<integer>\"\n        }\n      ]\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/config/policies/:policyName/clients",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "config",
+                                "policies",
+                                ":policyName",
+                                "clients"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "policyName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:23.000Z",
+                          "updatedAt": "2026-07-28T03:27:23.000Z",
+                          "uid": "35240-de1a665e-d50a-4d81-bfeb-7488e4731410"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:27:23.000Z",
+                      "updatedAt": "2026-07-28T03:27:23.000Z",
+                      "uid": "35240-59cfedac-f3ff-480a-a82b-34511b5dcd0e"
+                    }
+                  ],
+                  "id": "c3a6be06-b3d1-4a06-a99b-035bd1820c7c",
+                  "createdAt": "2026-07-28T03:27:23.000Z",
+                  "updatedAt": "2026-07-28T03:27:23.000Z",
+                  "uid": "35240-c3a6be06-b3d1-4a06-a99b-035bd1820c7c"
+                },
+                {
+                  "name": "schedules",
+                  "item": [
+                    {
+                      "name": "{scheduleName}",
+                      "item": [
+                        {
+                          "name": "Veritas Netbackup Get a Specific Policy Schedule",
+                          "id": "0a17db07-1c03-4eea-8390-0ce6b0f00a14",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/config/policies/:policyName/schedules/:scheduleName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "config",
+                                "policies",
+                                ":policyName",
+                                "schedules",
+                                ":scheduleName"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "34dbd45f-5007-4d74-aae5-8f5bc31fff0b",
+                                  "key": "policyName",
+                                  "value": "<string>",
+                                  "description": "(Required) The name of the policy"
+                                },
+                                {
+                                  "id": "abc6ee57-84c9-4b4b-a127-bee66d2171b5",
+                                  "key": "scheduleName",
+                                  "value": "<string>",
+                                  "description": "(Required) The name of the schedule"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves the configuration of a specific schedule within a backup policy including its type, frequency, retention level, and storage unit settings."
+                          },
+                          "response": [
+                            {
+                              "id": "7e79b2e1-f1a1-46ce-9ac1-7d0db86dedaf",
+                              "name": "Schedule details returned successfully",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.netbackup+json;version=4.0"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/config/policies/:policyName/schedules/:scheduleName",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "config",
+                                    "policies",
+                                    ":policyName",
+                                    "schedules",
+                                    ":scheduleName"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "policyName"
+                                    },
+                                    {
+                                      "key": "scheduleName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/vnd.netbackup+json;version=4.0"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"scheduleName\": \"<string>\",\n      \"scheduleType\": \"CINC\",\n      \"frequency\": \"<integer>\",\n      \"retentionPeriod\": {\n        \"value\": \"<integer>\",\n        \"unit\": \"INFINITE\"\n      },\n      \"storageUnit\": \"<string>\",\n      \"backupWindow\": {\n        \"startSeconds\": \"<integer>\",\n        \"durationSeconds\": \"<integer>\",\n        \"dayOfWeek\": \"<integer>\"\n      },\n      \"mediaMultiplexing\": \"<integer>\",\n      \"syntheticBackup\": \"<boolean>\"\n    }\n  }\n}",
+                              "createdAt": "2026-07-28T03:27:23.000Z",
+                              "updatedAt": "2026-07-28T03:27:23.000Z",
+                              "uid": "35240-7e79b2e1-f1a1-46ce-9ac1-7d0db86dedaf"
+                            },
+                            {
+                              "id": "ec502ddd-b1a5-4a02-afff-0ffd2d224b4a",
+                              "name": "Unauthorized - missing or invalid JWT",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.netbackup+json;version=4.0"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/config/policies/:policyName/schedules/:scheduleName",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "config",
+                                    "policies",
+                                    ":policyName",
+                                    "schedules",
+                                    ":scheduleName"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "policyName"
+                                    },
+                                    {
+                                      "key": "scheduleName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/vnd.netbackup+json;version=4.0"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T03:27:23.000Z",
+                              "updatedAt": "2026-07-28T03:27:23.000Z",
+                              "uid": "35240-ec502ddd-b1a5-4a02-afff-0ffd2d224b4a"
+                            },
+                            {
+                              "id": "5dd2c0c2-ced8-4f54-87a3-6113f709dc1b",
+                              "name": "Policy or schedule not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.netbackup+json;version=4.0"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/config/policies/:policyName/schedules/:scheduleName",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "config",
+                                    "policies",
+                                    ":policyName",
+                                    "schedules",
+                                    ":scheduleName"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "policyName"
+                                    },
+                                    {
+                                      "key": "scheduleName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/vnd.netbackup+json;version=4.0"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T03:27:23.000Z",
+                              "updatedAt": "2026-07-28T03:27:23.000Z",
+                              "uid": "35240-5dd2c0c2-ced8-4f54-87a3-6113f709dc1b"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:27:23.000Z",
+                          "updatedAt": "2026-07-28T03:27:23.000Z",
+                          "uid": "35240-0a17db07-1c03-4eea-8390-0ce6b0f00a14"
+                        },
+                        {
+                          "name": "Veritas Netbackup Create or Update a Policy Schedule",
+                          "id": "ee464ee6-e6ab-4770-aee1-17ac436eff40",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"scheduleName\": \"<string>\",\n      \"scheduleType\": \"USER_BACKUP\",\n      \"frequency\": \"<integer>\",\n      \"retentionPeriod\": {\n        \"value\": \"<integer>\",\n        \"unit\": \"YEARS\"\n      },\n      \"storageUnit\": \"<string>\",\n      \"backupWindow\": {\n        \"startSeconds\": \"<integer>\",\n        \"durationSeconds\": \"<integer>\",\n        \"dayOfWeek\": \"<integer>\"\n      },\n      \"mediaMultiplexing\": \"<integer>\",\n      \"syntheticBackup\": \"<boolean>\"\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/config/policies/:policyName/schedules/:scheduleName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "config",
+                                "policies",
+                                ":policyName",
+                                "schedules",
+                                ":scheduleName"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "0371c923-92ce-4bc1-a988-93b2bbb25a8e",
+                                  "key": "policyName",
+                                  "value": "<string>",
+                                  "description": "(Required) The name of the policy"
+                                },
+                                {
+                                  "id": "e8da414d-c571-4cd6-bce9-97b22cecfb67",
+                                  "key": "scheduleName",
+                                  "value": "<string>",
+                                  "description": "(Required) The name of the schedule to create or update"
+                                }
+                              ]
+                            },
+                            "description": "Creates or updates a schedule within a backup policy. If the schedule already exists it is replaced with the provided configuration."
+                          },
+                          "response": [
+                            {
+                              "id": "792da284-20d2-4bb2-a13c-aecbdb020dc3",
+                              "name": "Schedule created successfully",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/vnd.netbackup+json;version=4.0"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.netbackup+json;version=4.0"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"scheduleName\": \"<string>\",\n      \"scheduleType\": \"USER_BACKUP\",\n      \"frequency\": \"<integer>\",\n      \"retentionPeriod\": {\n        \"value\": \"<integer>\",\n        \"unit\": \"YEARS\"\n      },\n      \"storageUnit\": \"<string>\",\n      \"backupWindow\": {\n        \"startSeconds\": \"<integer>\",\n        \"durationSeconds\": \"<integer>\",\n        \"dayOfWeek\": \"<integer>\"\n      },\n      \"mediaMultiplexing\": \"<integer>\",\n      \"syntheticBackup\": \"<boolean>\"\n    }\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/config/policies/:policyName/schedules/:scheduleName",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "config",
+                                    "policies",
+                                    ":policyName",
+                                    "schedules",
+                                    ":scheduleName"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "policyName"
+                                    },
+                                    {
+                                      "key": "scheduleName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/vnd.netbackup+json;version=4.0"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"scheduleName\": \"<string>\",\n      \"scheduleType\": \"CINC\",\n      \"frequency\": \"<integer>\",\n      \"retentionPeriod\": {\n        \"value\": \"<integer>\",\n        \"unit\": \"INFINITE\"\n      },\n      \"storageUnit\": \"<string>\",\n      \"backupWindow\": {\n        \"startSeconds\": \"<integer>\",\n        \"durationSeconds\": \"<integer>\",\n        \"dayOfWeek\": \"<integer>\"\n      },\n      \"mediaMultiplexing\": \"<integer>\",\n      \"syntheticBackup\": \"<boolean>\"\n    }\n  }\n}",
+                              "createdAt": "2026-07-28T03:27:23.000Z",
+                              "updatedAt": "2026-07-28T03:27:23.000Z",
+                              "uid": "35240-792da284-20d2-4bb2-a13c-aecbdb020dc3"
+                            },
+                            {
+                              "id": "7b2060f8-4194-42e6-83d7-4fb417082daf",
+                              "name": "Schedule updated successfully",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/vnd.netbackup+json;version=4.0"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"scheduleName\": \"<string>\",\n      \"scheduleType\": \"USER_BACKUP\",\n      \"frequency\": \"<integer>\",\n      \"retentionPeriod\": {\n        \"value\": \"<integer>\",\n        \"unit\": \"YEARS\"\n      },\n      \"storageUnit\": \"<string>\",\n      \"backupWindow\": {\n        \"startSeconds\": \"<integer>\",\n        \"durationSeconds\": \"<integer>\",\n        \"dayOfWeek\": \"<integer>\"\n      },\n      \"mediaMultiplexing\": \"<integer>\",\n      \"syntheticBackup\": \"<boolean>\"\n    }\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/config/policies/:policyName/schedules/:scheduleName",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "config",
+                                    "policies",
+                                    ":policyName",
+                                    "schedules",
+                                    ":scheduleName"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "policyName"
+                                    },
+                                    {
+                                      "key": "scheduleName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:27:23.000Z",
+                              "updatedAt": "2026-07-28T03:27:23.000Z",
+                              "uid": "35240-7b2060f8-4194-42e6-83d7-4fb417082daf"
+                            },
+                            {
+                              "id": "1f057e20-0bd3-4d21-9165-6b8f50e4bd91",
+                              "name": "Unauthorized - missing or invalid JWT",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/vnd.netbackup+json;version=4.0"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.netbackup+json;version=4.0"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"scheduleName\": \"<string>\",\n      \"scheduleType\": \"USER_BACKUP\",\n      \"frequency\": \"<integer>\",\n      \"retentionPeriod\": {\n        \"value\": \"<integer>\",\n        \"unit\": \"YEARS\"\n      },\n      \"storageUnit\": \"<string>\",\n      \"backupWindow\": {\n        \"startSeconds\": \"<integer>\",\n        \"durationSeconds\": \"<integer>\",\n        \"dayOfWeek\": \"<integer>\"\n      },\n      \"mediaMultiplexing\": \"<integer>\",\n      \"syntheticBackup\": \"<boolean>\"\n    }\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/config/policies/:policyName/schedules/:scheduleName",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "config",
+                                    "policies",
+                                    ":policyName",
+                                    "schedules",
+                                    ":scheduleName"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "policyName"
+                                    },
+                                    {
+                                      "key": "scheduleName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/vnd.netbackup+json;version=4.0"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T03:27:23.000Z",
+                              "updatedAt": "2026-07-28T03:27:23.000Z",
+                              "uid": "35240-1f057e20-0bd3-4d21-9165-6b8f50e4bd91"
+                            },
+                            {
+                              "id": "055c7348-24b7-4c08-af34-6d29574d3d3c",
+                              "name": "Policy not found",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/vnd.netbackup+json;version=4.0"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.netbackup+json;version=4.0"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"scheduleName\": \"<string>\",\n      \"scheduleType\": \"USER_BACKUP\",\n      \"frequency\": \"<integer>\",\n      \"retentionPeriod\": {\n        \"value\": \"<integer>\",\n        \"unit\": \"YEARS\"\n      },\n      \"storageUnit\": \"<string>\",\n      \"backupWindow\": {\n        \"startSeconds\": \"<integer>\",\n        \"durationSeconds\": \"<integer>\",\n        \"dayOfWeek\": \"<integer>\"\n      },\n      \"mediaMultiplexing\": \"<integer>\",\n      \"syntheticBackup\": \"<boolean>\"\n    }\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/config/policies/:policyName/schedules/:scheduleName",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "config",
+                                    "policies",
+                                    ":policyName",
+                                    "schedules",
+                                    ":scheduleName"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "policyName"
+                                    },
+                                    {
+                                      "key": "scheduleName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/vnd.netbackup+json;version=4.0"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T03:27:23.000Z",
+                              "updatedAt": "2026-07-28T03:27:23.000Z",
+                              "uid": "35240-055c7348-24b7-4c08-af34-6d29574d3d3c"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:27:23.000Z",
+                          "updatedAt": "2026-07-28T03:27:23.000Z",
+                          "uid": "35240-ee464ee6-e6ab-4770-aee1-17ac436eff40"
+                        },
+                        {
+                          "name": "Veritas Netbackup Delete a Policy Schedule",
+                          "id": "e6d949bf-f8f8-4efe-8e2c-f50209bf48ad",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/config/policies/:policyName/schedules/:scheduleName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "config",
+                                "policies",
+                                ":policyName",
+                                "schedules",
+                                ":scheduleName"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "c91f63dd-33ee-42d4-92b9-5f0a36d261e3",
+                                  "key": "policyName",
+                                  "value": "<string>",
+                                  "description": "(Required) The name of the policy"
+                                },
+                                {
+                                  "id": "a476bbbe-b262-47b1-9c3f-c4b08708346d",
+                                  "key": "scheduleName",
+                                  "value": "<string>",
+                                  "description": "(Required) The name of the schedule to delete"
+                                }
+                              ]
+                            },
+                            "description": "Removes a schedule from a backup policy. Existing backups created by this schedule are not affected."
+                          },
+                          "response": [
+                            {
+                              "id": "c3a46b93-5bbf-4a3b-9858-a37f413bec79",
+                              "name": "Schedule deleted successfully",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/config/policies/:policyName/schedules/:scheduleName",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "config",
+                                    "policies",
+                                    ":policyName",
+                                    "schedules",
+                                    ":scheduleName"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "policyName"
+                                    },
+                                    {
+                                      "key": "scheduleName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:27:23.000Z",
+                              "updatedAt": "2026-07-28T03:27:23.000Z",
+                              "uid": "35240-c3a46b93-5bbf-4a3b-9858-a37f413bec79"
+                            },
+                            {
+                              "id": "8e521140-8acc-4f1c-8110-97553365fd4e",
+                              "name": "Unauthorized - missing or invalid JWT",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.netbackup+json;version=4.0"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/config/policies/:policyName/schedules/:scheduleName",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "config",
+                                    "policies",
+                                    ":policyName",
+                                    "schedules",
+                                    ":scheduleName"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "policyName"
+                                    },
+                                    {
+                                      "key": "scheduleName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/vnd.netbackup+json;version=4.0"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T03:27:23.000Z",
+                              "updatedAt": "2026-07-28T03:27:23.000Z",
+                              "uid": "35240-8e521140-8acc-4f1c-8110-97553365fd4e"
+                            },
+                            {
+                              "id": "35705a2a-f4b4-4276-8158-42ac33f3f211",
+                              "name": "Policy or schedule not found",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.netbackup+json;version=4.0"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/config/policies/:policyName/schedules/:scheduleName",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "config",
+                                    "policies",
+                                    ":policyName",
+                                    "schedules",
+                                    ":scheduleName"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "policyName"
+                                    },
+                                    {
+                                      "key": "scheduleName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/vnd.netbackup+json;version=4.0"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T03:27:23.000Z",
+                              "updatedAt": "2026-07-28T03:27:23.000Z",
+                              "uid": "35240-35705a2a-f4b4-4276-8158-42ac33f3f211"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:27:23.000Z",
+                          "updatedAt": "2026-07-28T03:27:23.000Z",
+                          "uid": "35240-e6d949bf-f8f8-4efe-8e2c-f50209bf48ad"
+                        }
+                      ],
+                      "id": "d89a7a69-755a-4d54-bfcd-0d1417acc1e0",
+                      "createdAt": "2026-07-28T03:27:23.000Z",
+                      "updatedAt": "2026-07-28T03:27:23.000Z",
+                      "uid": "35240-d89a7a69-755a-4d54-bfcd-0d1417acc1e0"
+                    },
+                    {
+                      "name": "Veritas Netbackup List Schedules in a Policy",
+                      "id": "af9a2d63-f708-4506-9d51-30b1ef3eff76",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/config/policies/:policyName/schedules",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "config",
+                            "policies",
+                            ":policyName",
+                            "schedules"
+                          ],
+                          "variable": [
+                            {
+                              "id": "e7023b62-679d-44d5-b637-93897ee22b56",
+                              "key": "policyName",
+                              "value": "<string>",
+                              "description": "(Required) The name of the policy"
+                            }
+                          ]
+                        },
+                        "description": "Returns all schedules configured for a specific backup policy. Schedules define when and how frequently backups are performed."
+                      },
+                      "response": [
+                        {
+                          "id": "e9c33434-8db9-4a28-9afc-c3d5cef5d354",
+                          "name": "Schedule list returned successfully",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/config/policies/:policyName/schedules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "config",
+                                "policies",
+                                ":policyName",
+                                "schedules"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "policyName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"scheduleName\": \"<string>\",\n        \"scheduleType\": \"INCR\",\n        \"frequency\": \"<integer>\",\n        \"retentionPeriod\": {\n          \"value\": \"<integer>\",\n          \"unit\": \"YEARS\"\n        },\n        \"storageUnit\": \"<string>\",\n        \"backupWindow\": {\n          \"startSeconds\": \"<integer>\",\n          \"durationSeconds\": \"<integer>\",\n          \"dayOfWeek\": \"<integer>\"\n        },\n        \"mediaMultiplexing\": \"<integer>\",\n        \"syntheticBackup\": \"<boolean>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"scheduleName\": \"<string>\",\n        \"scheduleType\": \"DIFF_INCR\",\n        \"frequency\": \"<integer>\",\n        \"retentionPeriod\": {\n          \"value\": \"<integer>\",\n          \"unit\": \"MONTHS\"\n        },\n        \"storageUnit\": \"<string>\",\n        \"backupWindow\": {\n          \"startSeconds\": \"<integer>\",\n          \"durationSeconds\": \"<integer>\",\n          \"dayOfWeek\": \"<integer>\"\n        },\n        \"mediaMultiplexing\": \"<integer>\",\n        \"syntheticBackup\": \"<boolean>\"\n      }\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:23.000Z",
+                          "updatedAt": "2026-07-28T03:27:23.000Z",
+                          "uid": "35240-e9c33434-8db9-4a28-9afc-c3d5cef5d354"
+                        },
+                        {
+                          "id": "4d14c33d-84c0-42b5-ade4-0cfc3ecef61b",
+                          "name": "Unauthorized - missing or invalid JWT",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/config/policies/:policyName/schedules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "config",
+                                "policies",
+                                ":policyName",
+                                "schedules"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "policyName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:23.000Z",
+                          "updatedAt": "2026-07-28T03:27:23.000Z",
+                          "uid": "35240-4d14c33d-84c0-42b5-ade4-0cfc3ecef61b"
+                        },
+                        {
+                          "id": "cb04f507-9d7a-4a61-ae35-6275c6e5d61b",
+                          "name": "Policy not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/config/policies/:policyName/schedules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "config",
+                                "policies",
+                                ":policyName",
+                                "schedules"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "policyName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:23.000Z",
+                          "updatedAt": "2026-07-28T03:27:23.000Z",
+                          "uid": "35240-cb04f507-9d7a-4a61-ae35-6275c6e5d61b"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:27:23.000Z",
+                      "updatedAt": "2026-07-28T03:27:23.000Z",
+                      "uid": "35240-af9a2d63-f708-4506-9d51-30b1ef3eff76"
+                    }
+                  ],
+                  "id": "5c94b6b7-2c1b-4764-8b53-256126dd378d",
+                  "createdAt": "2026-07-28T03:27:23.000Z",
+                  "updatedAt": "2026-07-28T03:27:23.000Z",
+                  "uid": "35240-5c94b6b7-2c1b-4764-8b53-256126dd378d"
+                },
+                {
+                  "name": "Veritas Netbackup Get a Backup Policy",
+                  "id": "7e726f64-ad39-44b2-9cc1-9bd542f7a02c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/config/policies/:policyName",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "policies",
+                        ":policyName"
+                      ],
+                      "variable": [
+                        {
+                          "id": "f7f60e00-7f3c-4e8c-86af-298ecc5e4fdc",
+                          "key": "policyName",
+                          "value": "<string>",
+                          "description": "(Required) The name of the policy to retrieve"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the complete configuration of a specific backup policy including its attributes, client list, schedules, and backup selections."
+                  },
+                  "response": [
+                    {
+                      "id": "e42c416d-6020-4cd4-83da-b2683c5c2b58",
+                      "name": "Policy details returned successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/config/policies/:policyName",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "config",
+                            "policies",
+                            ":policyName"
+                          ],
+                          "variable": [
+                            {
+                              "key": "policyName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.netbackup+json;version=4.0"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"<string>\",\n        \"policyType\": \"<string>\",\n        \"policyAttributes\": {\n          \"policyName\": \"<string>\",\n          \"policyType\": \"Kubernetes\",\n          \"active\": \"<boolean>\",\n          \"effectiveDate\": \"<dateTime>\",\n          \"snapshotMethodArgs\": \"<string>\",\n          \"backupCopies\": {\n            \"copies\": [\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"WEEKS\"\n                }\n              },\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"DAYS\"\n                }\n              }\n            ]\n          },\n          \"priority\": \"<integer>\",\n          \"keyword\": \"<string>\",\n          \"dataClassification\": \"<string>\"\n        },\n        \"clients\": [\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          },\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          }\n        ],\n        \"schedules\": [\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"INCR\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"DAYS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          },\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"FULL\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"INFINITE\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          }\n        ],\n        \"backupSelections\": {\n          \"selections\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      }\n    },\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\"\n      }\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T03:27:23.000Z",
+                      "updatedAt": "2026-07-28T03:27:23.000Z",
+                      "uid": "35240-e42c416d-6020-4cd4-83da-b2683c5c2b58"
+                    },
+                    {
+                      "id": "4e203d76-8c49-4590-948f-8857aee8b290",
+                      "name": "Unauthorized - missing or invalid JWT",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/config/policies/:policyName",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "config",
+                            "policies",
+                            ":policyName"
+                          ],
+                          "variable": [
+                            {
+                              "key": "policyName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.netbackup+json;version=4.0"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:27:23.000Z",
+                      "updatedAt": "2026-07-28T03:27:23.000Z",
+                      "uid": "35240-4e203d76-8c49-4590-948f-8857aee8b290"
+                    },
+                    {
+                      "id": "24d49cf7-0b56-4c23-b73d-2435b876235e",
+                      "name": "Policy not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/config/policies/:policyName",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "config",
+                            "policies",
+                            ":policyName"
+                          ],
+                          "variable": [
+                            {
+                              "key": "policyName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.netbackup+json;version=4.0"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:27:23.000Z",
+                      "updatedAt": "2026-07-28T03:27:23.000Z",
+                      "uid": "35240-24d49cf7-0b56-4c23-b73d-2435b876235e"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:27:23.000Z",
+                  "updatedAt": "2026-07-28T03:27:23.000Z",
+                  "uid": "35240-7e726f64-ad39-44b2-9cc1-9bd542f7a02c"
+                },
+                {
+                  "name": "Veritas Netbackup Update a Backup Policy",
+                  "id": "46bfc1da-77c1-4041-8ecf-92dab2fc31b6",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "description": "ETag value for optimistic concurrency control. Must match the current ETag of the policy resource.",
+                        "key": "If-Match",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"<string>\",\n        \"policyType\": \"<string>\",\n        \"policyAttributes\": {\n          \"policyName\": \"<string>\",\n          \"policyType\": \"MS-Exchange-Server\",\n          \"active\": \"<boolean>\",\n          \"effectiveDate\": \"<dateTime>\",\n          \"snapshotMethodArgs\": \"<string>\",\n          \"backupCopies\": {\n            \"copies\": [\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"INFINITE\"\n                }\n              },\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"WEEKS\"\n                }\n              }\n            ]\n          },\n          \"priority\": \"<integer>\",\n          \"keyword\": \"<string>\",\n          \"dataClassification\": \"<string>\"\n        },\n        \"clients\": [\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          },\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          }\n        ],\n        \"schedules\": [\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"CINC\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"YEARS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          },\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"DIFF_INCR\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"DAYS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          }\n        ],\n        \"backupSelections\": {\n          \"selections\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      }\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/policies/:policyName",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "policies",
+                        ":policyName"
+                      ],
+                      "variable": [
+                        {
+                          "id": "697d177b-197b-483b-8e0d-70369f5c1ea3",
+                          "key": "policyName",
+                          "value": "<string>",
+                          "description": "(Required) The name of the policy to update"
+                        }
+                      ]
+                    },
+                    "description": "Updates the configuration of an existing backup policy. The entire policy configuration must be provided in the request body. Use this to modify policy attributes, schedules, clients, or backup selections."
+                  },
+                  "response": [
+                    {
+                      "id": "f109bc25-5a5f-4d48-8dac-a7b10bf90bfc",
+                      "name": "Policy updated successfully",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "description": "ETag value for optimistic concurrency control. Must match the current ETag of the policy resource.",
+                            "key": "If-Match",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"<string>\",\n        \"policyType\": \"<string>\",\n        \"policyAttributes\": {\n          \"policyName\": \"<string>\",\n          \"policyType\": \"MS-Exchange-Server\",\n          \"active\": \"<boolean>\",\n          \"effectiveDate\": \"<dateTime>\",\n          \"snapshotMethodArgs\": \"<string>\",\n          \"backupCopies\": {\n            \"copies\": [\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"INFINITE\"\n                }\n              },\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"WEEKS\"\n                }\n              }\n            ]\n          },\n          \"priority\": \"<integer>\",\n          \"keyword\": \"<string>\",\n          \"dataClassification\": \"<string>\"\n        },\n        \"clients\": [\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          },\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          }\n        ],\n        \"schedules\": [\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"CINC\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"YEARS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          },\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"DIFF_INCR\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"DAYS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          }\n        ],\n        \"backupSelections\": {\n          \"selections\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      }\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/config/policies/:policyName",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "config",
+                            "policies",
+                            ":policyName"
+                          ],
+                          "variable": [
+                            {
+                              "key": "policyName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:27:23.000Z",
+                      "updatedAt": "2026-07-28T03:27:23.000Z",
+                      "uid": "35240-f109bc25-5a5f-4d48-8dac-a7b10bf90bfc"
+                    },
+                    {
+                      "id": "385bc1ae-0d29-41d6-a52e-eede7d0e5304",
+                      "name": "Invalid policy configuration",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "description": "ETag value for optimistic concurrency control. Must match the current ETag of the policy resource.",
+                            "key": "If-Match",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"<string>\",\n        \"policyType\": \"<string>\",\n        \"policyAttributes\": {\n          \"policyName\": \"<string>\",\n          \"policyType\": \"MS-Exchange-Server\",\n          \"active\": \"<boolean>\",\n          \"effectiveDate\": \"<dateTime>\",\n          \"snapshotMethodArgs\": \"<string>\",\n          \"backupCopies\": {\n            \"copies\": [\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"INFINITE\"\n                }\n              },\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"WEEKS\"\n                }\n              }\n            ]\n          },\n          \"priority\": \"<integer>\",\n          \"keyword\": \"<string>\",\n          \"dataClassification\": \"<string>\"\n        },\n        \"clients\": [\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          },\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          }\n        ],\n        \"schedules\": [\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"CINC\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"YEARS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          },\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"DIFF_INCR\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"DAYS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          }\n        ],\n        \"backupSelections\": {\n          \"selections\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      }\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/config/policies/:policyName",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "config",
+                            "policies",
+                            ":policyName"
+                          ],
+                          "variable": [
+                            {
+                              "key": "policyName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.netbackup+json;version=4.0"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:27:23.000Z",
+                      "updatedAt": "2026-07-28T03:27:23.000Z",
+                      "uid": "35240-385bc1ae-0d29-41d6-a52e-eede7d0e5304"
+                    },
+                    {
+                      "id": "1cccb257-4b44-4e64-9243-da10c6b9feda",
+                      "name": "Unauthorized - missing or invalid JWT",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "description": "ETag value for optimistic concurrency control. Must match the current ETag of the policy resource.",
+                            "key": "If-Match",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"<string>\",\n        \"policyType\": \"<string>\",\n        \"policyAttributes\": {\n          \"policyName\": \"<string>\",\n          \"policyType\": \"MS-Exchange-Server\",\n          \"active\": \"<boolean>\",\n          \"effectiveDate\": \"<dateTime>\",\n          \"snapshotMethodArgs\": \"<string>\",\n          \"backupCopies\": {\n            \"copies\": [\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"INFINITE\"\n                }\n              },\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"WEEKS\"\n                }\n              }\n            ]\n          },\n          \"priority\": \"<integer>\",\n          \"keyword\": \"<string>\",\n          \"dataClassification\": \"<string>\"\n        },\n        \"clients\": [\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          },\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          }\n        ],\n        \"schedules\": [\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"CINC\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"YEARS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          },\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"DIFF_INCR\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"DAYS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          }\n        ],\n        \"backupSelections\": {\n          \"selections\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      }\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/config/policies/:policyName",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "config",
+                            "policies",
+                            ":policyName"
+                          ],
+                          "variable": [
+                            {
+                              "key": "policyName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.netbackup+json;version=4.0"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:27:23.000Z",
+                      "updatedAt": "2026-07-28T03:27:23.000Z",
+                      "uid": "35240-1cccb257-4b44-4e64-9243-da10c6b9feda"
+                    },
+                    {
+                      "id": "8b0c08a7-46f9-41da-81bb-29ed8108959a",
+                      "name": "Policy not found",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "description": "ETag value for optimistic concurrency control. Must match the current ETag of the policy resource.",
+                            "key": "If-Match",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"<string>\",\n        \"policyType\": \"<string>\",\n        \"policyAttributes\": {\n          \"policyName\": \"<string>\",\n          \"policyType\": \"MS-Exchange-Server\",\n          \"active\": \"<boolean>\",\n          \"effectiveDate\": \"<dateTime>\",\n          \"snapshotMethodArgs\": \"<string>\",\n          \"backupCopies\": {\n            \"copies\": [\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"INFINITE\"\n                }\n              },\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"WEEKS\"\n                }\n              }\n            ]\n          },\n          \"priority\": \"<integer>\",\n          \"keyword\": \"<string>\",\n          \"dataClassification\": \"<string>\"\n        },\n        \"clients\": [\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          },\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          }\n        ],\n        \"schedules\": [\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"CINC\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"YEARS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          },\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"DIFF_INCR\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"DAYS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          }\n        ],\n        \"backupSelections\": {\n          \"selections\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      }\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/config/policies/:policyName",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "config",
+                            "policies",
+                            ":policyName"
+                          ],
+                          "variable": [
+                            {
+                              "key": "policyName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.netbackup+json;version=4.0"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:27:23.000Z",
+                      "updatedAt": "2026-07-28T03:27:23.000Z",
+                      "uid": "35240-8b0c08a7-46f9-41da-81bb-29ed8108959a"
+                    },
+                    {
+                      "id": "60932d26-2336-4c25-bda6-a421db4b9581",
+                      "name": "Precondition failed - ETag mismatch",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "description": "ETag value for optimistic concurrency control. Must match the current ETag of the policy resource.",
+                            "key": "If-Match",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"<string>\",\n        \"policyType\": \"<string>\",\n        \"policyAttributes\": {\n          \"policyName\": \"<string>\",\n          \"policyType\": \"MS-Exchange-Server\",\n          \"active\": \"<boolean>\",\n          \"effectiveDate\": \"<dateTime>\",\n          \"snapshotMethodArgs\": \"<string>\",\n          \"backupCopies\": {\n            \"copies\": [\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"INFINITE\"\n                }\n              },\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"WEEKS\"\n                }\n              }\n            ]\n          },\n          \"priority\": \"<integer>\",\n          \"keyword\": \"<string>\",\n          \"dataClassification\": \"<string>\"\n        },\n        \"clients\": [\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          },\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          }\n        ],\n        \"schedules\": [\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"CINC\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"YEARS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          },\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"DIFF_INCR\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"DAYS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          }\n        ],\n        \"backupSelections\": {\n          \"selections\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      }\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/config/policies/:policyName",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "config",
+                            "policies",
+                            ":policyName"
+                          ],
+                          "variable": [
+                            {
+                              "key": "policyName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Precondition Failed",
+                      "code": 412,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.netbackup+json;version=4.0"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:27:23.000Z",
+                      "updatedAt": "2026-07-28T03:27:23.000Z",
+                      "uid": "35240-60932d26-2336-4c25-bda6-a421db4b9581"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:27:23.000Z",
+                  "updatedAt": "2026-07-28T03:27:23.000Z",
+                  "uid": "35240-46bfc1da-77c1-4041-8ecf-92dab2fc31b6"
+                },
+                {
+                  "name": "Veritas Netbackup Delete a Backup Policy",
+                  "id": "9a6ef9ef-1b95-4821-8bf5-2d70ea09d8be",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/config/policies/:policyName",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "policies",
+                        ":policyName"
+                      ],
+                      "variable": [
+                        {
+                          "id": "f04d9107-a384-40a3-a9c5-3c58934d3ab5",
+                          "key": "policyName",
+                          "value": "<string>",
+                          "description": "(Required) The name of the policy to delete"
+                        }
+                      ]
+                    },
+                    "description": "Deletes an existing backup policy from the NetBackup configuration. Any scheduled backups associated with this policy will no longer run. Existing backup images created by this policy are not affected."
+                  },
+                  "response": [
+                    {
+                      "id": "c610a030-4b5f-4757-97e0-0ec5090e514a",
+                      "name": "Policy deleted successfully",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/config/policies/:policyName",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "config",
+                            "policies",
+                            ":policyName"
+                          ],
+                          "variable": [
+                            {
+                              "key": "policyName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:27:23.000Z",
+                      "updatedAt": "2026-07-28T03:27:23.000Z",
+                      "uid": "35240-c610a030-4b5f-4757-97e0-0ec5090e514a"
+                    },
+                    {
+                      "id": "3cf88438-1072-404c-8adc-0ce2d3f71088",
+                      "name": "Unauthorized - missing or invalid JWT",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/config/policies/:policyName",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "config",
+                            "policies",
+                            ":policyName"
+                          ],
+                          "variable": [
+                            {
+                              "key": "policyName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.netbackup+json;version=4.0"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:27:23.000Z",
+                      "updatedAt": "2026-07-28T03:27:23.000Z",
+                      "uid": "35240-3cf88438-1072-404c-8adc-0ce2d3f71088"
+                    },
+                    {
+                      "id": "9c5279a5-121f-4af3-ab07-28bf6af9e1f8",
+                      "name": "Policy not found",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/config/policies/:policyName",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "config",
+                            "policies",
+                            ":policyName"
+                          ],
+                          "variable": [
+                            {
+                              "key": "policyName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.netbackup+json;version=4.0"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:27:23.000Z",
+                      "updatedAt": "2026-07-28T03:27:23.000Z",
+                      "uid": "35240-9c5279a5-121f-4af3-ab07-28bf6af9e1f8"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:27:23.000Z",
+                  "updatedAt": "2026-07-28T03:27:23.000Z",
+                  "uid": "35240-9a6ef9ef-1b95-4821-8bf5-2d70ea09d8be"
+                }
+              ],
+              "id": "11db45a0-faca-4360-8b1e-65a59866fe75",
+              "createdAt": "2026-07-28T03:27:23.000Z",
+              "updatedAt": "2026-07-28T03:27:23.000Z",
+              "uid": "35240-11db45a0-faca-4360-8b1e-65a59866fe75"
+            },
+            {
+              "name": "Veritas Netbackup List Backup Policies",
+              "id": "0c60e93a-f163-4cb7-a8d9-cf0c6cd112e6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/config/policies?page[limit]=10&page[offset]=0&filter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "config",
+                    "policies"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of policies to return",
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "description": "Number of policies to skip for pagination",
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "description": "OData-style filter expression. Supported fields include policyName and policyType. Example: policyName eq 'my-policy'",
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Returns a list of NetBackup backup policies. Policies define which clients, schedules, and backup selections are used to perform backups. Results can be filtered by policy name and type."
+              },
+              "response": [
+                {
+                  "id": "3036cc66-05e3-40fc-93ee-f5c82a90f03f",
+                  "name": "List of policies returned successfully",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/config/policies?page[limit]=10&page[offset]=0&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "policies"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of policies to return",
+                          "key": "page[limit]",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Number of policies to skip for pagination",
+                          "key": "page[offset]",
+                          "value": "0"
+                        },
+                        {
+                          "description": "OData-style filter expression. Supported fields include policyName and policyType. Example: policyName eq 'my-policy'",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.netbackup+json;version=4.0"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"policy\": {\n          \"policyName\": \"<string>\",\n          \"policyType\": \"<string>\",\n          \"policyAttributes\": {\n            \"policyName\": \"<string>\",\n            \"policyType\": \"MS-Windows\",\n            \"active\": \"<boolean>\",\n            \"effectiveDate\": \"<dateTime>\",\n            \"snapshotMethodArgs\": \"<string>\",\n            \"backupCopies\": {\n              \"copies\": [\n                {\n                  \"copyNumber\": \"<integer>\",\n                  \"storageUnit\": \"<string>\",\n                  \"retentionPeriod\": {\n                    \"value\": \"<integer>\",\n                    \"unit\": \"INFINITE\"\n                  }\n                },\n                {\n                  \"copyNumber\": \"<integer>\",\n                  \"storageUnit\": \"<string>\",\n                  \"retentionPeriod\": {\n                    \"value\": \"<integer>\",\n                    \"unit\": \"WEEKS\"\n                  }\n                }\n              ]\n            },\n            \"priority\": \"<integer>\",\n            \"keyword\": \"<string>\",\n            \"dataClassification\": \"<string>\"\n          }\n        }\n      },\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\"\n        }\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"policy\": {\n          \"policyName\": \"<string>\",\n          \"policyType\": \"<string>\",\n          \"policyAttributes\": {\n            \"policyName\": \"<string>\",\n            \"policyType\": \"Universal-Share\",\n            \"active\": \"<boolean>\",\n            \"effectiveDate\": \"<dateTime>\",\n            \"snapshotMethodArgs\": \"<string>\",\n            \"backupCopies\": {\n              \"copies\": [\n                {\n                  \"copyNumber\": \"<integer>\",\n                  \"storageUnit\": \"<string>\",\n                  \"retentionPeriod\": {\n                    \"value\": \"<integer>\",\n                    \"unit\": \"DAYS\"\n                  }\n                },\n                {\n                  \"copyNumber\": \"<integer>\",\n                  \"storageUnit\": \"<string>\",\n                  \"retentionPeriod\": {\n                    \"value\": \"<integer>\",\n                    \"unit\": \"DAYS\"\n                  }\n                }\n              ]\n            },\n            \"priority\": \"<integer>\",\n            \"keyword\": \"<string>\",\n            \"dataClassification\": \"<string>\"\n          }\n        }\n      },\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\"\n        }\n      }\n    }\n  ],\n  \"meta\": {\n    \"pagination\": {\n      \"page[limit]\": \"<integer>\",\n      \"page[offset]\": \"<integer>\",\n      \"count\": \"<integer>\",\n      \"last\": \"<integer>\"\n    }\n  }\n}",
+                  "createdAt": "2026-07-28T03:27:23.000Z",
+                  "updatedAt": "2026-07-28T03:27:23.000Z",
+                  "uid": "35240-3036cc66-05e3-40fc-93ee-f5c82a90f03f"
+                },
+                {
+                  "id": "e0fb2ccc-874f-4d80-a69b-850f75230b38",
+                  "name": "Unauthorized - missing or invalid JWT",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/config/policies?page[limit]=10&page[offset]=0&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "policies"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of policies to return",
+                          "key": "page[limit]",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Number of policies to skip for pagination",
+                          "key": "page[offset]",
+                          "value": "0"
+                        },
+                        {
+                          "description": "OData-style filter expression. Supported fields include policyName and policyType. Example: policyName eq 'my-policy'",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.netbackup+json;version=4.0"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:27:23.000Z",
+                  "updatedAt": "2026-07-28T03:27:23.000Z",
+                  "uid": "35240-e0fb2ccc-874f-4d80-a69b-850f75230b38"
+                }
+              ],
+              "createdAt": "2026-07-28T03:27:23.000Z",
+              "updatedAt": "2026-07-28T03:27:23.000Z",
+              "uid": "35240-0c60e93a-f163-4cb7-a8d9-cf0c6cd112e6"
+            },
+            {
+              "name": "Veritas Netbackup Create a Backup Policy",
+              "id": "fcc70e18-c130-4dba-97e1-5d603b160601",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"<string>\",\n        \"policyType\": \"<string>\",\n        \"policyAttributes\": {\n          \"policyName\": \"<string>\",\n          \"policyType\": \"MS-Exchange-Server\",\n          \"active\": \"<boolean>\",\n          \"effectiveDate\": \"<dateTime>\",\n          \"snapshotMethodArgs\": \"<string>\",\n          \"backupCopies\": {\n            \"copies\": [\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"INFINITE\"\n                }\n              },\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"WEEKS\"\n                }\n              }\n            ]\n          },\n          \"priority\": \"<integer>\",\n          \"keyword\": \"<string>\",\n          \"dataClassification\": \"<string>\"\n        },\n        \"clients\": [\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          },\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          }\n        ],\n        \"schedules\": [\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"CINC\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"YEARS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          },\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"DIFF_INCR\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"DAYS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          }\n        ],\n        \"backupSelections\": {\n          \"selections\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/config/policies",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "config",
+                    "policies"
+                  ]
+                },
+                "description": "Creates a new NetBackup backup policy with the specified configuration including policy type, attributes, clients, schedules, and backup selections. The policy name must be unique within the NetBackup domain."
+              },
+              "response": [
+                {
+                  "id": "5f012c8a-e31a-438a-a665-10187ab5577e",
+                  "name": "Policy created successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"<string>\",\n        \"policyType\": \"<string>\",\n        \"policyAttributes\": {\n          \"policyName\": \"<string>\",\n          \"policyType\": \"MS-Exchange-Server\",\n          \"active\": \"<boolean>\",\n          \"effectiveDate\": \"<dateTime>\",\n          \"snapshotMethodArgs\": \"<string>\",\n          \"backupCopies\": {\n            \"copies\": [\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"INFINITE\"\n                }\n              },\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"WEEKS\"\n                }\n              }\n            ]\n          },\n          \"priority\": \"<integer>\",\n          \"keyword\": \"<string>\",\n          \"dataClassification\": \"<string>\"\n        },\n        \"clients\": [\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          },\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          }\n        ],\n        \"schedules\": [\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"CINC\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"YEARS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          },\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"DIFF_INCR\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"DAYS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          }\n        ],\n        \"backupSelections\": {\n          \"selections\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      }\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/policies",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "policies"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.netbackup+json;version=4.0"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"<string>\",\n        \"policyType\": \"<string>\",\n        \"policyAttributes\": {\n          \"policyName\": \"<string>\",\n          \"policyType\": \"Kubernetes\",\n          \"active\": \"<boolean>\",\n          \"effectiveDate\": \"<dateTime>\",\n          \"snapshotMethodArgs\": \"<string>\",\n          \"backupCopies\": {\n            \"copies\": [\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"WEEKS\"\n                }\n              },\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"DAYS\"\n                }\n              }\n            ]\n          },\n          \"priority\": \"<integer>\",\n          \"keyword\": \"<string>\",\n          \"dataClassification\": \"<string>\"\n        },\n        \"clients\": [\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          },\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          }\n        ],\n        \"schedules\": [\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"INCR\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"DAYS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          },\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"FULL\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"INFINITE\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          }\n        ],\n        \"backupSelections\": {\n          \"selections\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      }\n    },\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\"\n      }\n    }\n  }\n}",
+                  "createdAt": "2026-07-28T03:27:23.000Z",
+                  "updatedAt": "2026-07-28T03:27:23.000Z",
+                  "uid": "35240-5f012c8a-e31a-438a-a665-10187ab5577e"
+                },
+                {
+                  "id": "c655ec1a-2d32-4e23-9729-4e93e9614def",
+                  "name": "Invalid policy configuration",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"<string>\",\n        \"policyType\": \"<string>\",\n        \"policyAttributes\": {\n          \"policyName\": \"<string>\",\n          \"policyType\": \"MS-Exchange-Server\",\n          \"active\": \"<boolean>\",\n          \"effectiveDate\": \"<dateTime>\",\n          \"snapshotMethodArgs\": \"<string>\",\n          \"backupCopies\": {\n            \"copies\": [\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"INFINITE\"\n                }\n              },\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"WEEKS\"\n                }\n              }\n            ]\n          },\n          \"priority\": \"<integer>\",\n          \"keyword\": \"<string>\",\n          \"dataClassification\": \"<string>\"\n        },\n        \"clients\": [\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          },\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          }\n        ],\n        \"schedules\": [\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"CINC\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"YEARS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          },\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"DIFF_INCR\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"DAYS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          }\n        ],\n        \"backupSelections\": {\n          \"selections\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      }\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/policies",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "policies"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.netbackup+json;version=4.0"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:27:23.000Z",
+                  "updatedAt": "2026-07-28T03:27:23.000Z",
+                  "uid": "35240-c655ec1a-2d32-4e23-9729-4e93e9614def"
+                },
+                {
+                  "id": "fa3d1686-7119-47e9-b571-ec4058f0471d",
+                  "name": "Unauthorized - missing or invalid JWT",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"<string>\",\n        \"policyType\": \"<string>\",\n        \"policyAttributes\": {\n          \"policyName\": \"<string>\",\n          \"policyType\": \"MS-Exchange-Server\",\n          \"active\": \"<boolean>\",\n          \"effectiveDate\": \"<dateTime>\",\n          \"snapshotMethodArgs\": \"<string>\",\n          \"backupCopies\": {\n            \"copies\": [\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"INFINITE\"\n                }\n              },\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"WEEKS\"\n                }\n              }\n            ]\n          },\n          \"priority\": \"<integer>\",\n          \"keyword\": \"<string>\",\n          \"dataClassification\": \"<string>\"\n        },\n        \"clients\": [\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          },\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          }\n        ],\n        \"schedules\": [\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"CINC\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"YEARS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          },\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"DIFF_INCR\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"DAYS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          }\n        ],\n        \"backupSelections\": {\n          \"selections\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      }\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/policies",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "policies"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.netbackup+json;version=4.0"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:27:23.000Z",
+                  "updatedAt": "2026-07-28T03:27:23.000Z",
+                  "uid": "35240-fa3d1686-7119-47e9-b571-ec4058f0471d"
+                },
+                {
+                  "id": "7a92b350-9ac0-4990-ba80-fe0a2d71df3d",
+                  "name": "Conflict - policy with same name already exists",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"<string>\",\n        \"policyType\": \"<string>\",\n        \"policyAttributes\": {\n          \"policyName\": \"<string>\",\n          \"policyType\": \"MS-Exchange-Server\",\n          \"active\": \"<boolean>\",\n          \"effectiveDate\": \"<dateTime>\",\n          \"snapshotMethodArgs\": \"<string>\",\n          \"backupCopies\": {\n            \"copies\": [\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"INFINITE\"\n                }\n              },\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": \"<integer>\",\n                  \"unit\": \"WEEKS\"\n                }\n              }\n            ]\n          },\n          \"priority\": \"<integer>\",\n          \"keyword\": \"<string>\",\n          \"dataClassification\": \"<string>\"\n        },\n        \"clients\": [\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          },\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          }\n        ],\n        \"schedules\": [\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"CINC\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"YEARS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          },\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"DIFF_INCR\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"DAYS\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          }\n        ],\n        \"backupSelections\": {\n          \"selections\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      }\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/policies",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "policies"
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.netbackup+json;version=4.0"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:27:23.000Z",
+                  "updatedAt": "2026-07-28T03:27:23.000Z",
+                  "uid": "35240-7a92b350-9ac0-4990-ba80-fe0a2d71df3d"
+                }
+              ],
+              "createdAt": "2026-07-28T03:27:23.000Z",
+              "updatedAt": "2026-07-28T03:27:23.000Z",
+              "uid": "35240-fcc70e18-c130-4dba-97e1-5d603b160601"
+            }
+          ],
+          "id": "254a9b20-d822-48ee-9bbc-4080b66ec1e3",
+          "createdAt": "2026-07-28T03:27:23.000Z",
+          "updatedAt": "2026-07-28T03:27:23.000Z",
+          "uid": "35240-254a9b20-d822-48ee-9bbc-4080b66ec1e3"
+        }
+      ],
+      "id": "d56f7901-37e8-4bb5-b678-56812ab0e828",
+      "createdAt": "2026-07-28T03:27:23.000Z",
+      "updatedAt": "2026-07-28T03:27:23.000Z",
+      "uid": "35240-d56f7901-37e8-4bb5-b678-56812ab0e828"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "primaryServer",
+      "value": "netbackup-primary-server"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{primaryServer}}:1556/netbackup"
+    }
+  ]
+}

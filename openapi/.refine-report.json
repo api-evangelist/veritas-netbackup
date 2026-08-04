@@ -1,0 +1,22 @@
+{
+  "provider": "veritas-netbackup",
+  "sources": [
+    "veritas-netbackup-clients-api-openapi.yml",
+    "veritas-netbackup-images-api-openapi.yml",
+    "veritas-netbackup-jobs-api-openapi.yml",
+    "veritas-netbackup-login-api-openapi.yml",
+    "veritas-netbackup-policies-api-openapi.yml"
+  ],
+  "outputs": [
+    "veritas-netbackup-clients-api-openapi.yml",
+    "veritas-netbackup-images-api-openapi.yml",
+    "veritas-netbackup-jobs-api-openapi.yml",
+    "veritas-netbackup-login-api-openapi.yml",
+    "veritas-netbackup-policies-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

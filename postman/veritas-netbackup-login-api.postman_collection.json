@@ -1,0 +1,256 @@
+{
+  "info": {
+    "_postman_id": "37caa591-09fc-4dc9-8ede-f73fce55d314",
+    "name": "Veritas NetBackup REST Clients Login API",
+    "description": "The Veritas NetBackup REST API provides programmatic access to NetBackup operations including backup job management, policy configuration, client administration, and backup image catalog queries. The API uses JSON-based request and response payloads, JWT-based authentication, and follows RESTful conventions. All endpoints require authentication via a JSON Web Token obtained from the /login endpoint on the NetBackup primary server.\n\nContact Support:\n Name: Veritas NetBackup Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:27:21.000Z",
+    "updatedAt": "2026-07-28T03:27:22.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-37caa591-09fc-4dc9-8ede-f73fce55d314"
+  },
+  "item": [
+    {
+      "name": "login",
+      "item": [
+        {
+          "name": "Veritas Netbackup Authenticate and Obtain a Jwt",
+          "id": "21cb90ab-4b45-4cb8-b114-44779b069a81",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.netbackup+json;version=1.0"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=1.0"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"domainName\": \"<string>\",\n  \"domainType\": \"nt\",\n  \"userName\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "login"
+              ]
+            },
+            "description": "Authenticates a user against the NetBackup primary server and returns a JSON Web Token (JWT) used to authorize subsequent API calls. The token must be included in the Authorization header as a Bearer token for all other API requests."
+          },
+          "response": [
+            {
+              "id": "e7ba6b72-956d-49d3-839c-c3bef4cffb74",
+              "name": "Authentication successful, JWT returned",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/vnd.netbackup+json;version=1.0"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=1.0"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domainName\": \"<string>\",\n  \"domainType\": \"nt\",\n  \"userName\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "login"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=1.0"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"token\": \"<string>\",\n  \"tokenType\": \"BEARER\",\n  \"validity\": \"<integer>\"\n}",
+              "createdAt": "2026-07-28T03:27:22.000Z",
+              "updatedAt": "2026-07-28T03:27:22.000Z",
+              "uid": "35240-e7ba6b72-956d-49d3-839c-c3bef4cffb74"
+            },
+            {
+              "id": "4e9f8655-48d1-4102-b4eb-b5027afdeace",
+              "name": "Invalid request body",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/vnd.netbackup+json;version=1.0"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=1.0"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domainName\": \"<string>\",\n  \"domainType\": \"nt\",\n  \"userName\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "login"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=1.0"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:27:22.000Z",
+              "updatedAt": "2026-07-28T03:27:22.000Z",
+              "uid": "35240-4e9f8655-48d1-4102-b4eb-b5027afdeace"
+            },
+            {
+              "id": "c744a8ff-2082-4b28-9fca-67bdbe39e80a",
+              "name": "Authentication failed - invalid credentials",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/vnd.netbackup+json;version=1.0"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=1.0"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domainName\": \"<string>\",\n  \"domainType\": \"nt\",\n  \"userName\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "login"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=1.0"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:27:22.000Z",
+              "updatedAt": "2026-07-28T03:27:22.000Z",
+              "uid": "35240-c744a8ff-2082-4b28-9fca-67bdbe39e80a"
+            }
+          ],
+          "createdAt": "2026-07-28T03:27:22.000Z",
+          "updatedAt": "2026-07-28T03:27:22.000Z",
+          "uid": "35240-21cb90ab-4b45-4cb8-b114-44779b069a81"
+        }
+      ],
+      "id": "db864bfe-57fa-4f9f-a358-771ffa3db4f3",
+      "createdAt": "2026-07-28T03:27:22.000Z",
+      "updatedAt": "2026-07-28T03:27:22.000Z",
+      "uid": "35240-db864bfe-57fa-4f9f-a358-771ffa3db4f3"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "primaryServer",
+      "value": "netbackup-primary-server"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{primaryServer}}:1556/netbackup"
+    }
+  ]
+}

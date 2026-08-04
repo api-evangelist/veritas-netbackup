@@ -1,0 +1,418 @@
+{
+  "info": {
+    "_postman_id": "e0fc8c1b-1a5f-41c4-807f-5b67e001fc1c",
+    "name": "Veritas NetBackup REST Clients API",
+    "description": "The Veritas NetBackup REST API provides programmatic access to NetBackup operations including backup job management, policy configuration, client administration, and backup image catalog queries. The API uses JSON-based request and response payloads, JWT-based authentication, and follows RESTful conventions. All endpoints require authentication via a JSON Web Token obtained from the /login endpoint on the NetBackup primary server.\n\nContact Support:\n Name: Veritas NetBackup Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:27:02.000Z",
+    "updatedAt": "2026-07-28T03:27:02.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e0fc8c1b-1a5f-41c4-807f-5b67e001fc1c"
+  },
+  "item": [
+    {
+      "name": "config",
+      "item": [
+        {
+          "name": "hosts",
+          "item": [
+            {
+              "name": "{hostId}",
+              "item": [
+                {
+                  "name": "Veritas Netbackup Get Client Details",
+                  "id": "f5e38523-8ac2-4897-a09c-dbe1de912f08",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/config/hosts/:hostId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "hosts",
+                        ":hostId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "8e3961d4-c7db-4c05-bbf0-9d457dda00c7",
+                          "key": "hostId",
+                          "value": "<string>",
+                          "description": "(Required) The unique identifier or hostname of the client"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves detailed configuration and status information for a specific NetBackup host including operating system details, hardware platform, and connectivity status."
+                  },
+                  "response": [
+                    {
+                      "id": "011b9577-edfc-4d0c-bb31-5605aea4516e",
+                      "name": "Client details returned successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/config/hosts/:hostId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "config",
+                            "hosts",
+                            ":hostId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "hostId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.netbackup+json;version=4.0"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"hostName\": \"<string>\",\n      \"hostType\": \"CLIENT\",\n      \"os\": \"<string>\",\n      \"platform\": \"<string>\",\n      \"version\": \"<string>\",\n      \"fingerprintSha256\": \"<string>\",\n      \"trustLevel\": \"TRUSTED\",\n      \"communicationStatus\": \"OFFLINE\",\n      \"lastConnectedTime\": \"<dateTime>\"\n    },\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\"\n      }\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T03:27:02.000Z",
+                      "updatedAt": "2026-07-28T03:27:02.000Z",
+                      "uid": "35240-011b9577-edfc-4d0c-bb31-5605aea4516e"
+                    },
+                    {
+                      "id": "2085de30-2e94-423a-9c8f-bc30a7db6481",
+                      "name": "Unauthorized - missing or invalid JWT",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/config/hosts/:hostId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "config",
+                            "hosts",
+                            ":hostId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "hostId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.netbackup+json;version=4.0"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:27:02.000Z",
+                      "updatedAt": "2026-07-28T03:27:02.000Z",
+                      "uid": "35240-2085de30-2e94-423a-9c8f-bc30a7db6481"
+                    },
+                    {
+                      "id": "822dfb5c-5ee4-4656-b685-5caade05eb11",
+                      "name": "Client not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/config/hosts/:hostId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "config",
+                            "hosts",
+                            ":hostId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "hostId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.netbackup+json;version=4.0"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:27:02.000Z",
+                      "updatedAt": "2026-07-28T03:27:02.000Z",
+                      "uid": "35240-822dfb5c-5ee4-4656-b685-5caade05eb11"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:27:02.000Z",
+                  "updatedAt": "2026-07-28T03:27:02.000Z",
+                  "uid": "35240-f5e38523-8ac2-4897-a09c-dbe1de912f08"
+                }
+              ],
+              "id": "26866007-42d6-4ea3-b3ae-1d27c463a0fb",
+              "createdAt": "2026-07-28T03:27:02.000Z",
+              "updatedAt": "2026-07-28T03:27:02.000Z",
+              "uid": "35240-26866007-42d6-4ea3-b3ae-1d27c463a0fb"
+            },
+            {
+              "name": "Veritas Netbackup List Netbackup Clients",
+              "id": "007bf327-941d-48f7-8a9c-a2c63c07490d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/config/hosts?page[limit]=10&page[offset]=0&filter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "config",
+                    "hosts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of clients to return",
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "description": "Number of entries to skip for pagination",
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "description": "OData-style filter expression. Supported fields include hostName and hostType. Example: hostType eq 'CLIENT'",
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Returns a list of hosts registered with the NetBackup primary server, including backup clients, media servers, and other host types. Results can be filtered by host name and host type."
+              },
+              "response": [
+                {
+                  "id": "008f055f-eb8e-4bbf-aab6-d05bd0a705aa",
+                  "name": "List of clients returned successfully",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/config/hosts?page[limit]=10&page[offset]=0&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "hosts"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of clients to return",
+                          "key": "page[limit]",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Number of entries to skip for pagination",
+                          "key": "page[offset]",
+                          "value": "0"
+                        },
+                        {
+                          "description": "OData-style filter expression. Supported fields include hostName and hostType. Example: hostType eq 'CLIENT'",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.netbackup+json;version=4.0"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"hostName\": \"<string>\",\n        \"hostType\": \"CLIENT\",\n        \"os\": \"<string>\",\n        \"platform\": \"<string>\",\n        \"version\": \"<string>\",\n        \"fingerprintSha256\": \"<string>\",\n        \"trustLevel\": \"UNKNOWN\",\n        \"communicationStatus\": \"UNREACHABLE\",\n        \"lastConnectedTime\": \"<dateTime>\"\n      },\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\"\n        }\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"hostName\": \"<string>\",\n        \"hostType\": \"MEDIA\",\n        \"os\": \"<string>\",\n        \"platform\": \"<string>\",\n        \"version\": \"<string>\",\n        \"fingerprintSha256\": \"<string>\",\n        \"trustLevel\": \"UNKNOWN\",\n        \"communicationStatus\": \"OFFLINE\",\n        \"lastConnectedTime\": \"<dateTime>\"\n      },\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\"\n        }\n      }\n    }\n  ],\n  \"meta\": {\n    \"pagination\": {\n      \"page[limit]\": \"<integer>\",\n      \"page[offset]\": \"<integer>\",\n      \"count\": \"<integer>\",\n      \"last\": \"<integer>\"\n    }\n  }\n}",
+                  "createdAt": "2026-07-28T03:27:02.000Z",
+                  "updatedAt": "2026-07-28T03:27:02.000Z",
+                  "uid": "35240-008f055f-eb8e-4bbf-aab6-d05bd0a705aa"
+                },
+                {
+                  "id": "24e52163-1a61-48f9-8774-71cdea1f23bf",
+                  "name": "Unauthorized - missing or invalid JWT",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/config/hosts?page[limit]=10&page[offset]=0&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "hosts"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of clients to return",
+                          "key": "page[limit]",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Number of entries to skip for pagination",
+                          "key": "page[offset]",
+                          "value": "0"
+                        },
+                        {
+                          "description": "OData-style filter expression. Supported fields include hostName and hostType. Example: hostType eq 'CLIENT'",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.netbackup+json;version=4.0"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:27:02.000Z",
+                  "updatedAt": "2026-07-28T03:27:02.000Z",
+                  "uid": "35240-24e52163-1a61-48f9-8774-71cdea1f23bf"
+                }
+              ],
+              "createdAt": "2026-07-28T03:27:02.000Z",
+              "updatedAt": "2026-07-28T03:27:02.000Z",
+              "uid": "35240-007bf327-941d-48f7-8a9c-a2c63c07490d"
+            }
+          ],
+          "id": "d4fc0c75-0b38-40c2-bde3-df3980a53390",
+          "createdAt": "2026-07-28T03:27:02.000Z",
+          "updatedAt": "2026-07-28T03:27:02.000Z",
+          "uid": "35240-d4fc0c75-0b38-40c2-bde3-df3980a53390"
+        }
+      ],
+      "id": "2ac8fc5f-71da-4d47-bb29-62f97faa61ec",
+      "createdAt": "2026-07-28T03:27:02.000Z",
+      "updatedAt": "2026-07-28T03:27:02.000Z",
+      "uid": "35240-2ac8fc5f-71da-4d47-bb29-62f97faa61ec"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "primaryServer",
+      "value": "netbackup-primary-server"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{primaryServer}}:1556/netbackup"
+    }
+  ]
+}

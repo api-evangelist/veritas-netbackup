@@ -1,0 +1,2103 @@
+{
+  "info": {
+    "_postman_id": "c2f7a4e3-decf-4073-85a4-5c731ec60291",
+    "name": "Veritas NetBackup REST Clients Jobs API",
+    "description": "The Veritas NetBackup REST API provides programmatic access to NetBackup operations including backup job management, policy configuration, client administration, and backup image catalog queries. The API uses JSON-based request and response payloads, JWT-based authentication, and follows RESTful conventions. All endpoints require authentication via a JSON Web Token obtained from the /login endpoint on the NetBackup primary server.\n\nContact Support:\n Name: Veritas NetBackup Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:27:20.000Z",
+    "updatedAt": "2026-07-28T03:27:21.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c2f7a4e3-decf-4073-85a4-5c731ec60291"
+  },
+  "item": [
+    {
+      "name": "admin",
+      "item": [
+        {
+          "name": "jobs",
+          "item": [
+            {
+              "name": "{jobId}",
+              "item": [
+                {
+                  "name": "cancel",
+                  "item": [
+                    {
+                      "name": "Veritas Netbackup Cancel a Running Job",
+                      "id": "9fa5b4ef-4fdd-40c4-b1d6-d427ee66274d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/jobs/:jobId/cancel",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "jobs",
+                            ":jobId",
+                            "cancel"
+                          ],
+                          "variable": [
+                            {
+                              "id": "2f65cf19-0982-41c0-b630-c59a916584b6",
+                              "key": "jobId",
+                              "value": "<string>",
+                              "description": "(Required) The unique identifier of the job to cancel"
+                            }
+                          ]
+                        },
+                        "description": "Cancels a currently active job. The job must be in a QUEUED or ACTIVE state. Once cancelled, the job state changes to STOPPED."
+                      },
+                      "response": [
+                        {
+                          "id": "96ad8afa-b03a-4f57-926b-2cbffe85f4ff",
+                          "name": "Job cancellation initiated successfully",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/cancel",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "cancel"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-96ad8afa-b03a-4f57-926b-2cbffe85f4ff"
+                        },
+                        {
+                          "id": "d89e1c64-33c2-4759-b1ff-83d54d0bfbef",
+                          "name": "Unauthorized - missing or invalid JWT",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/cancel",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "cancel"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-d89e1c64-33c2-4759-b1ff-83d54d0bfbef"
+                        },
+                        {
+                          "id": "f3870b4c-f3ec-48bf-8067-1bde3d2ae69f",
+                          "name": "Job not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/cancel",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "cancel"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-f3870b4c-f3ec-48bf-8067-1bde3d2ae69f"
+                        },
+                        {
+                          "id": "01c21226-96c0-42eb-a723-44c3d3cb3876",
+                          "name": "Conflict - job is not in a cancellable state",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/cancel",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "cancel"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Conflict",
+                          "code": 409,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-01c21226-96c0-42eb-a723-44c3d3cb3876"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:27:21.000Z",
+                      "updatedAt": "2026-07-28T03:27:21.000Z",
+                      "uid": "35240-9fa5b4ef-4fdd-40c4-b1d6-d427ee66274d"
+                    }
+                  ],
+                  "id": "9d102fa2-c965-4ef4-83f4-17c27bd33657",
+                  "createdAt": "2026-07-28T03:27:21.000Z",
+                  "updatedAt": "2026-07-28T03:27:21.000Z",
+                  "uid": "35240-9d102fa2-c965-4ef4-83f4-17c27bd33657"
+                },
+                {
+                  "name": "suspend",
+                  "item": [
+                    {
+                      "name": "Veritas Netbackup Suspend a Running Job",
+                      "id": "cede54ca-91aa-4028-87c1-55d1f9bc6f60",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/jobs/:jobId/suspend",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "jobs",
+                            ":jobId",
+                            "suspend"
+                          ],
+                          "variable": [
+                            {
+                              "id": "16db42cd-93c0-47ef-aa4a-6a81aa007ff3",
+                              "key": "jobId",
+                              "value": "<string>",
+                              "description": "(Required) The unique identifier of the job to suspend"
+                            }
+                          ]
+                        },
+                        "description": "Suspends an active job, pausing its execution. The job can later be resumed using the resume endpoint."
+                      },
+                      "response": [
+                        {
+                          "id": "f6d9168f-d0d2-4c1a-911f-9e63b33e0144",
+                          "name": "Job suspended successfully",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/suspend",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "suspend"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-f6d9168f-d0d2-4c1a-911f-9e63b33e0144"
+                        },
+                        {
+                          "id": "f654d4d8-95fb-484f-aaea-ec3a8829ed69",
+                          "name": "Unauthorized - missing or invalid JWT",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/suspend",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "suspend"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-f654d4d8-95fb-484f-aaea-ec3a8829ed69"
+                        },
+                        {
+                          "id": "2339430f-4076-4c7d-b04e-50161b6542c3",
+                          "name": "Job not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/suspend",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "suspend"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-2339430f-4076-4c7d-b04e-50161b6542c3"
+                        },
+                        {
+                          "id": "b3e147fc-6da9-419c-9e1a-1b156459cbec",
+                          "name": "Conflict - job is not in a suspendable state",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/suspend",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "suspend"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Conflict",
+                          "code": 409,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-b3e147fc-6da9-419c-9e1a-1b156459cbec"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:27:21.000Z",
+                      "updatedAt": "2026-07-28T03:27:21.000Z",
+                      "uid": "35240-cede54ca-91aa-4028-87c1-55d1f9bc6f60"
+                    }
+                  ],
+                  "id": "a33f5a06-2e00-4afd-b04a-10ca5d7b3e31",
+                  "createdAt": "2026-07-28T03:27:21.000Z",
+                  "updatedAt": "2026-07-28T03:27:21.000Z",
+                  "uid": "35240-a33f5a06-2e00-4afd-b04a-10ca5d7b3e31"
+                },
+                {
+                  "name": "resume",
+                  "item": [
+                    {
+                      "name": "Veritas Netbackup Resume a Suspended Job",
+                      "id": "9cf6f546-7dae-4ec4-b5e9-37e8933ab836",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/jobs/:jobId/resume",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "jobs",
+                            ":jobId",
+                            "resume"
+                          ],
+                          "variable": [
+                            {
+                              "id": "31fb6b30-fb53-4a04-bf03-c3f79bdb71c4",
+                              "key": "jobId",
+                              "value": "<string>",
+                              "description": "(Required) The unique identifier of the job to resume"
+                            }
+                          ]
+                        },
+                        "description": "Resumes a previously suspended job, allowing it to continue execution from where it was paused."
+                      },
+                      "response": [
+                        {
+                          "id": "fa8c7867-73bd-4183-8a4b-951fa5019ff3",
+                          "name": "Job resumed successfully",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/resume",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "resume"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-fa8c7867-73bd-4183-8a4b-951fa5019ff3"
+                        },
+                        {
+                          "id": "cb77422d-5401-4aac-97f3-e91e3154292d",
+                          "name": "Unauthorized - missing or invalid JWT",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/resume",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "resume"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-cb77422d-5401-4aac-97f3-e91e3154292d"
+                        },
+                        {
+                          "id": "32266ff4-e3b7-4e20-9b9d-c1450bdbd22b",
+                          "name": "Job not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/resume",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "resume"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-32266ff4-e3b7-4e20-9b9d-c1450bdbd22b"
+                        },
+                        {
+                          "id": "1830f1e0-f7b8-4ac9-8499-fca9e349e936",
+                          "name": "Conflict - job is not in a suspended state",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/resume",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "resume"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Conflict",
+                          "code": 409,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-1830f1e0-f7b8-4ac9-8499-fca9e349e936"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:27:21.000Z",
+                      "updatedAt": "2026-07-28T03:27:21.000Z",
+                      "uid": "35240-9cf6f546-7dae-4ec4-b5e9-37e8933ab836"
+                    }
+                  ],
+                  "id": "0f12bafa-3aea-4cd0-a6c8-1e0718e1572c",
+                  "createdAt": "2026-07-28T03:27:21.000Z",
+                  "updatedAt": "2026-07-28T03:27:21.000Z",
+                  "uid": "35240-0f12bafa-3aea-4cd0-a6c8-1e0718e1572c"
+                },
+                {
+                  "name": "restart",
+                  "item": [
+                    {
+                      "name": "Veritas Netbackup Restart a Failed Job",
+                      "id": "7209e13c-26fb-4cb6-b2a5-3095e5da3099",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/jobs/:jobId/restart",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "jobs",
+                            ":jobId",
+                            "restart"
+                          ],
+                          "variable": [
+                            {
+                              "id": "80960adc-c112-4193-b2c6-51d67c0911c3",
+                              "key": "jobId",
+                              "value": "<string>",
+                              "description": "(Required) The unique identifier of the job to restart"
+                            }
+                          ]
+                        },
+                        "description": "Restarts a job that has completed with a failed or partially successful status. A new job is created to retry the operation."
+                      },
+                      "response": [
+                        {
+                          "id": "fbbb723c-e02e-4e75-81d6-fae35f19cdd2",
+                          "name": "Job restarted successfully, new job created",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/restart",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "restart"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"jobId\": \"<integer>\",\n      \"parentJobId\": \"<integer>\",\n      \"jobType\": \"VERIFY\",\n      \"state\": \"WAITING_FOR_RETRY\",\n      \"status\": \"<integer>\",\n      \"policyName\": \"<string>\",\n      \"policyType\": \"<string>\",\n      \"scheduleName\": \"<string>\",\n      \"scheduleType\": \"USER_ARCHIVE\",\n      \"clientName\": \"<string>\",\n      \"mediaServer\": \"<string>\",\n      \"storageUnit\": \"<string>\",\n      \"startTime\": \"<dateTime>\",\n      \"endTime\": \"<dateTime>\",\n      \"elapsedTime\": \"<integer>\",\n      \"kilobytesTransferred\": \"<integer>\",\n      \"filesTransferred\": \"<integer>\",\n      \"percentComplete\": \"<integer>\",\n      \"currentOperation\": \"<string>\",\n      \"attempt\": \"<integer>\",\n      \"restartable\": \"<boolean>\",\n      \"suspendable\": \"<boolean>\",\n      \"resumable\": \"<boolean>\",\n      \"cancellable\": \"<boolean>\"\n    },\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\"\n      }\n    }\n  }\n}",
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-fbbb723c-e02e-4e75-81d6-fae35f19cdd2"
+                        },
+                        {
+                          "id": "585874c1-bee5-4dab-a3e0-46f23aaa2d06",
+                          "name": "Unauthorized - missing or invalid JWT",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/restart",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "restart"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-585874c1-bee5-4dab-a3e0-46f23aaa2d06"
+                        },
+                        {
+                          "id": "fe04cce2-34ef-4d9e-9ec2-a67ef2ec74fa",
+                          "name": "Job not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/restart",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "restart"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-fe04cce2-34ef-4d9e-9ec2-a67ef2ec74fa"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:27:21.000Z",
+                      "updatedAt": "2026-07-28T03:27:21.000Z",
+                      "uid": "35240-7209e13c-26fb-4cb6-b2a5-3095e5da3099"
+                    }
+                  ],
+                  "id": "a5c110d0-93ac-4f69-a36e-97729a5696cd",
+                  "createdAt": "2026-07-28T03:27:21.000Z",
+                  "updatedAt": "2026-07-28T03:27:21.000Z",
+                  "uid": "35240-a5c110d0-93ac-4f69-a36e-97729a5696cd"
+                },
+                {
+                  "name": "file-lists",
+                  "item": [
+                    {
+                      "name": "Veritas Netbackup Get the File List for a Job",
+                      "id": "607fca96-034b-4106-a176-3ad19510f324",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/jobs/:jobId/file-lists?page[limit]=100&page[offset]=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "jobs",
+                            ":jobId",
+                            "file-lists"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of file entries to return",
+                              "key": "page[limit]",
+                              "value": "100"
+                            },
+                            {
+                              "description": "Number of entries to skip for pagination",
+                              "key": "page[offset]",
+                              "value": "0"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "9ac4830f-a1ed-4ddc-8bbf-e182fd25af56",
+                              "key": "jobId",
+                              "value": "<string>",
+                              "description": "(Required) The unique identifier of the job"
+                            }
+                          ]
+                        },
+                        "description": "Returns the list of files that were processed by a specific backup or restore job. This is useful for verifying which files were included in a backup operation."
+                      },
+                      "response": [
+                        {
+                          "id": "8ca5f09d-8474-456d-b2c4-1cb7d77a75ce",
+                          "name": "File list returned successfully",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/file-lists?page[limit]=100&page[offset]=0",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "file-lists"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Maximum number of file entries to return",
+                                  "key": "page[limit]",
+                                  "value": "100"
+                                },
+                                {
+                                  "description": "Number of entries to skip for pagination",
+                                  "key": "page[offset]",
+                                  "value": "0"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"fileName\": \"<string>\",\n        \"fileSize\": \"<integer>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"fileName\": \"<string>\",\n        \"fileSize\": \"<integer>\"\n      }\n    }\n  ],\n  \"meta\": {\n    \"pagination\": {\n      \"page[limit]\": \"<integer>\",\n      \"page[offset]\": \"<integer>\",\n      \"count\": \"<integer>\",\n      \"last\": \"<integer>\"\n    }\n  }\n}",
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-8ca5f09d-8474-456d-b2c4-1cb7d77a75ce"
+                        },
+                        {
+                          "id": "8c5378e9-e4d3-4543-8a03-331d4469e2cd",
+                          "name": "Unauthorized - missing or invalid JWT",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/file-lists?page[limit]=100&page[offset]=0",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "file-lists"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Maximum number of file entries to return",
+                                  "key": "page[limit]",
+                                  "value": "100"
+                                },
+                                {
+                                  "description": "Number of entries to skip for pagination",
+                                  "key": "page[offset]",
+                                  "value": "0"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-8c5378e9-e4d3-4543-8a03-331d4469e2cd"
+                        },
+                        {
+                          "id": "fe05f193-e96d-4513-9998-199cd97a2b50",
+                          "name": "Job not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/file-lists?page[limit]=100&page[offset]=0",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "file-lists"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Maximum number of file entries to return",
+                                  "key": "page[limit]",
+                                  "value": "100"
+                                },
+                                {
+                                  "description": "Number of entries to skip for pagination",
+                                  "key": "page[offset]",
+                                  "value": "0"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-fe05f193-e96d-4513-9998-199cd97a2b50"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:27:21.000Z",
+                      "updatedAt": "2026-07-28T03:27:21.000Z",
+                      "uid": "35240-607fca96-034b-4106-a176-3ad19510f324"
+                    }
+                  ],
+                  "id": "99278b9a-ef2f-4a8c-a263-5911121033d4",
+                  "createdAt": "2026-07-28T03:27:21.000Z",
+                  "updatedAt": "2026-07-28T03:27:21.000Z",
+                  "uid": "35240-99278b9a-ef2f-4a8c-a263-5911121033d4"
+                },
+                {
+                  "name": "try-logs",
+                  "item": [
+                    {
+                      "name": "Veritas Netbackup Get Try Logs for a Job",
+                      "id": "762d5485-0303-43cd-9b73-69fafa4af95b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/jobs/:jobId/try-logs",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "jobs",
+                            ":jobId",
+                            "try-logs"
+                          ],
+                          "variable": [
+                            {
+                              "id": "ed637fdd-2c05-4db1-82d9-4f5cc4dd6932",
+                              "key": "jobId",
+                              "value": "<string>",
+                              "description": "(Required) The unique identifier of the job"
+                            }
+                          ]
+                        },
+                        "description": "Returns the try log entries for a specific job, providing detailed information about each attempt to execute the job including status messages, error codes, and timing information."
+                      },
+                      "response": [
+                        {
+                          "id": "0b879212-ea6e-40e4-9ce5-6fdd78a01631",
+                          "name": "Try logs returned successfully",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/try-logs",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "try-logs"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"tryNumber\": \"<integer>\",\n        \"pid\": \"<integer>\",\n        \"statusCode\": \"<integer>\",\n        \"statusMessage\": \"<string>\",\n        \"startTime\": \"<dateTime>\",\n        \"endTime\": \"<dateTime>\",\n        \"mediaServer\": \"<string>\",\n        \"storageUnit\": \"<string>\",\n        \"kilobytesTransferred\": \"<integer>\",\n        \"filesTransferred\": \"<integer>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"tryNumber\": \"<integer>\",\n        \"pid\": \"<integer>\",\n        \"statusCode\": \"<integer>\",\n        \"statusMessage\": \"<string>\",\n        \"startTime\": \"<dateTime>\",\n        \"endTime\": \"<dateTime>\",\n        \"mediaServer\": \"<string>\",\n        \"storageUnit\": \"<string>\",\n        \"kilobytesTransferred\": \"<integer>\",\n        \"filesTransferred\": \"<integer>\"\n      }\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-0b879212-ea6e-40e4-9ce5-6fdd78a01631"
+                        },
+                        {
+                          "id": "0cc26cde-8fce-45c1-9188-8353c9389d3e",
+                          "name": "Unauthorized - missing or invalid JWT",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/try-logs",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "try-logs"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-0cc26cde-8fce-45c1-9188-8353c9389d3e"
+                        },
+                        {
+                          "id": "0b3e76d1-1114-400f-9957-9da8a87d7c54",
+                          "name": "Job not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.netbackup+json;version=4.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/jobs/:jobId/try-logs",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "jobs",
+                                ":jobId",
+                                "try-logs"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.netbackup+json;version=4.0"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:27:21.000Z",
+                          "updatedAt": "2026-07-28T03:27:21.000Z",
+                          "uid": "35240-0b3e76d1-1114-400f-9957-9da8a87d7c54"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:27:21.000Z",
+                      "updatedAt": "2026-07-28T03:27:21.000Z",
+                      "uid": "35240-762d5485-0303-43cd-9b73-69fafa4af95b"
+                    }
+                  ],
+                  "id": "6d873db1-79a4-47d4-8cd5-5608fd3126f1",
+                  "createdAt": "2026-07-28T03:27:21.000Z",
+                  "updatedAt": "2026-07-28T03:27:21.000Z",
+                  "uid": "35240-6d873db1-79a4-47d4-8cd5-5608fd3126f1"
+                },
+                {
+                  "name": "Veritas Netbackup Get Job Details",
+                  "id": "72e9c3b1-7f31-495e-881f-0a8b13e96e92",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/jobs/:jobId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "jobs",
+                        ":jobId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "1a837735-3a2a-4a48-a5cf-b5143d4233a4",
+                          "key": "jobId",
+                          "value": "<string>",
+                          "description": "(Required) The unique identifier of the job"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves detailed information about a specific NetBackup job identified by its job ID. Returns job metadata including type, state, policy name, client name, schedule, start and end times, kilobytes transferred, and number of files."
+                  },
+                  "response": [
+                    {
+                      "id": "5d7cdf84-27b6-4a9d-932a-30d73bbe37fa",
+                      "name": "Job details returned successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/jobs/:jobId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "jobs",
+                            ":jobId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "jobId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.netbackup+json;version=4.0"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"jobId\": \"<integer>\",\n      \"parentJobId\": \"<integer>\",\n      \"jobType\": \"VERIFY\",\n      \"state\": \"WAITING_FOR_RETRY\",\n      \"status\": \"<integer>\",\n      \"policyName\": \"<string>\",\n      \"policyType\": \"<string>\",\n      \"scheduleName\": \"<string>\",\n      \"scheduleType\": \"USER_ARCHIVE\",\n      \"clientName\": \"<string>\",\n      \"mediaServer\": \"<string>\",\n      \"storageUnit\": \"<string>\",\n      \"startTime\": \"<dateTime>\",\n      \"endTime\": \"<dateTime>\",\n      \"elapsedTime\": \"<integer>\",\n      \"kilobytesTransferred\": \"<integer>\",\n      \"filesTransferred\": \"<integer>\",\n      \"percentComplete\": \"<integer>\",\n      \"currentOperation\": \"<string>\",\n      \"attempt\": \"<integer>\",\n      \"restartable\": \"<boolean>\",\n      \"suspendable\": \"<boolean>\",\n      \"resumable\": \"<boolean>\",\n      \"cancellable\": \"<boolean>\"\n    },\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\"\n      }\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T03:27:21.000Z",
+                      "updatedAt": "2026-07-28T03:27:21.000Z",
+                      "uid": "35240-5d7cdf84-27b6-4a9d-932a-30d73bbe37fa"
+                    },
+                    {
+                      "id": "5a07b2c9-ca09-4d89-b43b-5b66ff493847",
+                      "name": "Unauthorized - missing or invalid JWT",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/jobs/:jobId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "jobs",
+                            ":jobId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "jobId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.netbackup+json;version=4.0"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:27:21.000Z",
+                      "updatedAt": "2026-07-28T03:27:21.000Z",
+                      "uid": "35240-5a07b2c9-ca09-4d89-b43b-5b66ff493847"
+                    },
+                    {
+                      "id": "34bab5fe-b858-4240-b58e-7098c4f43519",
+                      "name": "Job not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/jobs/:jobId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "jobs",
+                            ":jobId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "jobId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.netbackup+json;version=4.0"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:27:21.000Z",
+                      "updatedAt": "2026-07-28T03:27:21.000Z",
+                      "uid": "35240-34bab5fe-b858-4240-b58e-7098c4f43519"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:27:21.000Z",
+                  "updatedAt": "2026-07-28T03:27:21.000Z",
+                  "uid": "35240-72e9c3b1-7f31-495e-881f-0a8b13e96e92"
+                },
+                {
+                  "name": "Veritas Netbackup Delete a Job",
+                  "id": "6d80f6a3-68a6-4723-8dc6-f285ed9d02f4",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/jobs/:jobId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "jobs",
+                        ":jobId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "415eb269-79bb-4e1e-b1f7-a0fa070078a9",
+                          "key": "jobId",
+                          "value": "<string>",
+                          "description": "(Required) The unique identifier of the job to delete"
+                        }
+                      ]
+                    },
+                    "description": "Deletes a completed or failed job from the NetBackup activity monitor. Only jobs that are in a terminal state (DONE or STOPPED) can be deleted."
+                  },
+                  "response": [
+                    {
+                      "id": "1373f7ce-dab0-404d-94d4-40fb608c5f5f",
+                      "name": "Job deleted successfully",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/jobs/:jobId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "jobs",
+                            ":jobId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "jobId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:27:21.000Z",
+                      "updatedAt": "2026-07-28T03:27:21.000Z",
+                      "uid": "35240-1373f7ce-dab0-404d-94d4-40fb608c5f5f"
+                    },
+                    {
+                      "id": "09fc5f31-2ab6-406b-a609-5d99dcd725d5",
+                      "name": "Unauthorized - missing or invalid JWT",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/jobs/:jobId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "jobs",
+                            ":jobId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "jobId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.netbackup+json;version=4.0"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:27:21.000Z",
+                      "updatedAt": "2026-07-28T03:27:21.000Z",
+                      "uid": "35240-09fc5f31-2ab6-406b-a609-5d99dcd725d5"
+                    },
+                    {
+                      "id": "028ae2e9-03d3-42b2-8512-db37e6bf25c6",
+                      "name": "Job not found",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/jobs/:jobId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "jobs",
+                            ":jobId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "jobId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.netbackup+json;version=4.0"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:27:21.000Z",
+                      "updatedAt": "2026-07-28T03:27:21.000Z",
+                      "uid": "35240-028ae2e9-03d3-42b2-8512-db37e6bf25c6"
+                    },
+                    {
+                      "id": "8d539539-ca6a-4a50-b669-2dbfddd233a8",
+                      "name": "Conflict - job is still active and cannot be deleted",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.netbackup+json;version=4.0"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/jobs/:jobId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "jobs",
+                            ":jobId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "jobId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Conflict",
+                      "code": 409,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.netbackup+json;version=4.0"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:27:21.000Z",
+                      "updatedAt": "2026-07-28T03:27:21.000Z",
+                      "uid": "35240-8d539539-ca6a-4a50-b669-2dbfddd233a8"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:27:21.000Z",
+                  "updatedAt": "2026-07-28T03:27:21.000Z",
+                  "uid": "35240-6d80f6a3-68a6-4723-8dc6-f285ed9d02f4"
+                }
+              ],
+              "id": "a2dcabb1-41a4-411f-b329-6affd9140d50",
+              "createdAt": "2026-07-28T03:27:21.000Z",
+              "updatedAt": "2026-07-28T03:27:21.000Z",
+              "uid": "35240-a2dcabb1-41a4-411f-b329-6affd9140d50"
+            },
+            {
+              "name": "Veritas Netbackup List Backup Jobs",
+              "id": "90be1519-2b29-496a-b573-0d5cd32c3abf",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/admin/jobs?page[limit]=10&page[offset]=0&filter=<string>&sort=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "jobs"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of jobs to return per page",
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "description": "Number of jobs to skip for pagination",
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "description": "OData-style filter expression to narrow results. Supported fields include jobType, state, policyName, clientName, status, and startTime. Example: jobType eq 'BACKUP' and state eq 'DONE'",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of fields to sort by. Prefix with a hyphen for descending order. Example: -startTime,jobId",
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Returns a list of NetBackup jobs matching the specified filter criteria. Jobs represent backup, restore, duplication, and other administrative operations. Results can be filtered by job type, state, policy name, client name, and time range. Supports pagination via page[limit] and page[offset] parameters."
+              },
+              "response": [
+                {
+                  "id": "c5538849-6753-4367-95ae-717ff1ac2b8f",
+                  "name": "List of jobs matching filter criteria",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/jobs?page[limit]=10&page[offset]=0&filter=<string>&sort=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "jobs"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of jobs to return per page",
+                          "key": "page[limit]",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Number of jobs to skip for pagination",
+                          "key": "page[offset]",
+                          "value": "0"
+                        },
+                        {
+                          "description": "OData-style filter expression to narrow results. Supported fields include jobType, state, policyName, clientName, status, and startTime. Example: jobType eq 'BACKUP' and state eq 'DONE'",
+                          "key": "filter",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of fields to sort by. Prefix with a hyphen for descending order. Example: -startTime,jobId",
+                          "key": "sort",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.netbackup+json;version=4.0"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"jobId\": \"<integer>\",\n        \"parentJobId\": \"<integer>\",\n        \"jobType\": \"VERIFY\",\n        \"state\": \"DONE\",\n        \"status\": \"<integer>\",\n        \"policyName\": \"<string>\",\n        \"policyType\": \"<string>\",\n        \"scheduleName\": \"<string>\",\n        \"scheduleType\": \"DIFF_INCR\",\n        \"clientName\": \"<string>\",\n        \"mediaServer\": \"<string>\",\n        \"storageUnit\": \"<string>\",\n        \"startTime\": \"<dateTime>\",\n        \"endTime\": \"<dateTime>\",\n        \"elapsedTime\": \"<integer>\",\n        \"kilobytesTransferred\": \"<integer>\",\n        \"filesTransferred\": \"<integer>\",\n        \"percentComplete\": \"<integer>\",\n        \"currentOperation\": \"<string>\",\n        \"attempt\": \"<integer>\",\n        \"restartable\": \"<boolean>\",\n        \"suspendable\": \"<boolean>\",\n        \"resumable\": \"<boolean>\",\n        \"cancellable\": \"<boolean>\"\n      },\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\"\n        }\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"jobId\": \"<integer>\",\n        \"parentJobId\": \"<integer>\",\n        \"jobType\": \"VAULT\",\n        \"state\": \"DONE\",\n        \"status\": \"<integer>\",\n        \"policyName\": \"<string>\",\n        \"policyType\": \"<string>\",\n        \"scheduleName\": \"<string>\",\n        \"scheduleType\": \"DIFF_INCR\",\n        \"clientName\": \"<string>\",\n        \"mediaServer\": \"<string>\",\n        \"storageUnit\": \"<string>\",\n        \"startTime\": \"<dateTime>\",\n        \"endTime\": \"<dateTime>\",\n        \"elapsedTime\": \"<integer>\",\n        \"kilobytesTransferred\": \"<integer>\",\n        \"filesTransferred\": \"<integer>\",\n        \"percentComplete\": \"<integer>\",\n        \"currentOperation\": \"<string>\",\n        \"attempt\": \"<integer>\",\n        \"restartable\": \"<boolean>\",\n        \"suspendable\": \"<boolean>\",\n        \"resumable\": \"<boolean>\",\n        \"cancellable\": \"<boolean>\"\n      },\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\"\n        }\n      }\n    }\n  ],\n  \"meta\": {\n    \"pagination\": {\n      \"page[limit]\": \"<integer>\",\n      \"page[offset]\": \"<integer>\",\n      \"count\": \"<integer>\",\n      \"last\": \"<integer>\"\n    }\n  }\n}",
+                  "createdAt": "2026-07-28T03:27:21.000Z",
+                  "updatedAt": "2026-07-28T03:27:21.000Z",
+                  "uid": "35240-c5538849-6753-4367-95ae-717ff1ac2b8f"
+                },
+                {
+                  "id": "c7ee7537-777f-4856-a287-388d69538160",
+                  "name": "Unauthorized - missing or invalid JWT",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/jobs?page[limit]=10&page[offset]=0&filter=<string>&sort=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "jobs"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of jobs to return per page",
+                          "key": "page[limit]",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Number of jobs to skip for pagination",
+                          "key": "page[offset]",
+                          "value": "0"
+                        },
+                        {
+                          "description": "OData-style filter expression to narrow results. Supported fields include jobType, state, policyName, clientName, status, and startTime. Example: jobType eq 'BACKUP' and state eq 'DONE'",
+                          "key": "filter",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of fields to sort by. Prefix with a hyphen for descending order. Example: -startTime,jobId",
+                          "key": "sort",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.netbackup+json;version=4.0"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:27:21.000Z",
+                  "updatedAt": "2026-07-28T03:27:21.000Z",
+                  "uid": "35240-c7ee7537-777f-4856-a287-388d69538160"
+                },
+                {
+                  "id": "2b891a1a-b635-4ccd-88b8-2f0eb22601fd",
+                  "name": "Forbidden - insufficient permissions",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.netbackup+json;version=4.0"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/jobs?page[limit]=10&page[offset]=0&filter=<string>&sort=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "jobs"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of jobs to return per page",
+                          "key": "page[limit]",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Number of jobs to skip for pagination",
+                          "key": "page[offset]",
+                          "value": "0"
+                        },
+                        {
+                          "description": "OData-style filter expression to narrow results. Supported fields include jobType, state, policyName, clientName, status, and startTime. Example: jobType eq 'BACKUP' and state eq 'DONE'",
+                          "key": "filter",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of fields to sort by. Prefix with a hyphen for descending order. Example: -startTime,jobId",
+                          "key": "sort",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.netbackup+json;version=4.0"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessage\": \"<string>\",\n  \"details\": [\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<integer>\",\n      \"errorMessage\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:27:21.000Z",
+                  "updatedAt": "2026-07-28T03:27:21.000Z",
+                  "uid": "35240-2b891a1a-b635-4ccd-88b8-2f0eb22601fd"
+                }
+              ],
+              "createdAt": "2026-07-28T03:27:21.000Z",
+              "updatedAt": "2026-07-28T03:27:21.000Z",
+              "uid": "35240-90be1519-2b29-496a-b573-0d5cd32c3abf"
+            }
+          ],
+          "id": "495d5c52-059e-4336-8a05-b7fb8360d026",
+          "createdAt": "2026-07-28T03:27:21.000Z",
+          "updatedAt": "2026-07-28T03:27:21.000Z",
+          "uid": "35240-495d5c52-059e-4336-8a05-b7fb8360d026"
+        }
+      ],
+      "id": "379b305b-175d-4440-818a-b037ac68e570",
+      "createdAt": "2026-07-28T03:27:21.000Z",
+      "updatedAt": "2026-07-28T03:27:21.000Z",
+      "uid": "35240-379b305b-175d-4440-818a-b037ac68e570"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "primaryServer",
+      "value": "netbackup-primary-server"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{primaryServer}}:1556/netbackup"
+    }
+  ]
+}

@@ -1,0 +1,3339 @@
+openapi: 3.1.0
+info:
+  title: Veritas NetBackup REST API
+  description: >-
+    The Veritas NetBackup REST API provides programmatic access to NetBackup
+    operations including backup job management, policy configuration, client
+    administration, and backup image catalog queries. The API uses JSON-based
+    request and response payloads, JWT-based authentication, and follows RESTful
+    conventions. All endpoints require authentication via a JSON Web Token
+    obtained from the /login endpoint on the NetBackup primary server.
+  version: '10.3'
+  contact:
+    name: Veritas NetBackup Support
+    url: https://www.veritas.com/support/en_US/netbackup
+  termsOfService: https://www.veritas.com/company/legal/legal-terms-of-use
+  license:
+    name: Proprietary
+    url: https://www.veritas.com/company/legal/legal-terms-of-use
+externalDocs:
+  description: NetBackup REST API Getting Started Guide
+  url: https://sort.veritas.com/public/documents/nbu/10.3/windowsandunix/productguides/html/getting-started/
+servers:
+- url: https://{primaryServer}:1556/netbackup
+  description: NetBackup Primary Server REST API
+  variables:
+    primaryServer:
+      description: Hostname or IP address of the NetBackup primary server
+      default: netbackup-primary-server
+tags:
+- name: Clients
+  description: >-
+    Manage NetBackup clients including listing registered clients, retrieving
+    client configuration details, and managing client-server trust
+    relationships.
+- name: Images
+  description: >-
+    Query the NetBackup image catalog to retrieve backup image metadata,
+    search for images by policy or client, and manage image lifecycle
+    operations such as expiration and duplication.
+- name: Jobs
+  description: >-
+    Manage and monitor backup, restore, and administrative jobs. Retrieve job
+    details, list jobs by filter criteria, cancel, restart, suspend, and
+    resume jobs, and access job file lists and try logs.
+- name: Login
+  description: >-
+    Authenticate to the NetBackup REST API and obtain a JSON Web Token for
+    subsequent API requests.
+- name: Policies
+  description: >-
+    Create, retrieve, update, and delete backup policies. Manage policy
+    schedules, client lists, and backup selections that define what data gets
+    backed up, when, and how.
+security:
+- jwtAuth: []
+paths:
+  /login:
+    post:
+      operationId: login
+      summary: Veritas Netbackup Authenticate and Obtain a Jwt
+      description: >-
+        Authenticates a user against the NetBackup primary server and returns a
+        JSON Web Token (JWT) used to authorize subsequent API calls. The token
+        must be included in the Authorization header as a Bearer token for all
+        other API requests.
+      tags:
+      - Login
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/vnd.netbackup+json;version=1.0:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            examples:
+              LoginRequestExample:
+                summary: Default login request
+                x-microcks-default: true
+                value:
+                  domainName: example_value
+                  domainType: unixpwd
+                  userName: example_value
+                  password: example_value
+      responses:
+        '201':
+          description: Authentication successful, JWT returned
+          content:
+            application/vnd.netbackup+json;version=1.0:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+              examples:
+                Login201Example:
+                  summary: Default login 201 response
+                  x-microcks-default: true
+                  value:
+                    token: example_value
+                    tokenType: BEARER
+                    validity: 10
+        '400':
+          description: Invalid request body
+          content:
+            application/vnd.netbackup+json;version=1.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Login400Example:
+                  summary: Default login 400 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '401':
+          description: Authentication failed - invalid credentials
+          content:
+            application/vnd.netbackup+json;version=1.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Login401Example:
+                  summary: Default login 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin/jobs:
+    get:
+      operationId: listJobs
+      summary: Veritas Netbackup List Backup Jobs
+      description: >-
+        Returns a list of NetBackup jobs matching the specified filter criteria.
+        Jobs represent backup, restore, duplication, and other administrative
+        operations. Results can be filtered by job type, state, policy name,
+        client name, and time range. Supports pagination via page[limit] and
+        page[offset] parameters.
+      tags:
+      - Jobs
+      parameters:
+      - name: page[limit]
+        in: query
+        description: Maximum number of jobs to return per page
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 1000
+        example: 10
+      - name: page[offset]
+        in: query
+        description: Number of jobs to skip for pagination
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+        example: 10
+      - name: filter
+        in: query
+        description: >-
+          OData-style filter expression to narrow results. Supported fields
+          include jobType, state, policyName, clientName, status, and
+          startTime. Example: jobType eq 'BACKUP' and state eq 'DONE'
+        schema:
+          type: string
+        example: example_value
+      - name: sort
+        in: query
+        description: >-
+          Comma-separated list of fields to sort by. Prefix with a hyphen
+          for descending order. Example: -startTime,jobId
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: List of jobs matching filter criteria
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/JobListResponse'
+              examples:
+                Listjobs200Example:
+                  summary: Default listJobs 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - type: example_value
+                      id: abc123
+                      links:
+                        self: {}
+                    meta:
+                      pagination:
+                        page[limit]: 10
+                        page[offset]: 10
+                        count: 10
+                        last: 10
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listjobs401Example:
+                  summary: Default listJobs 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listjobs403Example:
+                  summary: Default listJobs 403 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin/jobs/{jobId}:
+    get:
+      operationId: getJob
+      summary: Veritas Netbackup Get Job Details
+      description: >-
+        Retrieves detailed information about a specific NetBackup job
+        identified by its job ID. Returns job metadata including type, state,
+        policy name, client name, schedule, start and end times, kilobytes
+        transferred, and number of files.
+      tags:
+      - Jobs
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        description: The unique identifier of the job
+        schema:
+          type: string
+        example: '500123'
+      responses:
+        '200':
+          description: Job details returned successfully
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/JobResource'
+              examples:
+                Getjob200Example:
+                  summary: Default getJob 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      type: example_value
+                      id: abc123
+                      attributes:
+                        jobId: '500123'
+                        parentJobId: '500123'
+                        jobType: BACKUP
+                        state: QUEUED
+                        status: 10
+                        policyName: example_value
+                        policyType: example_value
+                        scheduleName: example_value
+                        scheduleType: FULL
+                        clientName: example_value
+                        mediaServer: example_value
+                        storageUnit: example_value
+                        startTime: '2026-01-15T10:30:00Z'
+                        endTime: '2026-01-15T10:30:00Z'
+                        elapsedTime: 10
+                        kilobytesTransferred: 10
+                        filesTransferred: 10
+                        percentComplete: 10
+                        currentOperation: example_value
+                        attempt: 10
+                        restartable: true
+                        suspendable: true
+                        resumable: true
+                        cancellable: true
+                      links:
+                        self:
+                          href: https://www.example.com
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getjob401Example:
+                  summary: Default getJob 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Job not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getjob404Example:
+                  summary: Default getJob 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteJob
+      summary: Veritas Netbackup Delete a Job
+      description: >-
+        Deletes a completed or failed job from the NetBackup activity monitor.
+        Only jobs that are in a terminal state (DONE or STOPPED) can be deleted.
+      tags:
+      - Jobs
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        description: The unique identifier of the job to delete
+        schema:
+          type: string
+        example: '500123'
+      responses:
+        '204':
+          description: Job deleted successfully
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deletejob401Example:
+                  summary: Default deleteJob 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Job not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deletejob404Example:
+                  summary: Default deleteJob 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '409':
+          description: Conflict - job is still active and cannot be deleted
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deletejob409Example:
+                  summary: Default deleteJob 409 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin/jobs/{jobId}/cancel:
+    post:
+      operationId: cancelJob
+      summary: Veritas Netbackup Cancel a Running Job
+      description: >-
+        Cancels a currently active job. The job must be in a QUEUED or ACTIVE
+        state. Once cancelled, the job state changes to STOPPED.
+      tags:
+      - Jobs
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        description: The unique identifier of the job to cancel
+        schema:
+          type: string
+        example: '500123'
+      responses:
+        '204':
+          description: Job cancellation initiated successfully
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Canceljob401Example:
+                  summary: Default cancelJob 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Job not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Canceljob404Example:
+                  summary: Default cancelJob 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '409':
+          description: Conflict - job is not in a cancellable state
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Canceljob409Example:
+                  summary: Default cancelJob 409 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin/jobs/{jobId}/suspend:
+    post:
+      operationId: suspendJob
+      summary: Veritas Netbackup Suspend a Running Job
+      description: >-
+        Suspends an active job, pausing its execution. The job can later be
+        resumed using the resume endpoint.
+      tags:
+      - Jobs
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        description: The unique identifier of the job to suspend
+        schema:
+          type: string
+        example: '500123'
+      responses:
+        '204':
+          description: Job suspended successfully
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Suspendjob401Example:
+                  summary: Default suspendJob 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Job not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Suspendjob404Example:
+                  summary: Default suspendJob 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '409':
+          description: Conflict - job is not in a suspendable state
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Suspendjob409Example:
+                  summary: Default suspendJob 409 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin/jobs/{jobId}/resume:
+    post:
+      operationId: resumeJob
+      summary: Veritas Netbackup Resume a Suspended Job
+      description: >-
+        Resumes a previously suspended job, allowing it to continue execution
+        from where it was paused.
+      tags:
+      - Jobs
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        description: The unique identifier of the job to resume
+        schema:
+          type: string
+        example: '500123'
+      responses:
+        '204':
+          description: Job resumed successfully
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Resumejob401Example:
+                  summary: Default resumeJob 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Job not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Resumejob404Example:
+                  summary: Default resumeJob 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '409':
+          description: Conflict - job is not in a suspended state
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Resumejob409Example:
+                  summary: Default resumeJob 409 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin/jobs/{jobId}/restart:
+    post:
+      operationId: restartJob
+      summary: Veritas Netbackup Restart a Failed Job
+      description: >-
+        Restarts a job that has completed with a failed or partially successful
+        status. A new job is created to retry the operation.
+      tags:
+      - Jobs
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        description: The unique identifier of the job to restart
+        schema:
+          type: string
+        example: '500123'
+      responses:
+        '201':
+          description: Job restarted successfully, new job created
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/JobResource'
+              examples:
+                Restartjob201Example:
+                  summary: Default restartJob 201 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      type: example_value
+                      id: abc123
+                      attributes:
+                        jobId: '500123'
+                        parentJobId: '500123'
+                        jobType: BACKUP
+                        state: QUEUED
+                        status: 10
+                        policyName: example_value
+                        policyType: example_value
+                        scheduleName: example_value
+                        scheduleType: FULL
+                        clientName: example_value
+                        mediaServer: example_value
+                        storageUnit: example_value
+                        startTime: '2026-01-15T10:30:00Z'
+                        endTime: '2026-01-15T10:30:00Z'
+                        elapsedTime: 10
+                        kilobytesTransferred: 10
+                        filesTransferred: 10
+                        percentComplete: 10
+                        currentOperation: example_value
+                        attempt: 10
+                        restartable: true
+                        suspendable: true
+                        resumable: true
+                        cancellable: true
+                      links:
+                        self:
+                          href: https://www.example.com
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Restartjob401Example:
+                  summary: Default restartJob 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Job not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Restartjob404Example:
+                  summary: Default restartJob 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin/jobs/{jobId}/file-lists:
+    get:
+      operationId: getJobFileList
+      summary: Veritas Netbackup Get the File List for a Job
+      description: >-
+        Returns the list of files that were processed by a specific backup or
+        restore job. This is useful for verifying which files were included in
+        a backup operation.
+      tags:
+      - Jobs
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        description: The unique identifier of the job
+        schema:
+          type: string
+        example: '500123'
+      - name: page[limit]
+        in: query
+        description: Maximum number of file entries to return
+        schema:
+          type: integer
+          default: 100
+          minimum: 1
+          maximum: 10000
+        example: 10
+      - name: page[offset]
+        in: query
+        description: Number of entries to skip for pagination
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+        example: 10
+      responses:
+        '200':
+          description: File list returned successfully
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/JobFileListResponse'
+              examples:
+                Getjobfilelist200Example:
+                  summary: Default getJobFileList 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - type: example_value
+                      id: abc123
+                      attributes:
+                        fileName: example_value
+                        fileSize: 10
+                    meta:
+                      pagination:
+                        page[limit]: 10
+                        page[offset]: 10
+                        count: 10
+                        last: 10
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getjobfilelist401Example:
+                  summary: Default getJobFileList 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Job not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getjobfilelist404Example:
+                  summary: Default getJobFileList 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin/jobs/{jobId}/try-logs:
+    get:
+      operationId: getJobTryLogs
+      summary: Veritas Netbackup Get Try Logs for a Job
+      description: >-
+        Returns the try log entries for a specific job, providing detailed
+        information about each attempt to execute the job including status
+        messages, error codes, and timing information.
+      tags:
+      - Jobs
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        description: The unique identifier of the job
+        schema:
+          type: string
+        example: '500123'
+      responses:
+        '200':
+          description: Try logs returned successfully
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/JobTryLogResponse'
+              examples:
+                Getjobtrylogs200Example:
+                  summary: Default getJobTryLogs 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - type: example_value
+                      id: abc123
+                      attributes:
+                        tryNumber: 10
+                        pid: '500123'
+                        statusCode: 10
+                        statusMessage: example_value
+                        startTime: '2026-01-15T10:30:00Z'
+                        endTime: '2026-01-15T10:30:00Z'
+                        mediaServer: example_value
+                        storageUnit: example_value
+                        kilobytesTransferred: 10
+                        filesTransferred: 10
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getjobtrylogs401Example:
+                  summary: Default getJobTryLogs 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Job not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getjobtrylogs404Example:
+                  summary: Default getJobTryLogs 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /config/policies:
+    get:
+      operationId: listPolicies
+      summary: Veritas Netbackup List Backup Policies
+      description: >-
+        Returns a list of NetBackup backup policies. Policies define which
+        clients, schedules, and backup selections are used to perform backups.
+        Results can be filtered by policy name and type.
+      tags:
+      - Policies
+      parameters:
+      - name: page[limit]
+        in: query
+        description: Maximum number of policies to return
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 1000
+        example: 10
+      - name: page[offset]
+        in: query
+        description: Number of policies to skip for pagination
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+        example: 10
+      - name: filter
+        in: query
+        description: >-
+          OData-style filter expression. Supported fields include policyName
+          and policyType. Example: policyName eq 'my-policy'
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: List of policies returned successfully
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/PolicyListResponse'
+              examples:
+                Listpolicies200Example:
+                  summary: Default listPolicies 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - type: example_value
+                      id: abc123
+                      attributes:
+                        policy: {}
+                      links:
+                        self: {}
+                    meta:
+                      pagination:
+                        page[limit]: 10
+                        page[offset]: 10
+                        count: 10
+                        last: 10
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listpolicies401Example:
+                  summary: Default listPolicies 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createPolicy
+      summary: Veritas Netbackup Create a Backup Policy
+      description: >-
+        Creates a new NetBackup backup policy with the specified configuration
+        including policy type, attributes, clients, schedules, and backup
+        selections. The policy name must be unique within the NetBackup domain.
+      tags:
+      - Policies
+      requestBody:
+        required: true
+        content:
+          application/vnd.netbackup+json;version=4.0:
+            schema:
+              $ref: '#/components/schemas/PolicyCreateRequest'
+            examples:
+              CreatepolicyRequestExample:
+                summary: Default createPolicy request
+                x-microcks-default: true
+                value:
+                  data:
+                    type: example_value
+                    id: abc123
+                    attributes:
+                      policy:
+                        policyName: example_value
+                        policyType: example_value
+                        clients: {}
+                        schedules: {}
+                        backupSelections: {}
+      responses:
+        '201':
+          description: Policy created successfully
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/PolicyResource'
+              examples:
+                Createpolicy201Example:
+                  summary: Default createPolicy 201 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      type: example_value
+                      id: abc123
+                      attributes:
+                        policy:
+                          policyName: example_value
+                          policyType: example_value
+                          clients: {}
+                          schedules: {}
+                          backupSelections: {}
+                      links:
+                        self:
+                          href: https://www.example.com
+        '400':
+          description: Invalid policy configuration
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Createpolicy400Example:
+                  summary: Default createPolicy 400 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Createpolicy401Example:
+                  summary: Default createPolicy 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '409':
+          description: Conflict - policy with same name already exists
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Createpolicy409Example:
+                  summary: Default createPolicy 409 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /config/policies/{policyName}:
+    get:
+      operationId: getPolicy
+      summary: Veritas Netbackup Get a Backup Policy
+      description: >-
+        Retrieves the complete configuration of a specific backup policy
+        including its attributes, client list, schedules, and backup selections.
+      tags:
+      - Policies
+      parameters:
+      - name: policyName
+        in: path
+        required: true
+        description: The name of the policy to retrieve
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Policy details returned successfully
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/PolicyResource'
+              examples:
+                Getpolicy200Example:
+                  summary: Default getPolicy 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      type: example_value
+                      id: abc123
+                      attributes:
+                        policy:
+                          policyName: example_value
+                          policyType: example_value
+                          clients: {}
+                          schedules: {}
+                          backupSelections: {}
+                      links:
+                        self:
+                          href: https://www.example.com
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getpolicy401Example:
+                  summary: Default getPolicy 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Policy not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getpolicy404Example:
+                  summary: Default getPolicy 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updatePolicy
+      summary: Veritas Netbackup Update a Backup Policy
+      description: >-
+        Updates the configuration of an existing backup policy. The entire
+        policy configuration must be provided in the request body. Use this
+        to modify policy attributes, schedules, clients, or backup selections.
+      tags:
+      - Policies
+      parameters:
+      - name: policyName
+        in: path
+        required: true
+        description: The name of the policy to update
+        schema:
+          type: string
+        example: example_value
+      - name: If-Match
+        in: header
+        description: >-
+          ETag value for optimistic concurrency control. Must match the
+          current ETag of the policy resource.
+        schema:
+          type: string
+        example: example_value
+      requestBody:
+        required: true
+        content:
+          application/vnd.netbackup+json;version=4.0:
+            schema:
+              $ref: '#/components/schemas/PolicyCreateRequest'
+            examples:
+              UpdatepolicyRequestExample:
+                summary: Default updatePolicy request
+                x-microcks-default: true
+                value:
+                  data:
+                    type: example_value
+                    id: abc123
+                    attributes:
+                      policy:
+                        policyName: example_value
+                        policyType: example_value
+                        clients: {}
+                        schedules: {}
+                        backupSelections: {}
+      responses:
+        '204':
+          description: Policy updated successfully
+        '400':
+          description: Invalid policy configuration
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updatepolicy400Example:
+                  summary: Default updatePolicy 400 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updatepolicy401Example:
+                  summary: Default updatePolicy 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Policy not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updatepolicy404Example:
+                  summary: Default updatePolicy 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '412':
+          description: Precondition failed - ETag mismatch
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updatepolicy412Example:
+                  summary: Default updatePolicy 412 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deletePolicy
+      summary: Veritas Netbackup Delete a Backup Policy
+      description: >-
+        Deletes an existing backup policy from the NetBackup configuration.
+        Any scheduled backups associated with this policy will no longer run.
+        Existing backup images created by this policy are not affected.
+      tags:
+      - Policies
+      parameters:
+      - name: policyName
+        in: path
+        required: true
+        description: The name of the policy to delete
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '204':
+          description: Policy deleted successfully
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deletepolicy401Example:
+                  summary: Default deletePolicy 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Policy not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deletepolicy404Example:
+                  summary: Default deletePolicy 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /config/policies/{policyName}/clients:
+    get:
+      operationId: listPolicyClients
+      summary: Veritas Netbackup List Clients in a Policy
+      description: >-
+        Returns the list of clients associated with a specific backup policy.
+        Clients are the machines whose data is backed up according to the
+        policy configuration.
+      tags:
+      - Policies
+      parameters:
+      - name: policyName
+        in: path
+        required: true
+        description: The name of the policy
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Client list returned successfully
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/PolicyClientListResponse'
+              examples:
+                Listpolicyclients200Example:
+                  summary: Default listPolicyClients 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - type: example_value
+                      id: abc123
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listpolicyclients401Example:
+                  summary: Default listPolicyClients 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Policy not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listpolicyclients404Example:
+                  summary: Default listPolicyClients 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updatePolicyClients
+      summary: Veritas Netbackup Update Clients in a Policy
+      description: >-
+        Replaces the client list for a specific backup policy with the
+        provided set of clients.
+      tags:
+      - Policies
+      parameters:
+      - name: policyName
+        in: path
+        required: true
+        description: The name of the policy
+        schema:
+          type: string
+        example: example_value
+      requestBody:
+        required: true
+        content:
+          application/vnd.netbackup+json;version=4.0:
+            schema:
+              $ref: '#/components/schemas/PolicyClientListRequest'
+            examples:
+              UpdatepolicyclientsRequestExample:
+                summary: Default updatePolicyClients request
+                x-microcks-default: true
+                value:
+                  data:
+                    type: example_value
+                    attributes:
+                      clients:
+                      - {}
+      responses:
+        '204':
+          description: Policy clients updated successfully
+        '400':
+          description: Invalid client configuration
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updatepolicyclients400Example:
+                  summary: Default updatePolicyClients 400 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updatepolicyclients401Example:
+                  summary: Default updatePolicyClients 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Policy not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updatepolicyclients404Example:
+                  summary: Default updatePolicyClients 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /config/policies/{policyName}/schedules:
+    get:
+      operationId: listPolicySchedules
+      summary: Veritas Netbackup List Schedules in a Policy
+      description: >-
+        Returns all schedules configured for a specific backup policy. Schedules
+        define when and how frequently backups are performed.
+      tags:
+      - Policies
+      parameters:
+      - name: policyName
+        in: path
+        required: true
+        description: The name of the policy
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Schedule list returned successfully
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/PolicyScheduleListResponse'
+              examples:
+                Listpolicyschedules200Example:
+                  summary: Default listPolicySchedules 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - type: example_value
+                      id: abc123
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listpolicyschedules401Example:
+                  summary: Default listPolicySchedules 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Policy not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listpolicyschedules404Example:
+                  summary: Default listPolicySchedules 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /config/policies/{policyName}/schedules/{scheduleName}:
+    get:
+      operationId: getPolicySchedule
+      summary: Veritas Netbackup Get a Specific Policy Schedule
+      description: >-
+        Retrieves the configuration of a specific schedule within a backup
+        policy including its type, frequency, retention level, and storage
+        unit settings.
+      tags:
+      - Policies
+      parameters:
+      - name: policyName
+        in: path
+        required: true
+        description: The name of the policy
+        schema:
+          type: string
+        example: example_value
+      - name: scheduleName
+        in: path
+        required: true
+        description: The name of the schedule
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Schedule details returned successfully
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/PolicyScheduleResource'
+              examples:
+                Getpolicyschedule200Example:
+                  summary: Default getPolicySchedule 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      type: example_value
+                      id: abc123
+                      attributes:
+                        scheduleName: example_value
+                        scheduleType: FULL
+                        frequency: 10
+                        retentionPeriod: {}
+                        storageUnit: example_value
+                        backupWindow: {}
+                        mediaMultiplexing: 10
+                        syntheticBackup: true
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getpolicyschedule401Example:
+                  summary: Default getPolicySchedule 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Policy or schedule not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getpolicyschedule404Example:
+                  summary: Default getPolicySchedule 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updatePolicySchedule
+      summary: Veritas Netbackup Create or Update a Policy Schedule
+      description: >-
+        Creates or updates a schedule within a backup policy. If the schedule
+        already exists it is replaced with the provided configuration.
+      tags:
+      - Policies
+      parameters:
+      - name: policyName
+        in: path
+        required: true
+        description: The name of the policy
+        schema:
+          type: string
+        example: example_value
+      - name: scheduleName
+        in: path
+        required: true
+        description: The name of the schedule to create or update
+        schema:
+          type: string
+        example: example_value
+      requestBody:
+        required: true
+        content:
+          application/vnd.netbackup+json;version=4.0:
+            schema:
+              $ref: '#/components/schemas/PolicyScheduleRequest'
+            examples:
+              UpdatepolicyscheduleRequestExample:
+                summary: Default updatePolicySchedule request
+                x-microcks-default: true
+                value:
+                  data:
+                    type: example_value
+                    id: abc123
+                    attributes:
+                      scheduleName: example_value
+                      scheduleType: FULL
+                      frequency: 10
+                      retentionPeriod: {}
+                      storageUnit: example_value
+                      backupWindow: {}
+                      mediaMultiplexing: 10
+                      syntheticBackup: true
+      responses:
+        '201':
+          description: Schedule created successfully
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/PolicyScheduleResource'
+              examples:
+                Updatepolicyschedule201Example:
+                  summary: Default updatePolicySchedule 201 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      type: example_value
+                      id: abc123
+                      attributes:
+                        scheduleName: example_value
+                        scheduleType: FULL
+                        frequency: 10
+                        retentionPeriod: {}
+                        storageUnit: example_value
+                        backupWindow: {}
+                        mediaMultiplexing: 10
+                        syntheticBackup: true
+        '204':
+          description: Schedule updated successfully
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updatepolicyschedule401Example:
+                  summary: Default updatePolicySchedule 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Policy not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updatepolicyschedule404Example:
+                  summary: Default updatePolicySchedule 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deletePolicySchedule
+      summary: Veritas Netbackup Delete a Policy Schedule
+      description: >-
+        Removes a schedule from a backup policy. Existing backups created
+        by this schedule are not affected.
+      tags:
+      - Policies
+      parameters:
+      - name: policyName
+        in: path
+        required: true
+        description: The name of the policy
+        schema:
+          type: string
+        example: example_value
+      - name: scheduleName
+        in: path
+        required: true
+        description: The name of the schedule to delete
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '204':
+          description: Schedule deleted successfully
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deletepolicyschedule401Example:
+                  summary: Default deletePolicySchedule 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Policy or schedule not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deletepolicyschedule404Example:
+                  summary: Default deletePolicySchedule 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /config/hosts:
+    get:
+      operationId: listClients
+      summary: Veritas Netbackup List Netbackup Clients
+      description: >-
+        Returns a list of hosts registered with the NetBackup primary server,
+        including backup clients, media servers, and other host types.
+        Results can be filtered by host name and host type.
+      tags:
+      - Clients
+      parameters:
+      - name: page[limit]
+        in: query
+        description: Maximum number of clients to return
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 1000
+        example: 10
+      - name: page[offset]
+        in: query
+        description: Number of entries to skip for pagination
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+        example: 10
+      - name: filter
+        in: query
+        description: >-
+          OData-style filter expression. Supported fields include hostName
+          and hostType. Example: hostType eq 'CLIENT'
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: List of clients returned successfully
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ClientListResponse'
+              examples:
+                Listclients200Example:
+                  summary: Default listClients 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - type: example_value
+                      id: abc123
+                      links:
+                        self: {}
+                    meta:
+                      pagination:
+                        page[limit]: 10
+                        page[offset]: 10
+                        count: 10
+                        last: 10
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listclients401Example:
+                  summary: Default listClients 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /config/hosts/{hostId}:
+    get:
+      operationId: getClient
+      summary: Veritas Netbackup Get Client Details
+      description: >-
+        Retrieves detailed configuration and status information for a specific
+        NetBackup host including operating system details, hardware platform,
+        and connectivity status.
+      tags:
+      - Clients
+      parameters:
+      - name: hostId
+        in: path
+        required: true
+        description: The unique identifier or hostname of the client
+        schema:
+          type: string
+        example: '500123'
+      responses:
+        '200':
+          description: Client details returned successfully
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ClientResource'
+              examples:
+                Getclient200Example:
+                  summary: Default getClient 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      type: example_value
+                      id: abc123
+                      attributes:
+                        hostName: example_value
+                        hostType: CLIENT
+                        os: example_value
+                        platform: example_value
+                        version: example_value
+                        fingerprintSha256: example_value
+                        trustLevel: UNKNOWN
+                        communicationStatus: ONLINE
+                        lastConnectedTime: '2026-01-15T10:30:00Z'
+                      links:
+                        self:
+                          href: https://www.example.com
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getclient401Example:
+                  summary: Default getClient 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Client not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getclient404Example:
+                  summary: Default getClient 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /catalog/images:
+    get:
+      operationId: listImages
+      summary: Veritas Netbackup List Backup Images
+      description: >-
+        Returns a list of backup images in the NetBackup catalog. Images
+        represent completed backup operations and contain metadata about
+        the backup including policy, client, schedule, backup time, size,
+        and expiration. Results can be filtered by policy name, client name,
+        and backup time range.
+      tags:
+      - Images
+      parameters:
+      - name: page[limit]
+        in: query
+        description: Maximum number of images to return
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 1000
+        example: 10
+      - name: page[offset]
+        in: query
+        description: Number of images to skip for pagination
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+        example: 10
+      - name: filter
+        in: query
+        description: >-
+          OData-style filter expression. Supported fields include policyName,
+          clientName, scheduleName, backupId, and backupTime. Example:
+          policyName eq 'daily-backup' and clientName eq 'server1'
+        schema:
+          type: string
+        example: example_value
+      - name: sort
+        in: query
+        description: >-
+          Comma-separated list of fields to sort by. Prefix with a hyphen
+          for descending order. Example: -backupTime
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: List of images returned successfully
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ImageListResponse'
+              examples:
+                Listimages200Example:
+                  summary: Default listImages 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - type: example_value
+                      id: abc123
+                      links:
+                        self: {}
+                    meta:
+                      pagination:
+                        page[limit]: 10
+                        page[offset]: 10
+                        count: 10
+                        last: 10
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listimages401Example:
+                  summary: Default listImages 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /catalog/images/{backupId}:
+    get:
+      operationId: getImage
+      summary: Veritas Netbackup Get Backup Image Details
+      description: >-
+        Retrieves detailed metadata for a specific backup image including the
+        backup ID, policy and client that created it, schedule used, backup and
+        expiration times, kilobytes of data, number of files, and storage
+        location.
+      tags:
+      - Images
+      parameters:
+      - name: backupId
+        in: path
+        required: true
+        description: The unique backup ID of the image
+        schema:
+          type: string
+        example: '500123'
+      responses:
+        '200':
+          description: Image details returned successfully
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ImageResource'
+              examples:
+                Getimage200Example:
+                  summary: Default getImage 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      type: example_value
+                      id: abc123
+                      attributes:
+                        backupId: '500123'
+                        policyName: example_value
+                        policyType: example_value
+                        clientName: example_value
+                        scheduleName: example_value
+                        scheduleType: FULL
+                        backupTime: '2026-01-15T10:30:00Z'
+                        expirationTime: '2026-01-15T10:30:00Z'
+                        kilobytes: 10
+                        numberOfFiles: 10
+                        primaryCopy: 10
+                        copyCount: 10
+                        mediaServer: example_value
+                        storageUnit: example_value
+                        mediaId: '500123'
+                        compressed: true
+                        encrypted: true
+                        multiplexed: true
+                        retentionLevel: 10
+                      links:
+                        self:
+                          href: https://www.example.com
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getimage401Example:
+                  summary: Default getImage 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Image not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getimage404Example:
+                  summary: Default getImage 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: expireImage
+      summary: Veritas Netbackup Expire a Backup Image
+      description: >-
+        Expires a backup image by setting its expiration date to the current
+        time. The image will be removed from the catalog and its associated
+        media will become available for reuse during the next image cleanup
+        cycle.
+      tags:
+      - Images
+      parameters:
+      - name: backupId
+        in: path
+        required: true
+        description: The unique backup ID of the image to expire
+        schema:
+          type: string
+        example: '500123'
+      responses:
+        '204':
+          description: Image expired successfully
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Expireimage401Example:
+                  summary: Default expireImage 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Image not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Expireimage404Example:
+                  summary: Default expireImage 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /catalog/images/{backupId}/contents:
+    get:
+      operationId: getImageContents
+      summary: Veritas Netbackup Get Backup Image File Contents
+      description: >-
+        Returns the file and directory listing contained within a specific
+        backup image. Useful for browsing what data was captured in a backup
+        before initiating a restore.
+      tags:
+      - Images
+      parameters:
+      - name: backupId
+        in: path
+        required: true
+        description: The unique backup ID of the image
+        schema:
+          type: string
+        example: '500123'
+      - name: page[limit]
+        in: query
+        description: Maximum number of content entries to return
+        schema:
+          type: integer
+          default: 100
+          minimum: 1
+          maximum: 10000
+        example: 10
+      - name: page[offset]
+        in: query
+        description: Number of entries to skip for pagination
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+        example: 10
+      - name: path
+        in: query
+        description: >-
+          Directory path to list contents from within the backup image.
+          Defaults to the root of the backup selection.
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Image contents returned successfully
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ImageContentsResponse'
+              examples:
+                Getimagecontents200Example:
+                  summary: Default getImageContents 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - type: example_value
+                      id: abc123
+                      attributes:
+                        path: example_value
+                        fileType: FILE
+                        size: 10
+                        lastModified: '2026-01-15T10:30:00Z'
+                        permissions: example_value
+                        owner: example_value
+                        group: example_value
+                    meta:
+                      pagination:
+                        page[limit]: 10
+                        page[offset]: 10
+                        count: 10
+                        last: 10
+        '401':
+          description: Unauthorized - missing or invalid JWT
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getimagecontents401Example:
+                  summary: Default getImageContents 401 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+        '404':
+          description: Image not found
+          content:
+            application/vnd.netbackup+json;version=4.0:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getimagecontents404Example:
+                  summary: Default getImageContents 404 response
+                  x-microcks-default: true
+                  value:
+                    errorCode: 10
+                    errorMessage: example_value
+                    details:
+                    - errorCode: 10
+                      errorMessage: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        JSON Web Token obtained from the /login endpoint. Include in
+        the Authorization header as: Bearer <token>
+  schemas:
+    LoginRequest:
+      type: object
+      required:
+      - domainName
+      - domainType
+      - userName
+      - password
+      properties:
+        domainName:
+          type: string
+          description: The authentication domain name (e.g., the NetBackup primary server hostname)
+          example: example_value
+        domainType:
+          type: string
+          description: The type of authentication domain
+          enum:
+          - unixpwd
+          - nt
+          - ldap
+          - vx
+          example: unixpwd
+        userName:
+          type: string
+          description: The user account name
+          example: example_value
+        password:
+          type: string
+          description: The user account password
+          format: password
+          example: example_value
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JSON Web Token for authenticating subsequent API requests
+          example: example_value
+        tokenType:
+          type: string
+          description: The token type
+          enum:
+          - BEARER
+          example: BEARER
+        validity:
+          type: integer
+          description: Token validity period in seconds
+          example: 10
+    ErrorResponse:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Numeric error code
+          example: 10
+        errorMessage:
+          type: string
+          description: Human-readable error description
+          example: example_value
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              errorCode:
+                type: integer
+                description: Detailed error code
+              errorMessage:
+                type: string
+                description: Detailed error message
+          example: []
+    PaginationMeta:
+      type: object
+      properties:
+        pagination:
+          type: object
+          properties:
+            page[limit]:
+              type: integer
+              description: The maximum number of items per page
+            page[offset]:
+              type: integer
+              description: The current offset
+            count:
+              type: integer
+              description: Total number of items matching the query
+            last:
+              type: integer
+              description: Offset of the last page
+          example: example_value
+    JobAttributes:
+      type: object
+      description: Attributes of a NetBackup job
+      properties:
+        jobId:
+          type: integer
+          description: Unique identifier for the job
+          example: '500123'
+        parentJobId:
+          type: integer
+          description: Identifier of the parent job, if this is a child job
+          example: '500123'
+        jobType:
+          type: string
+          description: The type of job
+          enum:
+          - BACKUP
+          - RESTORE
+          - DUPLICATE
+          - IMPORT
+          - VAULT
+          - DBBACKUP
+          - LABEL
+          - ERASE
+          - VERIFY
+          - INVENTORY
+          example: BACKUP
+        state:
+          type: string
+          description: Current state of the job
+          enum:
+          - QUEUED
+          - ACTIVE
+          - RE_QUEUED
+          - DONE
+          - SUSPENDED
+          - INCOMPLETE
+          - WAITING_FOR_RETRY
+          example: QUEUED
+        status:
+          type: integer
+          description: Exit status code of the job. A value of 0 indicates success.
+          example: 10
+        policyName:
+          type: string
+          description: Name of the policy associated with the job
+          example: example_value
+        policyType:
+          type: string
+          description: Type of the policy (e.g., Standard, VMware, Oracle)
+          example: example_value
+        scheduleName:
+          type: string
+          description: Name of the schedule that triggered the job
+          example: example_value
+        scheduleType:
+          type: string
+          description: Type of the schedule
+          enum:
+          - FULL
+          - INCR
+          - DIFF_INCR
+          - CINC
+          - USER_BACKUP
+          - USER_ARCHIVE
+          example: FULL
+        clientName:
+          type: string
+          description: Hostname of the client being backed up or restored
+          example: example_value
+        mediaServer:
+          type: string
+          description: Hostname of the media server processing the job
+          example: example_value
+        storageUnit:
+          type: string
+          description: Name of the storage unit used by the job
+          example: example_value
+        startTime:
+          type: string
+          format: date-time
+          description: Timestamp when the job started
+          example: '2026-01-15T10:30:00Z'
+        endTime:
+          type: string
+          format: date-time
+          description: Timestamp when the job completed or was last updated
+          example: '2026-01-15T10:30:00Z'
+        elapsedTime:
+          type: integer
+          description: Total elapsed time in seconds
+          example: 10
+        kilobytesTransferred:
+          type: integer
+          description: Total kilobytes of data transferred
+          example: 10
+        filesTransferred:
+          type: integer
+          description: Total number of files processed
+          example: 10
+        percentComplete:
+          type: integer
+          description: Completion percentage (0-100)
+          minimum: 0
+          maximum: 100
+          example: 10
+        currentOperation:
+          type: string
+          description: Description of the operation currently being performed
+          example: example_value
+        attempt:
+          type: integer
+          description: Current attempt number for the job
+          example: 10
+        restartable:
+          type: boolean
+          description: Whether the job can be restarted
+          example: true
+        suspendable:
+          type: boolean
+          description: Whether the job can be suspended
+          example: true
+        resumable:
+          type: boolean
+          description: Whether the job can be resumed
+          example: true
+        cancellable:
+          type: boolean
+          description: Whether the job can be cancelled
+          example: true
+    JobResource:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            type:
+              type: string
+              const: job
+            id:
+              type: string
+              description: The job ID
+            attributes:
+              $ref: '#/components/schemas/JobAttributes'
+            links:
+              type: object
+              properties:
+                self:
+                  type: object
+                  properties:
+                    href:
+                      type: string
+                      format: uri
+                      description: Link to this job resource
+          example: example_value
+    JobListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                const: job
+              id:
+                type: string
+              attributes:
+                $ref: '#/components/schemas/JobAttributes'
+              links:
+                type: object
+                properties:
+                  self:
+                    type: object
+                    properties:
+                      href:
+                        type: string
+                        format: uri
+          example: []
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    JobFileListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                const: jobFileEntry
+              id:
+                type: string
+              attributes:
+                type: object
+                properties:
+                  fileName:
+                    type: string
+                    description: Full path of the file
+                  fileSize:
+                    type: integer
+                    description: Size of the file in bytes
+          example: []
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    JobTryLogResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                const: jobTryLogEntry
+              id:
+                type: string
+              attributes:
+                type: object
+                properties:
+                  tryNumber:
+                    type: integer
+                    description: Attempt number
+                  pid:
+                    type: integer
+                    description: Process ID
+                  statusCode:
+                    type: integer
+                    description: Status code for this attempt
+                  statusMessage:
+                    type: string
+                    description: Human-readable status message
+                  startTime:
+                    type: string
+                    format: date-time
+                    description: When this attempt started
+                  endTime:
+                    type: string
+                    format: date-time
+                    description: When this attempt ended
+                  mediaServer:
+                    type: string
+                    description: Media server used for this attempt
+                  storageUnit:
+                    type: string
+                    description: Storage unit used for this attempt
+                  kilobytesTransferred:
+                    type: integer
+                    description: Data transferred in this attempt
+                  filesTransferred:
+                    type: integer
+                    description: Files processed in this attempt
+          example: []
+    PolicyAttributes:
+      type: object
+      description: Attributes of a NetBackup backup policy
+      properties:
+        policyName:
+          type: string
+          description: Unique name of the policy
+          example: example_value
+        policyType:
+          type: string
+          description: The policy type defining the type of backup
+          enum:
+          - Standard
+          - MS-Windows
+          - VMware
+          - Oracle
+          - MS-SQL-Server
+          - MS-Exchange-Server
+          - Hyper-V
+          - Kubernetes
+          - BigData
+          - CloudObject
+          - NAS-Data-Protection
+          - Universal-Share
+          example: Standard
+        active:
+          type: boolean
+          description: Whether the policy is currently active
+          example: true
+        effectiveDate:
+          type: string
+          format: date-time
+          description: Date and time the policy becomes effective
+          example: '2026-01-15T10:30:00Z'
+        snapshotMethodArgs:
+          type: string
+          description: Arguments for snapshot method if applicable
+          example: example_value
+        backupCopies:
+          type: object
+          properties:
+            copies:
+              type: array
+              items:
+                type: object
+                properties:
+                  copyNumber:
+                    type: integer
+                    description: Copy number (1 for primary, 2+ for copies)
+                  storageUnit:
+                    type: string
+                    description: Storage unit name for this copy
+                  retentionPeriod:
+                    type: object
+                    properties:
+                      value:
+                        type: integer
+                        description: Retention period value
+                      unit:
+                        type: string
+                        description: Time unit for retention
+                        enum:
+                        - DAYS
+                        - WEEKS
+                        - MONTHS
+                        - YEARS
+                        - INFINITE
+          example: example_value
+        priority:
+          type: integer
+          description: Job priority for this policy
+          minimum: 0
+          maximum: 99999
+          example: 10
+        keyword:
+          type: string
+          description: Keyword tag for the policy
+          example: example_value
+        dataClassification:
+          type: string
+          description: Data classification associated with this policy
+          example: example_value
+    PolicyCreateRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          required:
+          - type
+          - id
+          - attributes
+          properties:
+            type:
+              type: string
+              const: policy
+            id:
+              type: string
+              description: Policy name (must be unique)
+            attributes:
+              type: object
+              required:
+              - policy
+              properties:
+                policy:
+                  type: object
+                  required:
+                  - policyName
+                  - policyType
+                  properties:
+                    policyName:
+                      type: string
+                      description: Unique policy name
+                    policyType:
+                      type: string
+                      description: Type of the policy
+                    policyAttributes:
+                      $ref: '#/components/schemas/PolicyAttributes'
+                    clients:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/PolicyClient'
+                    schedules:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/PolicySchedule'
+                    backupSelections:
+                      type: object
+                      properties:
+                        selections:
+                          type: array
+                          items:
+                            type: string
+                            description: File paths or directives to back up
+          example: example_value
+    PolicyResource:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            type:
+              type: string
+              const: policy
+            id:
+              type: string
+              description: Policy name
+            attributes:
+              type: object
+              properties:
+                policy:
+                  type: object
+                  properties:
+                    policyName:
+                      type: string
+                    policyType:
+                      type: string
+                    policyAttributes:
+                      $ref: '#/components/schemas/PolicyAttributes'
+                    clients:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/PolicyClient'
+                    schedules:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/PolicySchedule'
+                    backupSelections:
+                      type: object
+                      properties:
+                        selections:
+                          type: array
+                          items:
+                            type: string
+            links:
+              type: object
+              properties:
+                self:
+                  type: object
+                  properties:
+                    href:
+                      type: string
+                      format: uri
+          example: example_value
+    PolicyListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                const: policy
+              id:
+                type: string
+              attributes:
+                type: object
+                properties:
+                  policy:
+                    type: object
+                    properties:
+                      policyName:
+                        type: string
+                      policyType:
+                        type: string
+                      policyAttributes:
+                        $ref: '#/components/schemas/PolicyAttributes'
+              links:
+                type: object
+                properties:
+                  self:
+                    type: object
+                    properties:
+                      href:
+                        type: string
+                        format: uri
+          example: []
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    PolicyClient:
+      type: object
+      properties:
+        clientName:
+          type: string
+          description: Hostname of the client
+          example: example_value
+        hardware:
+          type: string
+          description: Hardware type of the client
+          example: example_value
+        operatingSystem:
+          type: string
+          description: Operating system of the client
+          example: example_value
+        priority:
+          type: integer
+          description: Client priority within the policy
+          example: 10
+    PolicyClientListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                const: policyClient
+              id:
+                type: string
+              attributes:
+                $ref: '#/components/schemas/PolicyClient'
+          example: []
+    PolicyClientListRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          required:
+          - type
+          - attributes
+          properties:
+            type:
+              type: string
+              const: policyClientList
+            attributes:
+              type: object
+              required:
+              - clients
+              properties:
+                clients:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/PolicyClient'
+          example: example_value
+    PolicySchedule:
+      type: object
+      properties:
+        scheduleName:
+          type: string
+          description: Name of the schedule
+          example: example_value
+        scheduleType:
+          type: string
+          description: Type of backup for this schedule
+          enum:
+          - FULL
+          - INCR
+          - DIFF_INCR
+          - CINC
+          - USER_BACKUP
+          - USER_ARCHIVE
+          example: FULL
+        frequency:
+          type: integer
+          description: Frequency in seconds between backup runs
+          example: 10
+        retentionPeriod:
+          type: object
+          properties:
+            value:
+              type: integer
+              description: Retention period value
+            unit:
+              type: string
+              description: Time unit for retention
+              enum:
+              - DAYS
+              - WEEKS
+              - MONTHS
+              - YEARS
+              - INFINITE
+          example: example_value
+        storageUnit:
+          type: string
+          description: Name of the storage unit for this schedule
+          example: example_value
+        backupWindow:
+          type: object
+          properties:
+            startSeconds:
+              type: integer
+              description: Start of the backup window in seconds from midnight
+            durationSeconds:
+              type: integer
+              description: Duration of the backup window in seconds
+            dayOfWeek:
+              type: integer
+              description: Day of the week (0=Sunday through 6=Saturday)
+          example: example_value
+        mediaMultiplexing:
+          type: integer
+          description: Maximum number of concurrent backup streams to a single device
+          example: 10
+        syntheticBackup:
+          type: boolean
+          description: Whether this schedule creates synthetic backups
+          example: true
+    PolicyScheduleResource:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            type:
+              type: string
+              const: policySchedule
+            id:
+              type: string
+              description: Schedule name
+            attributes:
+              $ref: '#/components/schemas/PolicySchedule'
+          example: example_value
+    PolicyScheduleListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                const: policySchedule
+              id:
+                type: string
+              attributes:
+                $ref: '#/components/schemas/PolicySchedule'
+          example: []
+    PolicyScheduleRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          required:
+          - type
+          - id
+          - attributes
+          properties:
+            type:
+              type: string
+              const: policySchedule
+            id:
+              type: string
+              description: Schedule name
+            attributes:
+              $ref: '#/components/schemas/PolicySchedule'
+          example: example_value
+    ClientAttributes:
+      type: object
+      description: Attributes of a NetBackup client host
+      properties:
+        hostName:
+          type: string
+          description: Fully qualified hostname of the client
+          example: example_value
+        hostType:
+          type: string
+          description: Type of host in the NetBackup environment
+          enum:
+          - CLIENT
+          - MASTER
+          - MEDIA
+          example: CLIENT
+        os:
+          type: string
+          description: Operating system of the client
+          example: example_value
+        platform:
+          type: string
+          description: Hardware platform of the client
+          example: example_value
+        version:
+          type: string
+          description: NetBackup client software version
+          example: example_value
+        fingerprintSha256:
+          type: string
+          description: SHA-256 fingerprint of the client certificate
+          example: example_value
+        trustLevel:
+          type: string
+          description: Trust level established with the primary server
+          enum:
+          - UNKNOWN
+          - AUTHENTICATED
+          - TRUSTED
+          example: UNKNOWN
+        communicationStatus:
+          type: string
+          description: Current communication status
+          enum:
+          - ONLINE
+          - OFFLINE
+          - UNREACHABLE
+          example: ONLINE
+        lastConnectedTime:
+          type: string
+          format: date-time
+          description: Timestamp of the last successful communication
+          example: '2026-01-15T10:30:00Z'
+    ClientResource:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            type:
+              type: string
+              const: host
+            id:
+              type: string
+              description: The host identifier
+            attributes:
+              $ref: '#/components/schemas/ClientAttributes'
+            links:
+              type: object
+              properties:
+                self:
+                  type: object
+                  properties:
+                    href:
+                      type: string
+                      format: uri
+          example: example_value
+    ClientListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                const: host
+              id:
+                type: string
+              attributes:
+                $ref: '#/components/schemas/ClientAttributes'
+              links:
+                type: object
+                properties:
+                  self:
+                    type: object
+                    properties:
+                      href:
+                        type: string
+                        format: uri
+          example: []
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    ImageAttributes:
+      type: object
+      description: Attributes of a NetBackup backup image
+      properties:
+        backupId:
+          type: string
+          description: Unique identifier for the backup image
+          example: '500123'
+        policyName:
+          type: string
+          description: Name of the policy that created this image
+          example: example_value
+        policyType:
+          type: string
+          description: Type of the policy
+          example: example_value
+        clientName:
+          type: string
+          description: Client hostname that was backed up
+          example: example_value
+        scheduleName:
+          type: string
+          description: Schedule name that triggered the backup
+          example: example_value
+        scheduleType:
+          type: string
+          description: Type of the schedule
+          enum:
+          - FULL
+          - INCR
+          - DIFF_INCR
+          - CINC
+          - USER_BACKUP
+          - USER_ARCHIVE
+          example: FULL
+        backupTime:
+          type: string
+          format: date-time
+          description: Timestamp when the backup was performed
+          example: '2026-01-15T10:30:00Z'
+        expirationTime:
+          type: string
+          format: date-time
+          description: Timestamp when the image will expire
+          example: '2026-01-15T10:30:00Z'
+        kilobytes:
+          type: integer
+          description: Total size of the backup image in kilobytes
+          example: 10
+        numberOfFiles:
+          type: integer
+          description: Total number of files in the backup image
+          example: 10
+        primaryCopy:
+          type: integer
+          description: Primary copy number for the image
+          example: 10
+        copyCount:
+          type: integer
+          description: Total number of copies of this image
+          example: 10
+        mediaServer:
+          type: string
+          description: Media server that performed the backup
+          example: example_value
+        storageUnit:
+          type: string
+          description: Storage unit where the image is stored
+          example: example_value
+        mediaId:
+          type: string
+          description: Media ID where the image resides
+          example: '500123'
+        compressed:
+          type: boolean
+          description: Whether the image data is compressed
+          example: true
+        encrypted:
+          type: boolean
+          description: Whether the image data is encrypted
+          example: true
+        multiplexed:
+          type: boolean
+          description: Whether the image is multiplexed
+          example: true
+        retentionLevel:
+          type: integer
+          description: Retention level assigned to the image
+          minimum: 0
+          maximum: 24
+          example: 10
+    ImageResource:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            type:
+              type: string
+              const: backupImage
+            id:
+              type: string
+              description: The backup ID
+            attributes:
+              $ref: '#/components/schemas/ImageAttributes'
+            links:
+              type: object
+              properties:
+                self:
+                  type: object
+                  properties:
+                    href:
+                      type: string
+                      format: uri
+          example: example_value
+    ImageListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                const: backupImage
+              id:
+                type: string
+              attributes:
+                $ref: '#/components/schemas/ImageAttributes'
+              links:
+                type: object
+                properties:
+                  self:
+                    type: object
+                    properties:
+                      href:
+                        type: string
+                        format: uri
+          example: []
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    ImageContentsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                const: imageContent
+              id:
+                type: string
+              attributes:
+                type: object
+                properties:
+                  path:
+                    type: string
+                    description: Full path of the file or directory
+                  fileType:
+                    type: string
+                    description: Type of the entry
+                    enum:
+                    - FILE
+                    - DIRECTORY
+                    - SYMLINK
+                  size:
+                    type: integer
+                    description: Size of the file in bytes
+                  lastModified:
+                    type: string
+                    format: date-time
+                    description: Last modification time of the file
+                  permissions:
+                    type: string
+                    description: File permissions in octal notation
+                  owner:
+                    type: string
+                    description: File owner
+                  group:
+                    type: string
+                    description: File group
+          example: []
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
