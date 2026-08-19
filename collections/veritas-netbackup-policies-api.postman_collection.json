@@ -1,0 +1,3109 @@
+{
+  "item": [
+    {
+      "id": "d3c4c887-45c0-42d2-bfb5-23996e692df0",
+      "name": "Policies",
+      "description": {
+        "content": "Create, retrieve, update, and delete backup policies. Manage policy schedules, client lists, and backup selections that define what data gets backed up, when, and how.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "408a8aa7-c272-448a-88e4-93e59a605cdb",
+          "name": "Veritas Netbackup List Backup Policies",
+          "request": {
+            "name": "Veritas Netbackup List Backup Policies",
+            "description": {
+              "content": "Returns a list of NetBackup backup policies. Policies define which clients, schedules, and backup selections are used to perform backups. Results can be filtered by policy name and type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "policies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "10",
+                  "description": "Maximum number of policies to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "Number of policies to skip for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "OData-style filter expression. Supported fields include policyName and policyType. Example: policyName eq 'my-policy'"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "20c7a27b-b58a-44c0-98d7-2cc56cc9e1a2",
+              "name": "List of policies returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"example_value\",\n      \"id\": \"abc123\",\n      \"attributes\": {\n        \"policy\": {}\n      },\n      \"links\": {\n        \"self\": {}\n      }\n    }\n  ],\n  \"meta\": {\n    \"pagination\": {\n      \"page[limit]\": 10,\n      \"page[offset]\": 10,\n      \"count\": 10,\n      \"last\": 10\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05f6766f-d3ea-4e5f-b6b5-c16b50f61e75",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6a8c0bad-cd90-4cd3-810b-fac6d30988e8",
+          "name": "Veritas Netbackup Create a Backup Policy",
+          "request": {
+            "name": "Veritas Netbackup Create a Backup Policy",
+            "description": {
+              "content": "Creates a new NetBackup backup policy with the specified configuration including policy type, attributes, clients, schedules, and backup selections. The policy name must be unique within the NetBackup domain.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "policies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"<string>\",\n        \"policyType\": \"<string>\",\n        \"policyAttributes\": {\n          \"policyName\": \"<string>\",\n          \"policyType\": \"<string>\",\n          \"active\": \"<boolean>\",\n          \"effectiveDate\": \"<dateTime>\",\n          \"snapshotMethodArgs\": \"<string>\",\n          \"backupCopies\": {\n            \"copies\": [\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  \"unit\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              },\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  \"unit\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              }\n            ]\n          },\n          \"priority\": \"<integer>\",\n          \"keyword\": \"<string>\",\n          \"dataClassification\": \"<string>\"\n        },\n        \"clients\": [\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          },\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          }\n        ],\n        \"schedules\": [\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"<string>\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"<string>\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          },\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"<string>\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"<string>\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          }\n        ],\n        \"backupSelections\": {\n          \"selections\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4694dc0d-d5c7-4dc2-b344-58828756ac3f",
+              "name": "Policy created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"id\": \"abc123\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"example_value\",\n        \"policyType\": \"example_value\",\n        \"clients\": {},\n        \"schedules\": {},\n        \"backupSelections\": {}\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"id\": \"abc123\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"example_value\",\n        \"policyType\": \"example_value\",\n        \"clients\": {},\n        \"schedules\": {},\n        \"backupSelections\": {}\n      }\n    },\n    \"links\": {\n      \"self\": {\n        \"href\": \"https://www.example.com\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "24e26cf7-2e51-4dae-a0f5-517b4740cac4",
+              "name": "Invalid policy configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"id\": \"abc123\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"example_value\",\n        \"policyType\": \"example_value\",\n        \"clients\": {},\n        \"schedules\": {},\n        \"backupSelections\": {}\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ccefc21d-ab0a-49ad-8f80-c538cc823d91",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"id\": \"abc123\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"example_value\",\n        \"policyType\": \"example_value\",\n        \"clients\": {},\n        \"schedules\": {},\n        \"backupSelections\": {}\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b029290-e787-4307-8351-d694729b74c8",
+              "name": "Conflict - policy with same name already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"id\": \"abc123\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"example_value\",\n        \"policyType\": \"example_value\",\n        \"clients\": {},\n        \"schedules\": {},\n        \"backupSelections\": {}\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "19116743-f96d-4c1e-88bf-8e881c316b8b",
+          "name": "Veritas Netbackup Get a Backup Policy",
+          "request": {
+            "name": "Veritas Netbackup Get a Backup Policy",
+            "description": {
+              "content": "Retrieves the complete configuration of a specific backup policy including its attributes, client list, schedules, and backup selections.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "policies",
+                ":policyName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyName",
+                  "description": "(Required) The name of the policy to retrieve"
+                },
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "492dda46-dcbb-412e-be6b-3e42de410467",
+              "name": "Policy details returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy to retrieve"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"id\": \"abc123\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"example_value\",\n        \"policyType\": \"example_value\",\n        \"clients\": {},\n        \"schedules\": {},\n        \"backupSelections\": {}\n      }\n    },\n    \"links\": {\n      \"self\": {\n        \"href\": \"https://www.example.com\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "02075249-88d2-4916-b135-c404068a6bda",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy to retrieve"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac7fe819-a34b-442a-a340-4b01acc6595e",
+              "name": "Policy not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy to retrieve"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "200df8ac-da8a-44e0-bb92-99b5f9f59b0d",
+          "name": "Veritas Netbackup Update a Backup Policy",
+          "request": {
+            "name": "Veritas Netbackup Update a Backup Policy",
+            "description": {
+              "content": "Updates the configuration of an existing backup policy. The entire policy configuration must be provided in the request body. Use this to modify policy attributes, schedules, clients, or backup selections.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "policies",
+                ":policyName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyName",
+                  "description": "(Required) The name of the policy to update"
+                },
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "ETag value for optimistic concurrency control. Must match the current ETag of the policy resource.",
+                "key": "If-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"<string>\",\n        \"policyType\": \"<string>\",\n        \"policyAttributes\": {\n          \"policyName\": \"<string>\",\n          \"policyType\": \"<string>\",\n          \"active\": \"<boolean>\",\n          \"effectiveDate\": \"<dateTime>\",\n          \"snapshotMethodArgs\": \"<string>\",\n          \"backupCopies\": {\n            \"copies\": [\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  \"unit\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              },\n              {\n                \"copyNumber\": \"<integer>\",\n                \"storageUnit\": \"<string>\",\n                \"retentionPeriod\": {\n                  \"value\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  \"unit\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              }\n            ]\n          },\n          \"priority\": \"<integer>\",\n          \"keyword\": \"<string>\",\n          \"dataClassification\": \"<string>\"\n        },\n        \"clients\": [\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          },\n          {\n            \"clientName\": \"<string>\",\n            \"hardware\": \"<string>\",\n            \"operatingSystem\": \"<string>\",\n            \"priority\": \"<integer>\"\n          }\n        ],\n        \"schedules\": [\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"<string>\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"<string>\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          },\n          {\n            \"scheduleName\": \"<string>\",\n            \"scheduleType\": \"<string>\",\n            \"frequency\": \"<integer>\",\n            \"retentionPeriod\": {\n              \"value\": \"<integer>\",\n              \"unit\": \"<string>\"\n            },\n            \"storageUnit\": \"<string>\",\n            \"backupWindow\": {\n              \"startSeconds\": \"<integer>\",\n              \"durationSeconds\": \"<integer>\",\n              \"dayOfWeek\": \"<integer>\"\n            },\n            \"mediaMultiplexing\": \"<integer>\",\n            \"syntheticBackup\": \"<boolean>\"\n          }\n        ],\n        \"backupSelections\": {\n          \"selections\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c41c4133-3480-4fc3-8001-0e24f24057f1",
+              "name": "Policy updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy to update"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ETag value for optimistic concurrency control. Must match the current ETag of the policy resource.",
+                    "key": "If-Match",
+                    "value": "example_value"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"id\": \"abc123\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"example_value\",\n        \"policyType\": \"example_value\",\n        \"clients\": {},\n        \"schedules\": {},\n        \"backupSelections\": {}\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a7656a82-03ba-4c3f-b050-9af8d85c518b",
+              "name": "Invalid policy configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy to update"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ETag value for optimistic concurrency control. Must match the current ETag of the policy resource.",
+                    "key": "If-Match",
+                    "value": "example_value"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"id\": \"abc123\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"example_value\",\n        \"policyType\": \"example_value\",\n        \"clients\": {},\n        \"schedules\": {},\n        \"backupSelections\": {}\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1228958-891f-4cd6-88cd-07a58fbbb363",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy to update"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ETag value for optimistic concurrency control. Must match the current ETag of the policy resource.",
+                    "key": "If-Match",
+                    "value": "example_value"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"id\": \"abc123\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"example_value\",\n        \"policyType\": \"example_value\",\n        \"clients\": {},\n        \"schedules\": {},\n        \"backupSelections\": {}\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d880446-9b48-4f31-b739-96c666a8a744",
+              "name": "Policy not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy to update"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ETag value for optimistic concurrency control. Must match the current ETag of the policy resource.",
+                    "key": "If-Match",
+                    "value": "example_value"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"id\": \"abc123\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"example_value\",\n        \"policyType\": \"example_value\",\n        \"clients\": {},\n        \"schedules\": {},\n        \"backupSelections\": {}\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af17dee8-2f4e-4b84-bb3c-0954b2c4026a",
+              "name": "Precondition failed - ETag mismatch",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy to update"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ETag value for optimistic concurrency control. Must match the current ETag of the policy resource.",
+                    "key": "If-Match",
+                    "value": "example_value"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"id\": \"abc123\",\n    \"attributes\": {\n      \"policy\": {\n        \"policyName\": \"example_value\",\n        \"policyType\": \"example_value\",\n        \"clients\": {},\n        \"schedules\": {},\n        \"backupSelections\": {}\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Precondition Failed",
+              "code": 412,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "431b4e62-34d4-434b-a0aa-962698d649c0",
+          "name": "Veritas Netbackup Delete a Backup Policy",
+          "request": {
+            "name": "Veritas Netbackup Delete a Backup Policy",
+            "description": {
+              "content": "Deletes an existing backup policy from the NetBackup configuration. Any scheduled backups associated with this policy will no longer run. Existing backup images created by this policy are not affected.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "policies",
+                ":policyName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyName",
+                  "description": "(Required) The name of the policy to delete"
+                },
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d8702b09-cb1d-4ac2-855d-d4b7bb3c05fb",
+              "name": "Policy deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy to delete"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8ae02500-f680-434e-a7b8-fc2aca1aaec2",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy to delete"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53219cbb-02d9-4247-8076-2edb94a4191d",
+              "name": "Policy not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy to delete"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d98d034c-e829-43f2-b37c-3c2b403a676f",
+          "name": "Veritas Netbackup List Clients in a Policy",
+          "request": {
+            "name": "Veritas Netbackup List Clients in a Policy",
+            "description": {
+              "content": "Returns the list of clients associated with a specific backup policy. Clients are the machines whose data is backed up according to the policy configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "policies",
+                ":policyName",
+                "clients"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyName",
+                  "description": "(Required) The name of the policy"
+                },
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1334ff35-291e-4135-be25-50fa8678ae06",
+              "name": "Client list returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName",
+                    "clients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"example_value\",\n      \"id\": \"abc123\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c105093f-9f94-438e-bf9a-8a02d8cfc3df",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName",
+                    "clients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0759ef15-9283-4176-a91f-f46f2b1d4e84",
+              "name": "Policy not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName",
+                    "clients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f6627347-d023-4194-85f3-66c64f0471aa",
+          "name": "Veritas Netbackup Update Clients in a Policy",
+          "request": {
+            "name": "Veritas Netbackup Update Clients in a Policy",
+            "description": {
+              "content": "Replaces the client list for a specific backup policy with the provided set of clients.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "policies",
+                ":policyName",
+                "clients"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyName",
+                  "description": "(Required) The name of the policy"
+                },
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"clients\": [\n        {\n          \"clientName\": \"<string>\",\n          \"hardware\": \"<string>\",\n          \"operatingSystem\": \"<string>\",\n          \"priority\": \"<integer>\"\n        },\n        {\n          \"clientName\": \"<string>\",\n          \"hardware\": \"<string>\",\n          \"operatingSystem\": \"<string>\",\n          \"priority\": \"<integer>\"\n        }\n      ]\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "60282d55-9700-4507-a34e-d0119cb48f6a",
+              "name": "Policy clients updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName",
+                    "clients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"attributes\": {\n      \"clients\": [\n        {}\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "74553f73-d0ee-4b8d-82bb-3b349c231ecb",
+              "name": "Invalid client configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName",
+                    "clients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"attributes\": {\n      \"clients\": [\n        {}\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "efb4e1ac-990b-4a31-911e-f16e579eb9b9",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName",
+                    "clients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"attributes\": {\n      \"clients\": [\n        {}\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42ee5519-bb73-4619-854c-235ea8b15604",
+              "name": "Policy not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName",
+                    "clients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"attributes\": {\n      \"clients\": [\n        {}\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "47f12b90-47cf-4813-840c-4a936a27fbe9",
+          "name": "Veritas Netbackup List Schedules in a Policy",
+          "request": {
+            "name": "Veritas Netbackup List Schedules in a Policy",
+            "description": {
+              "content": "Returns all schedules configured for a specific backup policy. Schedules define when and how frequently backups are performed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "policies",
+                ":policyName",
+                "schedules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyName",
+                  "description": "(Required) The name of the policy"
+                },
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a6fee9bb-fe15-42d0-b7f1-9d67f9aca12d",
+              "name": "Schedule list returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName",
+                    "schedules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"example_value\",\n      \"id\": \"abc123\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c8a0652-c5e0-46f4-877e-7bd4c0906b69",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName",
+                    "schedules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f78de3b-2f92-45b2-a545-0f7a21ae635e",
+              "name": "Policy not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName",
+                    "schedules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4324dab3-e676-452f-95dd-e0e7d608b1fe",
+          "name": "Veritas Netbackup Get a Specific Policy Schedule",
+          "request": {
+            "name": "Veritas Netbackup Get a Specific Policy Schedule",
+            "description": {
+              "content": "Retrieves the configuration of a specific schedule within a backup policy including its type, frequency, retention level, and storage unit settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "policies",
+                ":policyName",
+                "schedules",
+                ":scheduleName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyName",
+                  "description": "(Required) The name of the policy"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleName",
+                  "description": "(Required) The name of the schedule"
+                },
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9bdb36b3-0b4a-431f-b7d4-6aaeeff726ca",
+              "name": "Schedule details returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName",
+                    "schedules",
+                    ":scheduleName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleName",
+                      "description": "(Required) The name of the schedule"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"id\": \"abc123\",\n    \"attributes\": {\n      \"scheduleName\": \"example_value\",\n      \"scheduleType\": \"FULL\",\n      \"frequency\": 10,\n      \"retentionPeriod\": {},\n      \"storageUnit\": \"example_value\",\n      \"backupWindow\": {},\n      \"mediaMultiplexing\": 10,\n      \"syntheticBackup\": true\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10e84bea-a54b-48b8-abb1-daba3f55f156",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName",
+                    "schedules",
+                    ":scheduleName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleName",
+                      "description": "(Required) The name of the schedule"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b74822b7-6835-4f21-a7a7-8c48377bd496",
+              "name": "Policy or schedule not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName",
+                    "schedules",
+                    ":scheduleName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleName",
+                      "description": "(Required) The name of the schedule"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ff56e4c-59a5-4dcf-935c-eba996840c26",
+          "name": "Veritas Netbackup Create or Update a Policy Schedule",
+          "request": {
+            "name": "Veritas Netbackup Create or Update a Policy Schedule",
+            "description": {
+              "content": "Creates or updates a schedule within a backup policy. If the schedule already exists it is replaced with the provided configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "policies",
+                ":policyName",
+                "schedules",
+                ":scheduleName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyName",
+                  "description": "(Required) The name of the policy"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleName",
+                  "description": "(Required) The name of the schedule to create or update"
+                },
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"scheduleName\": \"<string>\",\n      \"scheduleType\": \"<string>\",\n      \"frequency\": \"<integer>\",\n      \"retentionPeriod\": {\n        \"value\": \"<integer>\",\n        \"unit\": \"<string>\"\n      },\n      \"storageUnit\": \"<string>\",\n      \"backupWindow\": {\n        \"startSeconds\": \"<integer>\",\n        \"durationSeconds\": \"<integer>\",\n        \"dayOfWeek\": \"<integer>\"\n      },\n      \"mediaMultiplexing\": \"<integer>\",\n      \"syntheticBackup\": \"<boolean>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "131b55c2-4c2c-4871-92ed-05e50fd24df0",
+              "name": "Schedule created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName",
+                    "schedules",
+                    ":scheduleName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleName",
+                      "description": "(Required) The name of the schedule to create or update"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"id\": \"abc123\",\n    \"attributes\": {\n      \"scheduleName\": \"example_value\",\n      \"scheduleType\": \"FULL\",\n      \"frequency\": 10,\n      \"retentionPeriod\": {},\n      \"storageUnit\": \"example_value\",\n      \"backupWindow\": {},\n      \"mediaMultiplexing\": 10,\n      \"syntheticBackup\": true\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"id\": \"abc123\",\n    \"attributes\": {\n      \"scheduleName\": \"example_value\",\n      \"scheduleType\": \"FULL\",\n      \"frequency\": 10,\n      \"retentionPeriod\": {},\n      \"storageUnit\": \"example_value\",\n      \"backupWindow\": {},\n      \"mediaMultiplexing\": 10,\n      \"syntheticBackup\": true\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6972be95-3464-43ce-885b-f61871df0fef",
+              "name": "Schedule updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName",
+                    "schedules",
+                    ":scheduleName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleName",
+                      "description": "(Required) The name of the schedule to create or update"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"id\": \"abc123\",\n    \"attributes\": {\n      \"scheduleName\": \"example_value\",\n      \"scheduleType\": \"FULL\",\n      \"frequency\": 10,\n      \"retentionPeriod\": {},\n      \"storageUnit\": \"example_value\",\n      \"backupWindow\": {},\n      \"mediaMultiplexing\": 10,\n      \"syntheticBackup\": true\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fdfa8cd9-5de7-4729-8730-8b1e7499871d",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName",
+                    "schedules",
+                    ":scheduleName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleName",
+                      "description": "(Required) The name of the schedule to create or update"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"id\": \"abc123\",\n    \"attributes\": {\n      \"scheduleName\": \"example_value\",\n      \"scheduleType\": \"FULL\",\n      \"frequency\": 10,\n      \"retentionPeriod\": {},\n      \"storageUnit\": \"example_value\",\n      \"backupWindow\": {},\n      \"mediaMultiplexing\": 10,\n      \"syntheticBackup\": true\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "267bbee5-5655-46f2-908e-795774f3e73e",
+              "name": "Policy not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName",
+                    "schedules",
+                    ":scheduleName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleName",
+                      "description": "(Required) The name of the schedule to create or update"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"id\": \"abc123\",\n    \"attributes\": {\n      \"scheduleName\": \"example_value\",\n      \"scheduleType\": \"FULL\",\n      \"frequency\": 10,\n      \"retentionPeriod\": {},\n      \"storageUnit\": \"example_value\",\n      \"backupWindow\": {},\n      \"mediaMultiplexing\": 10,\n      \"syntheticBackup\": true\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9ffdfce8-e34e-439a-9d59-b93dd30ae8d0",
+          "name": "Veritas Netbackup Delete a Policy Schedule",
+          "request": {
+            "name": "Veritas Netbackup Delete a Policy Schedule",
+            "description": {
+              "content": "Removes a schedule from a backup policy. Existing backups created by this schedule are not affected.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "policies",
+                ":policyName",
+                "schedules",
+                ":scheduleName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyName",
+                  "description": "(Required) The name of the policy"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleName",
+                  "description": "(Required) The name of the schedule to delete"
+                },
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "84bb7f4b-bcdd-4f20-ad3d-7ca0c0c34b7f",
+              "name": "Schedule deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName",
+                    "schedules",
+                    ":scheduleName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleName",
+                      "description": "(Required) The name of the schedule to delete"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fa050032-b28f-482a-b113-7471d6ee82fd",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName",
+                    "schedules",
+                    ":scheduleName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleName",
+                      "description": "(Required) The name of the schedule to delete"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09b32c04-ab0e-401d-b4ff-b54d09c4a7d0",
+              "name": "Policy or schedule not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "policies",
+                    ":policyName",
+                    "schedules",
+                    ":scheduleName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyName",
+                      "description": "(Required) The name of the policy"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleName",
+                      "description": "(Required) The name of the schedule to delete"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Hostname or IP address of the NetBackup primary server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "netbackup-primary-server",
+      "key": "primaryServer"
+    },
+    {
+      "type": "string",
+      "value": "https://{{primaryServer}}:1556/netbackup",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "52486a0e-3120-49a4-b51b-cfb04399173b",
+    "name": "Veritas NetBackup REST Clients Policies API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Veritas NetBackup REST API provides programmatic access to NetBackup operations including backup job management, policy configuration, client administration, and backup image catalog queries. The API uses JSON-based request and response payloads, JWT-based authentication, and follows RESTful conventions. All endpoints require authentication via a JSON Web Token obtained from the /login endpoint on the NetBackup primary server.\n\nContact Support:\n Name: Veritas NetBackup Support",
+      "type": "text/plain"
+    }
+  }
+}

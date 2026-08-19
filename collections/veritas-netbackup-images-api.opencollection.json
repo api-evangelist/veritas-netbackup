@@ -1,0 +1,136 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Veritas NetBackup REST Clients Images API",
+    "version": "10.3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Veritas Netbackup List Backup Images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/catalog/images",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of images to return"
+              },
+              {
+                "name": "page[offset]",
+                "value": "10",
+                "type": "query",
+                "description": "Number of images to skip for pagination"
+              },
+              {
+                "name": "filter",
+                "value": "example_value",
+                "type": "query",
+                "description": "OData-style filter expression. Supported fields include policyName, clientName, scheduleName, backupId, and backupTime. Example: policyName eq 'daily-backup' and clientName eq 'server1'"
+              },
+              {
+                "name": "sort",
+                "value": "example_value",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with a hyphen for descending order. Example: -backupTime"
+              }
+            ]
+          },
+          "docs": "Returns a list of backup images in the NetBackup catalog. Images represent completed backup operations and contain metadata about the backup including policy, client, schedule, backup time, size, and expiration. Results can be filtered by policy name, client name, and backup time range."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Get Backup Image Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/catalog/images/:backupId",
+            "params": [
+              {
+                "name": "backupId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique backup ID of the image"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed metadata for a specific backup image including the backup ID, policy and client that created it, schedule used, backup and expiration times, kilobytes of data, number of files, and storage location."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Expire a Backup Image",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{primaryServer}:1556/netbackup/catalog/images/:backupId",
+            "params": [
+              {
+                "name": "backupId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique backup ID of the image to expire"
+              }
+            ]
+          },
+          "docs": "Expires a backup image by setting its expiration date to the current time. The image will be removed from the catalog and its associated media will become available for reuse during the next image cleanup cycle."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Get Backup Image File Contents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/catalog/images/:backupId/contents",
+            "params": [
+              {
+                "name": "backupId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique backup ID of the image"
+              },
+              {
+                "name": "page[limit]",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of content entries to return"
+              },
+              {
+                "name": "page[offset]",
+                "value": "10",
+                "type": "query",
+                "description": "Number of entries to skip for pagination"
+              },
+              {
+                "name": "path",
+                "value": "example_value",
+                "type": "query",
+                "description": "Directory path to list contents from within the backup image. Defaults to the root of the backup selection."
+              }
+            ]
+          },
+          "docs": "Returns the file and directory listing contained within a specific backup image. Useful for browsing what data was captured in a backup before initiating a restore."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

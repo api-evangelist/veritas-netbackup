@@ -1,0 +1,225 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Veritas NetBackup REST Clients Jobs API",
+    "version": "10.3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Veritas Netbackup List Backup Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/admin/jobs",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of jobs to return per page"
+              },
+              {
+                "name": "page[offset]",
+                "value": "10",
+                "type": "query",
+                "description": "Number of jobs to skip for pagination"
+              },
+              {
+                "name": "filter",
+                "value": "example_value",
+                "type": "query",
+                "description": "OData-style filter expression to narrow results. Supported fields include jobType, state, policyName, clientName, status, and startTime. Example: jobType eq 'BACKUP' and state eq 'DONE'"
+              },
+              {
+                "name": "sort",
+                "value": "example_value",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with a hyphen for descending order. Example: -startTime,jobId"
+              }
+            ]
+          },
+          "docs": "Returns a list of NetBackup jobs matching the specified filter criteria. Jobs represent backup, restore, duplication, and other administrative operations. Results can be filtered by job type, state, policy name, client name, and time range. Supports pagination via page[limit] and page[offset] parameters."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Get Job Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/admin/jobs/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique identifier of the job"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific NetBackup job identified by its job ID. Returns job metadata including type, state, policy name, client name, schedule, start and end times, kilobytes transferred, and number of files."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Delete a Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{primaryServer}:1556/netbackup/admin/jobs/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique identifier of the job to delete"
+              }
+            ]
+          },
+          "docs": "Deletes a completed or failed job from the NetBackup activity monitor. Only jobs that are in a terminal state (DONE or STOPPED) can be deleted."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Cancel a Running Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{primaryServer}:1556/netbackup/admin/jobs/:jobId/cancel",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique identifier of the job to cancel"
+              }
+            ]
+          },
+          "docs": "Cancels a currently active job. The job must be in a QUEUED or ACTIVE state. Once cancelled, the job state changes to STOPPED."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Suspend a Running Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{primaryServer}:1556/netbackup/admin/jobs/:jobId/suspend",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique identifier of the job to suspend"
+              }
+            ]
+          },
+          "docs": "Suspends an active job, pausing its execution. The job can later be resumed using the resume endpoint."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Resume a Suspended Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{primaryServer}:1556/netbackup/admin/jobs/:jobId/resume",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique identifier of the job to resume"
+              }
+            ]
+          },
+          "docs": "Resumes a previously suspended job, allowing it to continue execution from where it was paused."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Restart a Failed Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{primaryServer}:1556/netbackup/admin/jobs/:jobId/restart",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique identifier of the job to restart"
+              }
+            ]
+          },
+          "docs": "Restarts a job that has completed with a failed or partially successful status. A new job is created to retry the operation."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Get the File List for a Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/admin/jobs/:jobId/file-lists",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique identifier of the job"
+              },
+              {
+                "name": "page[limit]",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of file entries to return"
+              },
+              {
+                "name": "page[offset]",
+                "value": "10",
+                "type": "query",
+                "description": "Number of entries to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Returns the list of files that were processed by a specific backup or restore job. This is useful for verifying which files were included in a backup operation."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Get Try Logs for a Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/admin/jobs/:jobId/try-logs",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique identifier of the job"
+              }
+            ]
+          },
+          "docs": "Returns the try log entries for a specific job, providing detailed information about each attempt to execute the job including status messages, error codes, and timing information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

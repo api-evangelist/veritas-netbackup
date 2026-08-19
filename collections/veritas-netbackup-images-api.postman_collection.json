@@ -1,0 +1,996 @@
+{
+  "item": [
+    {
+      "id": "b4b09644-d587-4a61-ad7f-83d39513ea91",
+      "name": "Images",
+      "description": {
+        "content": "Query the NetBackup image catalog to retrieve backup image metadata, search for images by policy or client, and manage image lifecycle operations such as expiration and duplication.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6e0b0244-53ed-446b-9ecb-902f47e7f779",
+          "name": "Veritas Netbackup List Backup Images",
+          "request": {
+            "name": "Veritas Netbackup List Backup Images",
+            "description": {
+              "content": "Returns a list of backup images in the NetBackup catalog. Images represent completed backup operations and contain metadata about the backup including policy, client, schedule, backup time, size, and expiration. Results can be filtered by policy name, client name, and backup time range.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalog",
+                "images"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "10",
+                  "description": "Maximum number of images to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "Number of images to skip for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "OData-style filter expression. Supported fields include policyName, clientName, scheduleName, backupId, and backupTime. Example: policyName eq 'daily-backup' and clientName eq 'server1'"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to sort by. Prefix with a hyphen for descending order. Example: -backupTime"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a280b848-b384-460c-ac59-d6cf77dac359",
+              "name": "List of images returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "images"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"example_value\",\n      \"id\": \"abc123\",\n      \"links\": {\n        \"self\": {}\n      }\n    }\n  ],\n  \"meta\": {\n    \"pagination\": {\n      \"page[limit]\": 10,\n      \"page[offset]\": 10,\n      \"count\": 10,\n      \"last\": 10\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c12a3ba-6186-4f9c-9e14-3842832f380f",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "images"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "97bc80cb-b59c-4d2d-b7c5-2a5b56fd280f",
+          "name": "Veritas Netbackup Get Backup Image Details",
+          "request": {
+            "name": "Veritas Netbackup Get Backup Image Details",
+            "description": {
+              "content": "Retrieves detailed metadata for a specific backup image including the backup ID, policy and client that created it, schedule used, backup and expiration times, kilobytes of data, number of files, and storage location.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalog",
+                "images",
+                ":backupId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "backupId",
+                  "description": "(Required) The unique backup ID of the image"
+                },
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fefa6fbe-fa02-4dc5-9b74-5efa8173f68a",
+              "name": "Image details returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "images",
+                    ":backupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "backupId",
+                      "description": "(Required) The unique backup ID of the image"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"id\": \"abc123\",\n    \"attributes\": {\n      \"backupId\": \"500123\",\n      \"policyName\": \"example_value\",\n      \"policyType\": \"example_value\",\n      \"clientName\": \"example_value\",\n      \"scheduleName\": \"example_value\",\n      \"scheduleType\": \"FULL\",\n      \"backupTime\": \"2026-01-15T10:30:00Z\",\n      \"expirationTime\": \"2026-01-15T10:30:00Z\",\n      \"kilobytes\": 10,\n      \"numberOfFiles\": 10,\n      \"primaryCopy\": 10,\n      \"copyCount\": 10,\n      \"mediaServer\": \"example_value\",\n      \"storageUnit\": \"example_value\",\n      \"mediaId\": \"500123\",\n      \"compressed\": true,\n      \"encrypted\": true,\n      \"multiplexed\": true,\n      \"retentionLevel\": 10\n    },\n    \"links\": {\n      \"self\": {\n        \"href\": \"https://www.example.com\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "90d537ef-ee21-491d-a1ad-c82c5f67ef12",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "images",
+                    ":backupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "backupId",
+                      "description": "(Required) The unique backup ID of the image"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59190260-1267-4119-9e6c-16677808cb54",
+              "name": "Image not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "images",
+                    ":backupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "backupId",
+                      "description": "(Required) The unique backup ID of the image"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7211b52f-edc5-431b-aa27-6aac12689a20",
+          "name": "Veritas Netbackup Expire a Backup Image",
+          "request": {
+            "name": "Veritas Netbackup Expire a Backup Image",
+            "description": {
+              "content": "Expires a backup image by setting its expiration date to the current time. The image will be removed from the catalog and its associated media will become available for reuse during the next image cleanup cycle.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalog",
+                "images",
+                ":backupId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "backupId",
+                  "description": "(Required) The unique backup ID of the image to expire"
+                },
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3c0bfbe4-489d-40c8-8616-6e7500b7874b",
+              "name": "Image expired successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "images",
+                    ":backupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "backupId",
+                      "description": "(Required) The unique backup ID of the image to expire"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "13300410-b529-4db1-985e-f3ba8ce5aad6",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "images",
+                    ":backupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "backupId",
+                      "description": "(Required) The unique backup ID of the image to expire"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f53d81c7-9719-4a4d-a122-d61430e7d7e3",
+              "name": "Image not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "images",
+                    ":backupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "backupId",
+                      "description": "(Required) The unique backup ID of the image to expire"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "42a7973a-fa6e-4a61-a9b5-4d024b74d29e",
+          "name": "Veritas Netbackup Get Backup Image File Contents",
+          "request": {
+            "name": "Veritas Netbackup Get Backup Image File Contents",
+            "description": {
+              "content": "Returns the file and directory listing contained within a specific backup image. Useful for browsing what data was captured in a backup before initiating a restore.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalog",
+                "images",
+                ":backupId",
+                "contents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "100",
+                  "description": "Maximum number of content entries to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "Number of entries to skip for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "path",
+                  "value": "<string>",
+                  "description": "Directory path to list contents from within the backup image. Defaults to the root of the backup selection."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "backupId",
+                  "description": "(Required) The unique backup ID of the image"
+                },
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e3f5e7eb-c1aa-4e74-94fc-167ce4873d1c",
+              "name": "Image contents returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "images",
+                    ":backupId",
+                    "contents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "path",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "backupId",
+                      "description": "(Required) The unique backup ID of the image"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"example_value\",\n      \"id\": \"abc123\",\n      \"attributes\": {\n        \"path\": \"example_value\",\n        \"fileType\": \"FILE\",\n        \"size\": 10,\n        \"lastModified\": \"2026-01-15T10:30:00Z\",\n        \"permissions\": \"example_value\",\n        \"owner\": \"example_value\",\n        \"group\": \"example_value\"\n      }\n    }\n  ],\n  \"meta\": {\n    \"pagination\": {\n      \"page[limit]\": 10,\n      \"page[offset]\": 10,\n      \"count\": 10,\n      \"last\": 10\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2997be08-2348-4d64-8911-2de63f9324e0",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "images",
+                    ":backupId",
+                    "contents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "path",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "backupId",
+                      "description": "(Required) The unique backup ID of the image"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da84e978-50a9-4054-866d-69ae6a917dc9",
+              "name": "Image not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "images",
+                    ":backupId",
+                    "contents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "path",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "backupId",
+                      "description": "(Required) The unique backup ID of the image"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Hostname or IP address of the NetBackup primary server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "netbackup-primary-server",
+      "key": "primaryServer"
+    },
+    {
+      "type": "string",
+      "value": "https://{{primaryServer}}:1556/netbackup",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9854c750-8076-4b46-b3d1-4100c5880fc8",
+    "name": "Veritas NetBackup REST Clients Images API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Veritas NetBackup REST API provides programmatic access to NetBackup operations including backup job management, policy configuration, client administration, and backup image catalog queries. The API uses JSON-based request and response payloads, JWT-based authentication, and follows RESTful conventions. All endpoints require authentication via a JSON Web Token obtained from the /login endpoint on the NetBackup primary server.\n\nContact Support:\n Name: Veritas NetBackup Support",
+      "type": "text/plain"
+    }
+  }
+}

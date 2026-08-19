@@ -1,0 +1,277 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Veritas NetBackup REST Clients Policies API",
+    "version": "10.3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Policies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Veritas Netbackup List Backup Policies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of policies to return"
+              },
+              {
+                "name": "page[offset]",
+                "value": "10",
+                "type": "query",
+                "description": "Number of policies to skip for pagination"
+              },
+              {
+                "name": "filter",
+                "value": "example_value",
+                "type": "query",
+                "description": "OData-style filter expression. Supported fields include policyName and policyType. Example: policyName eq 'my-policy'"
+              }
+            ]
+          },
+          "docs": "Returns a list of NetBackup backup policies. Policies define which clients, schedules, and backup selections are used to perform backups. Results can be filtered by policy name and type."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Create a Backup Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new NetBackup backup policy with the specified configuration including policy type, attributes, clients, schedules, and backup selections. The policy name must be unique within the NetBackup domain."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Get a Backup Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies/:policyName",
+            "params": [
+              {
+                "name": "policyName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the policy to retrieve"
+              }
+            ]
+          },
+          "docs": "Retrieves the complete configuration of a specific backup policy including its attributes, client list, schedules, and backup selections."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Update a Backup Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies/:policyName",
+            "headers": [
+              {
+                "name": "If-Match",
+                "value": "example_value"
+              }
+            ],
+            "params": [
+              {
+                "name": "policyName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the policy to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing backup policy. The entire policy configuration must be provided in the request body. Use this to modify policy attributes, schedules, clients, or backup selections."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Delete a Backup Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies/:policyName",
+            "params": [
+              {
+                "name": "policyName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the policy to delete"
+              }
+            ]
+          },
+          "docs": "Deletes an existing backup policy from the NetBackup configuration. Any scheduled backups associated with this policy will no longer run. Existing backup images created by this policy are not affected."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup List Clients in a Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies/:policyName/clients",
+            "params": [
+              {
+                "name": "policyName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the policy"
+              }
+            ]
+          },
+          "docs": "Returns the list of clients associated with a specific backup policy. Clients are the machines whose data is backed up according to the policy configuration."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Update Clients in a Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies/:policyName/clients",
+            "params": [
+              {
+                "name": "policyName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the policy"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the client list for a specific backup policy with the provided set of clients."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup List Schedules in a Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies/:policyName/schedules",
+            "params": [
+              {
+                "name": "policyName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the policy"
+              }
+            ]
+          },
+          "docs": "Returns all schedules configured for a specific backup policy. Schedules define when and how frequently backups are performed."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Get a Specific Policy Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies/:policyName/schedules/:scheduleName",
+            "params": [
+              {
+                "name": "policyName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the policy"
+              },
+              {
+                "name": "scheduleName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the schedule"
+              }
+            ]
+          },
+          "docs": "Retrieves the configuration of a specific schedule within a backup policy including its type, frequency, retention level, and storage unit settings."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Create or Update a Policy Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies/:policyName/schedules/:scheduleName",
+            "params": [
+              {
+                "name": "policyName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the policy"
+              },
+              {
+                "name": "scheduleName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the schedule to create or update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a schedule within a backup policy. If the schedule already exists it is replaced with the provided configuration."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Delete a Policy Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{primaryServer}:1556/netbackup/config/policies/:policyName/schedules/:scheduleName",
+            "params": [
+              {
+                "name": "policyName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the policy"
+              },
+              {
+                "name": "scheduleName",
+                "value": "example_value",
+                "type": "path",
+                "description": "The name of the schedule to delete"
+              }
+            ]
+          },
+          "docs": "Removes a schedule from a backup policy. Existing backups created by this schedule are not affected."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

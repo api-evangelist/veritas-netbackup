@@ -1,0 +1,2433 @@
+{
+  "item": [
+    {
+      "id": "e7b2e55b-3efe-454d-a658-036d67140470",
+      "name": "Jobs",
+      "description": {
+        "content": "Manage and monitor backup, restore, and administrative jobs. Retrieve job details, list jobs by filter criteria, cancel, restart, suspend, and resume jobs, and access job file lists and try logs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "eff32688-2b7f-42bc-921a-893882ab8012",
+          "name": "Veritas Netbackup List Backup Jobs",
+          "request": {
+            "name": "Veritas Netbackup List Backup Jobs",
+            "description": {
+              "content": "Returns a list of NetBackup jobs matching the specified filter criteria. Jobs represent backup, restore, duplication, and other administrative operations. Results can be filtered by job type, state, policy name, client name, and time range. Supports pagination via page[limit] and page[offset] parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "10",
+                  "description": "Maximum number of jobs to return per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "Number of jobs to skip for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "OData-style filter expression to narrow results. Supported fields include jobType, state, policyName, clientName, status, and startTime. Example: jobType eq 'BACKUP' and state eq 'DONE'"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to sort by. Prefix with a hyphen for descending order. Example: -startTime,jobId"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "22004648-234c-472a-bc73-c2e6b4bdb231",
+              "name": "List of jobs matching filter criteria",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"example_value\",\n      \"id\": \"abc123\",\n      \"links\": {\n        \"self\": {}\n      }\n    }\n  ],\n  \"meta\": {\n    \"pagination\": {\n      \"page[limit]\": 10,\n      \"page[offset]\": 10,\n      \"count\": 10,\n      \"last\": 10\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c14e63c7-07c9-4534-a577-132538d9fb6d",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7dce67fb-f747-4b00-8443-a79798b7a042",
+              "name": "Forbidden - insufficient permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b8a890a-c4d8-4e5c-beef-67b5a77b1a7d",
+          "name": "Veritas Netbackup Get Job Details",
+          "request": {
+            "name": "Veritas Netbackup Get Job Details",
+            "description": {
+              "content": "Retrieves detailed information about a specific NetBackup job identified by its job ID. Returns job metadata including type, state, policy name, client name, schedule, start and end times, kilobytes transferred, and number of files.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "jobs",
+                ":jobId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) The unique identifier of the job"
+                },
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "927f1391-0339-4280-af5f-bcf5ba598d78",
+              "name": "Job details returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"id\": \"abc123\",\n    \"attributes\": {\n      \"jobId\": \"500123\",\n      \"parentJobId\": \"500123\",\n      \"jobType\": \"BACKUP\",\n      \"state\": \"QUEUED\",\n      \"status\": 10,\n      \"policyName\": \"example_value\",\n      \"policyType\": \"example_value\",\n      \"scheduleName\": \"example_value\",\n      \"scheduleType\": \"FULL\",\n      \"clientName\": \"example_value\",\n      \"mediaServer\": \"example_value\",\n      \"storageUnit\": \"example_value\",\n      \"startTime\": \"2026-01-15T10:30:00Z\",\n      \"endTime\": \"2026-01-15T10:30:00Z\",\n      \"elapsedTime\": 10,\n      \"kilobytesTransferred\": 10,\n      \"filesTransferred\": 10,\n      \"percentComplete\": 10,\n      \"currentOperation\": \"example_value\",\n      \"attempt\": 10,\n      \"restartable\": true,\n      \"suspendable\": true,\n      \"resumable\": true,\n      \"cancellable\": true\n    },\n    \"links\": {\n      \"self\": {\n        \"href\": \"https://www.example.com\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79c09857-3e12-4a5a-9b1a-d57c02b119a4",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1d824cc8-afda-42eb-b23d-54b832edf9bc",
+              "name": "Job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e618b385-1f73-4354-897a-2f79e494d155",
+          "name": "Veritas Netbackup Delete a Job",
+          "request": {
+            "name": "Veritas Netbackup Delete a Job",
+            "description": {
+              "content": "Deletes a completed or failed job from the NetBackup activity monitor. Only jobs that are in a terminal state (DONE or STOPPED) can be deleted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "jobs",
+                ":jobId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) The unique identifier of the job to delete"
+                },
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e2d44905-26fa-4b61-ae05-9c034ea99de8",
+              "name": "Job deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job to delete"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4890acc2-03f5-4ae0-83d8-5f6b7364cd3c",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job to delete"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4930a82b-c88b-481c-a365-3daed0c1966a",
+              "name": "Job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job to delete"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c97af072-209c-477a-b8af-89184774d324",
+              "name": "Conflict - job is still active and cannot be deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job to delete"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "97695f94-65ee-48a7-be49-3fafe22bfe46",
+          "name": "Veritas Netbackup Cancel a Running Job",
+          "request": {
+            "name": "Veritas Netbackup Cancel a Running Job",
+            "description": {
+              "content": "Cancels a currently active job. The job must be in a QUEUED or ACTIVE state. Once cancelled, the job state changes to STOPPED.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "jobs",
+                ":jobId",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) The unique identifier of the job to cancel"
+                },
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "97531314-b3ea-478e-b636-9c129336fd36",
+              "name": "Job cancellation initiated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job to cancel"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7bf10818-2d1f-44a3-8a6e-cc56b8279e45",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job to cancel"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aba5fba0-3955-4f86-8e36-b8a64beed1a0",
+              "name": "Job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job to cancel"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ad7275f-bcf0-4f61-bb2a-1ffeb59447dd",
+              "name": "Conflict - job is not in a cancellable state",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job to cancel"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7acecda6-1f15-4493-8768-5aabd56492f9",
+          "name": "Veritas Netbackup Suspend a Running Job",
+          "request": {
+            "name": "Veritas Netbackup Suspend a Running Job",
+            "description": {
+              "content": "Suspends an active job, pausing its execution. The job can later be resumed using the resume endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "jobs",
+                ":jobId",
+                "suspend"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) The unique identifier of the job to suspend"
+                },
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "079eba95-e91c-4813-84f1-7bebb3c1c649",
+              "name": "Job suspended successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "suspend"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job to suspend"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3a7daeb1-563f-40ba-9c7c-36c82a8bbb4d",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "suspend"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job to suspend"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "448c2d67-95ba-469a-8f26-89641e696156",
+              "name": "Job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "suspend"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job to suspend"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "113fa3f1-546a-47a8-9779-e0171006e359",
+              "name": "Conflict - job is not in a suspendable state",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "suspend"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job to suspend"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7a4a0fb1-7c87-424e-b643-42ace06c333e",
+          "name": "Veritas Netbackup Resume a Suspended Job",
+          "request": {
+            "name": "Veritas Netbackup Resume a Suspended Job",
+            "description": {
+              "content": "Resumes a previously suspended job, allowing it to continue execution from where it was paused.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "jobs",
+                ":jobId",
+                "resume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) The unique identifier of the job to resume"
+                },
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "335ddcc2-81a4-4a81-914c-ca72fa9a8dae",
+              "name": "Job resumed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job to resume"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "415b8449-778f-4c22-b1a8-41c516be1aa6",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job to resume"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b574d0e-fde5-435a-bb0e-f680d68ded37",
+              "name": "Job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job to resume"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3351267d-77fe-4dde-917e-6767f0578cd0",
+              "name": "Conflict - job is not in a suspended state",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job to resume"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ca92750-9595-442e-889f-d2216d19ad90",
+          "name": "Veritas Netbackup Restart a Failed Job",
+          "request": {
+            "name": "Veritas Netbackup Restart a Failed Job",
+            "description": {
+              "content": "Restarts a job that has completed with a failed or partially successful status. A new job is created to retry the operation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "jobs",
+                ":jobId",
+                "restart"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) The unique identifier of the job to restart"
+                },
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7c3c1318-91ce-475b-8ab7-66ee4d95b273",
+              "name": "Job restarted successfully, new job created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "restart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job to restart"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"example_value\",\n    \"id\": \"abc123\",\n    \"attributes\": {\n      \"jobId\": \"500123\",\n      \"parentJobId\": \"500123\",\n      \"jobType\": \"BACKUP\",\n      \"state\": \"QUEUED\",\n      \"status\": 10,\n      \"policyName\": \"example_value\",\n      \"policyType\": \"example_value\",\n      \"scheduleName\": \"example_value\",\n      \"scheduleType\": \"FULL\",\n      \"clientName\": \"example_value\",\n      \"mediaServer\": \"example_value\",\n      \"storageUnit\": \"example_value\",\n      \"startTime\": \"2026-01-15T10:30:00Z\",\n      \"endTime\": \"2026-01-15T10:30:00Z\",\n      \"elapsedTime\": 10,\n      \"kilobytesTransferred\": 10,\n      \"filesTransferred\": 10,\n      \"percentComplete\": 10,\n      \"currentOperation\": \"example_value\",\n      \"attempt\": 10,\n      \"restartable\": true,\n      \"suspendable\": true,\n      \"resumable\": true,\n      \"cancellable\": true\n    },\n    \"links\": {\n      \"self\": {\n        \"href\": \"https://www.example.com\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "196cd1a2-6b57-4d12-b71f-b299e6a52c0e",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "restart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job to restart"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ccceac70-0253-45c9-9af2-d965bba60b0c",
+              "name": "Job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "restart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job to restart"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "62c89274-f6f9-4766-93ab-98e040378566",
+          "name": "Veritas Netbackup Get the File List for a Job",
+          "request": {
+            "name": "Veritas Netbackup Get the File List for a Job",
+            "description": {
+              "content": "Returns the list of files that were processed by a specific backup or restore job. This is useful for verifying which files were included in a backup operation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "jobs",
+                ":jobId",
+                "file-lists"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "100",
+                  "description": "Maximum number of file entries to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "Number of entries to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) The unique identifier of the job"
+                },
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "57032520-7d69-47c4-86bc-c16b49c9f7ed",
+              "name": "File list returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "file-lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"example_value\",\n      \"id\": \"abc123\",\n      \"attributes\": {\n        \"fileName\": \"example_value\",\n        \"fileSize\": 10\n      }\n    }\n  ],\n  \"meta\": {\n    \"pagination\": {\n      \"page[limit]\": 10,\n      \"page[offset]\": 10,\n      \"count\": 10,\n      \"last\": 10\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b2a6b8d-162e-440d-ad47-713d117d41c9",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "file-lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "84ea7aa0-74ca-4cc9-88ed-29f1d6c9b9f6",
+              "name": "Job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "file-lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "948150b3-7825-4342-9755-b84e19149476",
+          "name": "Veritas Netbackup Get Try Logs for a Job",
+          "request": {
+            "name": "Veritas Netbackup Get Try Logs for a Job",
+            "description": {
+              "content": "Returns the try log entries for a specific job, providing detailed information about each attempt to execute the job including status messages, error codes, and timing information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "jobs",
+                ":jobId",
+                "try-logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) The unique identifier of the job"
+                },
+                {
+                  "description": "Hostname or IP address of the NetBackup primary server",
+                  "type": "any",
+                  "value": "{{primaryServer}}",
+                  "key": "primaryServer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.netbackup+json;version=4.0"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4b144367-ac5c-4fae-8bdc-08a2b4860b56",
+              "name": "Try logs returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "try-logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"example_value\",\n      \"id\": \"abc123\",\n      \"attributes\": {\n        \"tryNumber\": 10,\n        \"pid\": \"500123\",\n        \"statusCode\": 10,\n        \"statusMessage\": \"example_value\",\n        \"startTime\": \"2026-01-15T10:30:00Z\",\n        \"endTime\": \"2026-01-15T10:30:00Z\",\n        \"mediaServer\": \"example_value\",\n        \"storageUnit\": \"example_value\",\n        \"kilobytesTransferred\": 10,\n        \"filesTransferred\": 10\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d6063e1-4065-4ab7-8216-35547d170d03",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "try-logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5905e7c5-e6c8-4825-92fc-e0df825f652c",
+              "name": "Job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "jobs",
+                    ":jobId",
+                    "try-logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job"
+                    },
+                    {
+                      "description": "Hostname or IP address of the NetBackup primary server",
+                      "type": "any",
+                      "value": "{{primaryServer}}",
+                      "key": "primaryServer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.netbackup+json;version=4.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.netbackup+json;version=4.0"
+                }
+              ],
+              "body": "{\n  \"errorCode\": 10,\n  \"errorMessage\": \"example_value\",\n  \"details\": [\n    {\n      \"errorCode\": 10,\n      \"errorMessage\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Hostname or IP address of the NetBackup primary server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "netbackup-primary-server",
+      "key": "primaryServer"
+    },
+    {
+      "type": "string",
+      "value": "https://{{primaryServer}}:1556/netbackup",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2c901867-47c6-4412-ab90-aec5a0e005cc",
+    "name": "Veritas NetBackup REST Clients Jobs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Veritas NetBackup REST API provides programmatic access to NetBackup operations including backup job management, policy configuration, client administration, and backup image catalog queries. The API uses JSON-based request and response payloads, JWT-based authentication, and follows RESTful conventions. All endpoints require authentication via a JSON Web Token obtained from the /login endpoint on the NetBackup primary server.\n\nContact Support:\n Name: Veritas NetBackup Support",
+      "type": "text/plain"
+    }
+  }
+}

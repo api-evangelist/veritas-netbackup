@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Veritas NetBackup REST Clients API",
+    "version": "10.3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Clients",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Veritas Netbackup List Netbackup Clients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/config/hosts",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of clients to return"
+              },
+              {
+                "name": "page[offset]",
+                "value": "10",
+                "type": "query",
+                "description": "Number of entries to skip for pagination"
+              },
+              {
+                "name": "filter",
+                "value": "example_value",
+                "type": "query",
+                "description": "OData-style filter expression. Supported fields include hostName and hostType. Example: hostType eq 'CLIENT'"
+              }
+            ]
+          },
+          "docs": "Returns a list of hosts registered with the NetBackup primary server, including backup clients, media servers, and other host types. Results can be filtered by host name and host type."
+        },
+        {
+          "info": {
+            "name": "Veritas Netbackup Get Client Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{primaryServer}:1556/netbackup/config/hosts/:hostId",
+            "params": [
+              {
+                "name": "hostId",
+                "value": "500123",
+                "type": "path",
+                "description": "The unique identifier or hostname of the client"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed configuration and status information for a specific NetBackup host including operating system details, hardware platform, and connectivity status."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

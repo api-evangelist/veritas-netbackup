@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Veritas NetBackup REST Clients Login API",
+    "version": "10.3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Login",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Veritas Netbackup Authenticate and Obtain a Jwt",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{primaryServer}:1556/netbackup/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticates a user against the NetBackup primary server and returns a JSON Web Token (JWT) used to authorize subsequent API calls. The token must be included in the Authorization header as a Bearer token for all other API requests."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
