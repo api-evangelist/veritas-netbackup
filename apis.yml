@@ -36,6 +36,11 @@ apis:
   baseURL: https://netbackup-primary-server:1556/netbackup/admin
   tags:
   - Administration
+  - Job
+  - Management
+  - Monitoring
+  tags_raw:
+  - Administration
   - Jobs
   - Management
   - Monitoring
@@ -85,6 +90,11 @@ apis:
   humanURL: https://www.veritas.com/support/en_US/article.100040135
   baseURL: https://netbackup-primary-server:1556/netbackup/catalog
   tags:
+  - Catalog
+  - Image
+  - Media
+  - Retention
+  tags_raw:
   - Catalog
   - Images
   - Media
@@ -141,6 +151,12 @@ apis:
   - Instant-Access
   - Recovery
   - Restore
+  - VMware
+  tags_raw:
+  - Cloud
+  - Instant-Access
+  - Recovery
+  - Restore
   - Vmware
   properties:
   - type: Documentation
@@ -155,6 +171,11 @@ apis:
   humanURL: https://www.veritas.com/support/en_US/article.100040135
   baseURL: https://netbackup-primary-server:1556/netbackup/rbac
   tags:
+  - Access Control
+  - Permissions
+  - RBAC
+  - Roles
+  tags_raw:
   - Access-Control
   - Permissions
   - Rbac
@@ -190,6 +211,11 @@ apis:
   baseURL: https://netbackup-primary-server:1556/netbackup/servicecatalog
   tags:
   - Protection-Plans
+  - Service Catalog
+  - SLO
+  - Subscription
+  tags_raw:
+  - Protection-Plans
   - Service-Catalog
   - Slo
   - Subscriptions
@@ -205,6 +231,10 @@ apis:
   humanURL: https://www.veritas.com/support/en_US/article.100040135
   baseURL: https://netbackup-primary-server:1556/netbackup/manage
   tags:
+  - Alerts
+  - Management
+  - Notification
+  tags_raw:
   - Alerts
   - Management
   - Notifications
@@ -277,6 +307,11 @@ apis:
   - Cluster
   - Flex-Scale
   - Infrastructure
+  tags_raw:
+  - Appliance
+  - Cluster
+  - Flex-Scale
+  - Infrastructure
   - Node-Management
   properties:
   - type: Documentation
@@ -330,6 +365,8 @@ apis:
   humanURL: https://www.veritas.com/support/en_US/article.100040135
   baseURL: https://netbackup-primary-server:1556/netbackup
   tags:
+  - Image
+  tags_raw:
   - Images
   properties:
   - type: OpenAPI
@@ -367,6 +404,8 @@ apis:
   humanURL: https://www.veritas.com/support/en_US/article.100040135
   baseURL: https://netbackup-primary-server:1556/netbackup
   tags:
+  - Job
+  tags_raw:
   - Jobs
   properties:
   - type: OpenAPI
