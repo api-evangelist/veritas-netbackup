@@ -1,0 +1,35 @@
+slug: veritas-netbackup
+provider: Veritas NetBackup
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Images
+  spec_file: veritas-netbackup-images-api-openapi.yml
+  capability_id: BC-160.20
+  capability_id_l1: BC-160
+  capability_name: Disaster Recovery Management
+  confidence: 0.7
+  evidence: GET /catalog/images  listImages  Veritas Netbackup List Backup Images; DELETE /catalog/images/{backupId}  expireImage
+  reason: Backup image catalogue operations for an enterprise data protection product; backup/restore
+    artefact management supports Disaster Recovery Management. Could equally be read as IT operations,
+    so moderate confidence.
+- tag: Jobs
+  spec_file: veritas-netbackup-jobs-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: GET /admin/jobs  listJobs  Veritas Netbackup List Backup Jobs; POST /admin/jobs/{jobId}/cancel  cancelJob
+  reason: Operational execution and control of backup jobs (list, cancel, suspend, resume, restart) —
+    day-to-day IT operations/job scheduling rather than any business-domain capability.
