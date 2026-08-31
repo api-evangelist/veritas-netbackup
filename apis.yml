@@ -163,7 +163,7 @@ apis:
   - Instant-Access
   - Recovery
   - Restore
-  - VMware
+  - Vmware
   tags_raw:
   - Cloud
   - Instant-Access
@@ -183,9 +183,9 @@ apis:
   humanURL: https://www.veritas.com/support/en_US/article.100040135
   baseURL: https://netbackup-primary-server:1556/netbackup/rbac
   tags:
-  - Access Control
+  - Access-Control
   - Permissions
-  - RBAC
+  - Rbac
   - Roles
   tags_raw:
   - Access-Control
@@ -223,8 +223,8 @@ apis:
   baseURL: https://netbackup-primary-server:1556/netbackup/servicecatalog
   tags:
   - Protection-Plans
-  - Service Catalog
-  - SLO
+  - Service-Catalog
+  - Slo
   - Subscription
   tags_raw:
   - Protection-Plans
@@ -319,6 +319,7 @@ apis:
   - Cluster
   - Flex-Scale
   - Infrastructure
+  - Node-Management
   tags_raw:
   - Appliance
   - Cluster
