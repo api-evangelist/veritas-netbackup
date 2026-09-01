@@ -27,7 +27,7 @@ accessModel:
   - authentication
   generated: '2026-07-22'
   method: derived
-image: https://www.veritas.com/content/dam/veritas/images/logos/veritas-logo.svg
+image: ''
 url: https://www.veritas.com/products/backup-and-recovery/netbackup
 created: '2024'
 modified: '2026-05-19'
