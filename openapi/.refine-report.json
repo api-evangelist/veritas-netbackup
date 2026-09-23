@@ -1,11 +1,7 @@
 {
   "provider": "veritas-netbackup",
   "sources": [
-    "veritas-netbackup-clients-api-openapi.yml",
-    "veritas-netbackup-images-api-openapi.yml",
-    "veritas-netbackup-jobs-api-openapi.yml",
-    "veritas-netbackup-login-api-openapi.yml",
-    "veritas-netbackup-policies-api-openapi.yml"
+    "_original/veritas-netbackup-rest-api-openapi.yml"
   ],
   "outputs": [
     "veritas-netbackup-clients-api-openapi.yml",
@@ -17,6 +13,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "veritas-netbackup-rest-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "veritas-netbackup-clients-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "veritas-netbackup-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "veritas-netbackup-jobs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "veritas-netbackup-login-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "veritas-netbackup-policies-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
