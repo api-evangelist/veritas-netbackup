@@ -900,65 +900,28 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
+    PolicyResource:
       type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Numeric error code
-          example: 10
-        errorMessage:
-          type: string
-          description: Human-readable error description
-          example: example_value
-        details:
-          type: array
-          description: Additional error details
-          items:
-            type: object
-            properties:
-              errorCode:
-                type: integer
-                description: Detailed error code
-              errorMessage:
-                type: string
-                description: Detailed error message
-          example: []
-    PolicyCreateRequest:
-      type: object
-      required:
-      - data
       properties:
         data:
           type: object
-          required:
-          - type
-          - id
-          - attributes
           properties:
             type:
               type: string
               const: policy
             id:
               type: string
-              description: Policy name (must be unique)
+              description: Policy name
             attributes:
               type: object
-              required:
-              - policy
               properties:
                 policy:
                   type: object
-                  required:
-                  - policyName
-                  - policyType
                   properties:
                     policyName:
                       type: string
-                      description: Unique policy name
                     policyType:
                       type: string
-                      description: Type of the policy
                     policyAttributes:
                       $ref: '#/components/schemas/PolicyAttributes'
                     clients:
@@ -976,8 +939,32 @@ components:
                           type: array
                           items:
                             type: string
-                            description: File paths or directives to back up
+            links:
+              type: object
+              properties:
+                self:
+                  type: object
+                  properties:
+                    href:
+                      type: string
+                      format: uri
           example: example_value
+    PolicyClientListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                const: policyClient
+              id:
+                type: string
+              attributes:
+                $ref: '#/components/schemas/PolicyClient'
+          example: []
     PaginationMeta:
       type: object
       properties:
@@ -997,115 +984,6 @@ components:
               type: integer
               description: Offset of the last page
           example: example_value
-    PolicyListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-                const: policy
-              id:
-                type: string
-              attributes:
-                type: object
-                properties:
-                  policy:
-                    type: object
-                    properties:
-                      policyName:
-                        type: string
-                      policyType:
-                        type: string
-                      policyAttributes:
-                        $ref: '#/components/schemas/PolicyAttributes'
-              links:
-                type: object
-                properties:
-                  self:
-                    type: object
-                    properties:
-                      href:
-                        type: string
-                        format: uri
-          example: []
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
-    PolicyClient:
-      type: object
-      properties:
-        clientName:
-          type: string
-          description: Hostname of the client
-          example: example_value
-        hardware:
-          type: string
-          description: Hardware type of the client
-          example: example_value
-        operatingSystem:
-          type: string
-          description: Operating system of the client
-          example: example_value
-        priority:
-          type: integer
-          description: Client priority within the policy
-          example: 10
-    PolicyScheduleListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-                const: policySchedule
-              id:
-                type: string
-              attributes:
-                $ref: '#/components/schemas/PolicySchedule'
-          example: []
-    PolicyScheduleRequest:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: object
-          required:
-          - type
-          - id
-          - attributes
-          properties:
-            type:
-              type: string
-              const: policySchedule
-            id:
-              type: string
-              description: Schedule name
-            attributes:
-              $ref: '#/components/schemas/PolicySchedule'
-          example: example_value
-    PolicyClientListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-                const: policyClient
-              id:
-                type: string
-              attributes:
-                $ref: '#/components/schemas/PolicyClient'
-          example: []
     PolicySchedule:
       type: object
       properties:
@@ -1169,55 +1047,6 @@ components:
           type: boolean
           description: Whether this schedule creates synthetic backups
           example: true
-    PolicyResource:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            type:
-              type: string
-              const: policy
-            id:
-              type: string
-              description: Policy name
-            attributes:
-              type: object
-              properties:
-                policy:
-                  type: object
-                  properties:
-                    policyName:
-                      type: string
-                    policyType:
-                      type: string
-                    policyAttributes:
-                      $ref: '#/components/schemas/PolicyAttributes'
-                    clients:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/PolicyClient'
-                    schedules:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/PolicySchedule'
-                    backupSelections:
-                      type: object
-                      properties:
-                        selections:
-                          type: array
-                          items:
-                            type: string
-            links:
-              type: object
-              properties:
-                self:
-                  type: object
-                  properties:
-                    href:
-                      type: string
-                      format: uri
-          example: example_value
     PolicyClientListRequest:
       type: object
       required:
@@ -1242,6 +1071,155 @@ components:
                   items:
                     $ref: '#/components/schemas/PolicyClient'
           example: example_value
+    PolicyScheduleRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          required:
+          - type
+          - id
+          - attributes
+          properties:
+            type:
+              type: string
+              const: policySchedule
+            id:
+              type: string
+              description: Schedule name
+            attributes:
+              $ref: '#/components/schemas/PolicySchedule'
+          example: example_value
+    PolicyScheduleListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                const: policySchedule
+              id:
+                type: string
+              attributes:
+                $ref: '#/components/schemas/PolicySchedule'
+          example: []
+    PolicyScheduleResource:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            type:
+              type: string
+              const: policySchedule
+            id:
+              type: string
+              description: Schedule name
+            attributes:
+              $ref: '#/components/schemas/PolicySchedule'
+          example: example_value
+    PolicyCreateRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          required:
+          - type
+          - id
+          - attributes
+          properties:
+            type:
+              type: string
+              const: policy
+            id:
+              type: string
+              description: Policy name (must be unique)
+            attributes:
+              type: object
+              required:
+              - policy
+              properties:
+                policy:
+                  type: object
+                  required:
+                  - policyName
+                  - policyType
+                  properties:
+                    policyName:
+                      type: string
+                      description: Unique policy name
+                    policyType:
+                      type: string
+                      description: Type of the policy
+                    policyAttributes:
+                      $ref: '#/components/schemas/PolicyAttributes'
+                    clients:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/PolicyClient'
+                    schedules:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/PolicySchedule'
+                    backupSelections:
+                      type: object
+                      properties:
+                        selections:
+                          type: array
+                          items:
+                            type: string
+                            description: File paths or directives to back up
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Numeric error code
+          example: 10
+        errorMessage:
+          type: string
+          description: Human-readable error description
+          example: example_value
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              errorCode:
+                type: integer
+                description: Detailed error code
+              errorMessage:
+                type: string
+                description: Detailed error message
+          example: []
+    PolicyClient:
+      type: object
+      properties:
+        clientName:
+          type: string
+          description: Hostname of the client
+          example: example_value
+        hardware:
+          type: string
+          description: Hardware type of the client
+          example: example_value
+        operatingSystem:
+          type: string
+          description: Operating system of the client
+          example: example_value
+        priority:
+          type: integer
+          description: Client priority within the policy
+          example: 10
     PolicyAttributes:
       type: object
       description: Attributes of a NetBackup backup policy
@@ -1324,21 +1302,43 @@ components:
           type: string
           description: Data classification associated with this policy
           example: example_value
-    PolicyScheduleResource:
+    PolicyListResponse:
       type: object
       properties:
         data:
-          type: object
-          properties:
-            type:
-              type: string
-              const: policySchedule
-            id:
-              type: string
-              description: Schedule name
-            attributes:
-              $ref: '#/components/schemas/PolicySchedule'
-          example: example_value
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                const: policy
+              id:
+                type: string
+              attributes:
+                type: object
+                properties:
+                  policy:
+                    type: object
+                    properties:
+                      policyName:
+                        type: string
+                      policyType:
+                        type: string
+                      policyAttributes:
+                        $ref: '#/components/schemas/PolicyAttributes'
+              links:
+                type: object
+                properties:
+                  self:
+                    type: object
+                    properties:
+                      href:
+                        type: string
+                        format: uri
+          example: []
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
   securitySchemes:
     jwtAuth:
       type: http

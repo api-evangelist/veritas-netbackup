@@ -346,49 +346,51 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
+    ImageContentsResponse:
       type: object
       properties:
-        errorCode:
-          type: integer
-          description: Numeric error code
-          example: 10
-        errorMessage:
-          type: string
-          description: Human-readable error description
-          example: example_value
-        details:
+        data:
           type: array
-          description: Additional error details
           items:
             type: object
             properties:
-              errorCode:
-                type: integer
-                description: Detailed error code
-              errorMessage:
+              type:
                 type: string
-                description: Detailed error message
+                const: imageContent
+              id:
+                type: string
+              attributes:
+                type: object
+                properties:
+                  path:
+                    type: string
+                    description: Full path of the file or directory
+                  fileType:
+                    type: string
+                    description: Type of the entry
+                    enum:
+                    - FILE
+                    - DIRECTORY
+                    - SYMLINK
+                  size:
+                    type: integer
+                    description: Size of the file in bytes
+                  lastModified:
+                    type: string
+                    format: date-time
+                    description: Last modification time of the file
+                  permissions:
+                    type: string
+                    description: File permissions in octal notation
+                  owner:
+                    type: string
+                    description: File owner
+                  group:
+                    type: string
+                    description: File group
           example: []
-    PaginationMeta:
-      type: object
-      properties:
-        pagination:
-          type: object
-          properties:
-            page[limit]:
-              type: integer
-              description: The maximum number of items per page
-            page[offset]:
-              type: integer
-              description: The current offset
-            count:
-              type: integer
-              description: Total number of items matching the query
-            last:
-              type: integer
-              description: Offset of the last page
-          example: example_value
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
     ImageAttributes:
       type: object
       description: Attributes of a NetBackup backup image
@@ -507,51 +509,6 @@ components:
           example: []
         meta:
           $ref: '#/components/schemas/PaginationMeta'
-    ImageContentsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-                const: imageContent
-              id:
-                type: string
-              attributes:
-                type: object
-                properties:
-                  path:
-                    type: string
-                    description: Full path of the file or directory
-                  fileType:
-                    type: string
-                    description: Type of the entry
-                    enum:
-                    - FILE
-                    - DIRECTORY
-                    - SYMLINK
-                  size:
-                    type: integer
-                    description: Size of the file in bytes
-                  lastModified:
-                    type: string
-                    format: date-time
-                    description: Last modification time of the file
-                  permissions:
-                    type: string
-                    description: File permissions in octal notation
-                  owner:
-                    type: string
-                    description: File owner
-                  group:
-                    type: string
-                    description: File group
-          example: []
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
     ImageResource:
       type: object
       properties:
@@ -575,6 +532,49 @@ components:
                     href:
                       type: string
                       format: uri
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Numeric error code
+          example: 10
+        errorMessage:
+          type: string
+          description: Human-readable error description
+          example: example_value
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              errorCode:
+                type: integer
+                description: Detailed error code
+              errorMessage:
+                type: string
+                description: Detailed error message
+          example: []
+    PaginationMeta:
+      type: object
+      properties:
+        pagination:
+          type: object
+          properties:
+            page[limit]:
+              type: integer
+              description: The maximum number of items per page
+            page[offset]:
+              type: integer
+              description: The current offset
+            count:
+              type: integer
+              description: Total number of items matching the query
+            last:
+              type: integer
+              description: Offset of the last page
           example: example_value
   securitySchemes:
     jwtAuth:

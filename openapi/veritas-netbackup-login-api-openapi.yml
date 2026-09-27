@@ -98,23 +98,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    LoginResponse:
-      type: object
-      properties:
-        token:
-          type: string
-          description: JSON Web Token for authenticating subsequent API requests
-          example: example_value
-        tokenType:
-          type: string
-          description: The token type
-          enum:
-          - BEARER
-          example: BEARER
-        validity:
-          type: integer
-          description: Token validity period in seconds
-          example: 10
     ErrorResponse:
       type: object
       properties:
@@ -139,6 +122,23 @@ components:
                 type: string
                 description: Detailed error message
           example: []
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JSON Web Token for authenticating subsequent API requests
+          example: example_value
+        tokenType:
+          type: string
+          description: The token type
+          enum:
+          - BEARER
+          example: BEARER
+        validity:
+          type: integer
+          description: Token validity period in seconds
+          example: 10
     LoginRequest:
       type: object
       required:
