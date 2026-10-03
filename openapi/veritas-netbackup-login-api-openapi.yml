@@ -122,23 +122,6 @@ components:
                 type: string
                 description: Detailed error message
           example: []
-    LoginResponse:
-      type: object
-      properties:
-        token:
-          type: string
-          description: JSON Web Token for authenticating subsequent API requests
-          example: example_value
-        tokenType:
-          type: string
-          description: The token type
-          enum:
-          - BEARER
-          example: BEARER
-        validity:
-          type: integer
-          description: Token validity period in seconds
-          example: 10
     LoginRequest:
       type: object
       required:
@@ -169,6 +152,23 @@ components:
           description: The user account password
           format: password
           example: example_value
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JSON Web Token for authenticating subsequent API requests
+          example: example_value
+        tokenType:
+          type: string
+          description: The token type
+          enum:
+          - BEARER
+          example: BEARER
+        validity:
+          type: integer
+          description: Token validity period in seconds
+          example: 10
   securitySchemes:
     jwtAuth:
       type: http

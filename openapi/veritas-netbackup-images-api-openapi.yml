@@ -346,6 +346,25 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    PaginationMeta:
+      type: object
+      properties:
+        pagination:
+          type: object
+          properties:
+            page[limit]:
+              type: integer
+              description: The maximum number of items per page
+            page[offset]:
+              type: integer
+              description: The current offset
+            count:
+              type: integer
+              description: Total number of items matching the query
+            last:
+              type: integer
+              description: Offset of the last page
+          example: example_value
     ImageContentsResponse:
       type: object
       properties:
@@ -388,6 +407,81 @@ components:
                   group:
                     type: string
                     description: File group
+          example: []
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    ImageResource:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            type:
+              type: string
+              const: backupImage
+            id:
+              type: string
+              description: The backup ID
+            attributes:
+              $ref: '#/components/schemas/ImageAttributes'
+            links:
+              type: object
+              properties:
+                self:
+                  type: object
+                  properties:
+                    href:
+                      type: string
+                      format: uri
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Numeric error code
+          example: 10
+        errorMessage:
+          type: string
+          description: Human-readable error description
+          example: example_value
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              errorCode:
+                type: integer
+                description: Detailed error code
+              errorMessage:
+                type: string
+                description: Detailed error message
+          example: []
+    ImageListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                const: backupImage
+              id:
+                type: string
+              attributes:
+                $ref: '#/components/schemas/ImageAttributes'
+              links:
+                type: object
+                properties:
+                  self:
+                    type: object
+                    properties:
+                      href:
+                        type: string
+                        format: uri
           example: []
         meta:
           $ref: '#/components/schemas/PaginationMeta'
@@ -482,100 +576,6 @@ components:
           minimum: 0
           maximum: 24
           example: 10
-    ImageListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-                const: backupImage
-              id:
-                type: string
-              attributes:
-                $ref: '#/components/schemas/ImageAttributes'
-              links:
-                type: object
-                properties:
-                  self:
-                    type: object
-                    properties:
-                      href:
-                        type: string
-                        format: uri
-          example: []
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
-    ImageResource:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            type:
-              type: string
-              const: backupImage
-            id:
-              type: string
-              description: The backup ID
-            attributes:
-              $ref: '#/components/schemas/ImageAttributes'
-            links:
-              type: object
-              properties:
-                self:
-                  type: object
-                  properties:
-                    href:
-                      type: string
-                      format: uri
-          example: example_value
-    ErrorResponse:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Numeric error code
-          example: 10
-        errorMessage:
-          type: string
-          description: Human-readable error description
-          example: example_value
-        details:
-          type: array
-          description: Additional error details
-          items:
-            type: object
-            properties:
-              errorCode:
-                type: integer
-                description: Detailed error code
-              errorMessage:
-                type: string
-                description: Detailed error message
-          example: []
-    PaginationMeta:
-      type: object
-      properties:
-        pagination:
-          type: object
-          properties:
-            page[limit]:
-              type: integer
-              description: The maximum number of items per page
-            page[offset]:
-              type: integer
-              description: The current offset
-            count:
-              type: integer
-              description: Total number of items matching the query
-            last:
-              type: integer
-              description: Offset of the last page
-          example: example_value
   securitySchemes:
     jwtAuth:
       type: http
