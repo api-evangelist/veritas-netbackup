@@ -98,30 +98,23 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
+    LoginResponse:
       type: object
       properties:
-        errorCode:
-          type: integer
-          description: Numeric error code
-          example: 10
-        errorMessage:
+        token:
           type: string
-          description: Human-readable error description
+          description: JSON Web Token for authenticating subsequent API requests
           example: example_value
-        details:
-          type: array
-          description: Additional error details
-          items:
-            type: object
-            properties:
-              errorCode:
-                type: integer
-                description: Detailed error code
-              errorMessage:
-                type: string
-                description: Detailed error message
-          example: []
+        tokenType:
+          type: string
+          description: The token type
+          enum:
+          - BEARER
+          example: BEARER
+        validity:
+          type: integer
+          description: Token validity period in seconds
+          example: 10
     LoginRequest:
       type: object
       required:
@@ -152,23 +145,30 @@ components:
           description: The user account password
           format: password
           example: example_value
-    LoginResponse:
+    ErrorResponse:
       type: object
       properties:
-        token:
-          type: string
-          description: JSON Web Token for authenticating subsequent API requests
-          example: example_value
-        tokenType:
-          type: string
-          description: The token type
-          enum:
-          - BEARER
-          example: BEARER
-        validity:
+        errorCode:
           type: integer
-          description: Token validity period in seconds
+          description: Numeric error code
           example: 10
+        errorMessage:
+          type: string
+          description: Human-readable error description
+          example: example_value
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              errorCode:
+                type: integer
+                description: Detailed error code
+              errorMessage:
+                type: string
+                description: Detailed error message
+          example: []
   securitySchemes:
     jwtAuth:
       type: http

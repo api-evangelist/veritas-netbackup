@@ -176,6 +176,76 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ClientListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                const: host
+              id:
+                type: string
+              attributes:
+                $ref: '#/components/schemas/ClientAttributes'
+              links:
+                type: object
+                properties:
+                  self:
+                    type: object
+                    properties:
+                      href:
+                        type: string
+                        format: uri
+          example: []
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    PaginationMeta:
+      type: object
+      properties:
+        pagination:
+          type: object
+          properties:
+            page[limit]:
+              type: integer
+              description: The maximum number of items per page
+            page[offset]:
+              type: integer
+              description: The current offset
+            count:
+              type: integer
+              description: Total number of items matching the query
+            last:
+              type: integer
+              description: Offset of the last page
+          example: example_value
+    ClientResource:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            type:
+              type: string
+              const: host
+            id:
+              type: string
+              description: The host identifier
+            attributes:
+              $ref: '#/components/schemas/ClientAttributes'
+            links:
+              type: object
+              properties:
+                self:
+                  type: object
+                  properties:
+                    href:
+                      type: string
+                      format: uri
+          example: example_value
     ClientAttributes:
       type: object
       description: Attributes of a NetBackup client host
@@ -229,57 +299,6 @@ components:
           format: date-time
           description: Timestamp of the last successful communication
           example: '2026-01-15T10:30:00Z'
-    ClientListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-                const: host
-              id:
-                type: string
-              attributes:
-                $ref: '#/components/schemas/ClientAttributes'
-              links:
-                type: object
-                properties:
-                  self:
-                    type: object
-                    properties:
-                      href:
-                        type: string
-                        format: uri
-          example: []
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
-    ClientResource:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            type:
-              type: string
-              const: host
-            id:
-              type: string
-              description: The host identifier
-            attributes:
-              $ref: '#/components/schemas/ClientAttributes'
-            links:
-              type: object
-              properties:
-                self:
-                  type: object
-                  properties:
-                    href:
-                      type: string
-                      format: uri
-          example: example_value
     ErrorResponse:
       type: object
       properties:
@@ -304,25 +323,6 @@ components:
                 type: string
                 description: Detailed error message
           example: []
-    PaginationMeta:
-      type: object
-      properties:
-        pagination:
-          type: object
-          properties:
-            page[limit]:
-              type: integer
-              description: The maximum number of items per page
-            page[offset]:
-              type: integer
-              description: The current offset
-            count:
-              type: integer
-              description: Total number of items matching the query
-            last:
-              type: integer
-              description: Offset of the last page
-          example: example_value
   securitySchemes:
     jwtAuth:
       type: http
