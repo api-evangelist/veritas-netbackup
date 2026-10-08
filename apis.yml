@@ -474,6 +474,10 @@ apis:
   - type: JSONLD
     url: json-ld/veritas-netbackup-context.jsonld
 common:
+- type: Plans
+  url: plans/veritas-netbackup-plans-pricing.yml
+- type: FinOps
+  url: finops/veritas-netbackup-finops.yml
 - type: Website
   url: https://veritas.com
 - type: CapabilityMap
